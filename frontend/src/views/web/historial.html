@@ -12,13 +12,13 @@
     <div class="web-main">
       <include src="src/layouts/web/topbar.html"></include>
 
-      <main class="page-body" style="max-width: 1200px; margin: 0 auto; width: 100%;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+      <main class="web-content">
+        <div class="web-header">
           <div>
-            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+            <h1 class="web-header-title">
               Historial de Recolecciones
             </h1>
-            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+            <p class="web-header-sub">
               Bitácora cronológica de retiro de escombros y traslados a centros de acopio autorizados.
             </p>
           </div>
@@ -28,15 +28,15 @@
         </div>
 
         <!-- Filtros Rápidos y Resumen -->
-        <div style="display: grid; gap: var(--sp-4); margin-bottom: var(--sp-4);">
+        <div style="display: grid; gap: var(--sp-4);">
           <div class="card" style="padding: var(--sp-4); display: flex; gap: var(--sp-4); flex-wrap: wrap; align-items: center;">
-            <div style="flex: 1; min-width: 200px;">
+            <div style="flex: 1; min-width: 220px;">
               <input type="text" id="filtro-busqueda" class="field-input" placeholder="Buscar por código, ID reporte o vehículo...">
             </div>
-            <div style="min-width: 180px;">
+            <div style="min-width: 200px;">
               <select id="filtro-operador" class="field-input"></select>
             </div>
-            <div style="min-width: 180px;">
+            <div style="min-width: 200px;">
               <select id="filtro-destino" class="field-input"></select>
             </div>
           </div>

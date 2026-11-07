@@ -90,19 +90,19 @@
 </header>
 
 
-      <main class="page-body" style="max-width: 1300px; margin: 0 auto; width: 100%;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+      <main class="web-content">
+        <div class="web-header">
           <div>
-            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+            <h1 class="web-header-title">
               Exportación y Auditoría de Datos
             </h1>
-            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+            <p class="web-header-sub">
               Descarga estructurada de datos abiertos y bitácoras operativas conforme a las 10 columnas del PRD §6.2.
             </p>
           </div>
 
           <div style="display: flex; align-items: center; gap: var(--sp-3);">
-            <select id="select-formato" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs);">
+            <select id="select-formato" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs); min-height: 40px; height: 40px;">
               <option value="CSV">Formato CSV (.csv)</option>
               <option value="GeoJSON">Formato GeoJSON (.geojson)</option>
             </select>

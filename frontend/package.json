@@ -11,8 +11,8 @@
     "js": "tsc",
     "js:watch": "tsc --watch",
     "copy:assets": "rm -rf dist/assets && mkdir -p dist/assets dist/styles && cp -r src/assets/* dist/assets/",
-    "html": "posthtml src/views/*.html -o dist -a -r src/views && posthtml src/views/mobile/*.html -o dist/mobile -a -r src/views/mobile && posthtml src/views/web/*.html -o dist/web -a -r src/views/web",
-    "html:watch": "posthtml \"src/views/**/*.html\" -o dist -a -r src/views --watch",
+    "html": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views",
+    "html:watch": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views --watch",
     "build": "pnpm run css && pnpm run js && pnpm run copy:assets && pnpm run html",
     "dev": "pnpm run build && npx serve dist"
   },

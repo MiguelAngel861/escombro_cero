@@ -12,17 +12,19 @@
     <div class="web-main">
       <include src="src/layouts/web/topbar.html"></include>
 
-      <main class="page-body" style="max-width: 860px; margin: 0 auto; width: 100%;">
-        <div style="margin-bottom: var(--sp-6);">
-          <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
-            Registro Oficial de Recolección
-          </h1>
-          <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
-            Acta operativa para brigadas de limpieza urbana. Verifica volúmenes reales y destino final autorizado (RB-03, RB-06).
-          </p>
+      <main class="web-content">
+        <div class="web-header">
+          <div>
+            <h1 class="web-header-title">
+              Registro Oficial de Recolección
+            </h1>
+            <p class="web-header-sub">
+              Acta operativa para brigadas de limpieza urbana. Verifica volúmenes reales y destino final autorizado (RB-03, RB-06).
+            </p>
+          </div>
         </div>
 
-        <form id="form-recoleccion" class="card" style="padding: var(--sp-6); display: grid; gap: var(--sp-5);">
+        <form id="form-recoleccion" class="card" style="padding: var(--sp-6); display: grid; gap: var(--sp-5); max-width: 900px; width: 100%;">
           <!-- Selección de Reporte -->
           <div class="field">
             <label for="select-reporte">Reporte Asignado / En Ejecución</label>

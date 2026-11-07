@@ -90,19 +90,19 @@
 </header>
 
 
-      <main class="page-body" style="max-width: 1200px; margin: 0 auto; width: 100%;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+      <main class="web-content">
+        <div class="web-header">
           <div>
-            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+            <h1 class="web-header-title">
               Métricas y Trazabilidad Municipal
             </h1>
-            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+            <p class="web-header-sub">
               Indicadores clave de desempeño ambiental y gestión territorial de escombros en la Zona Piloto.
             </p>
           </div>
           <div style="display: flex; align-items: center; gap: var(--sp-2);">
             <label for="selector-periodo" style="font-size: var(--fs-xs); color: var(--color-text-muted);">Período:</label>
-            <select id="selector-periodo" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs);">
+            <select id="selector-periodo" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs); min-height: 40px; height: 40px;">
               <option value="mes">Noviembre 2026 (Mes en curso)</option>
               <option value="trimestre">Último trimestre</option>
               <option value="historico">Histórico total piloto</option>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- 4 Tarjetas KPI Principales (SPEC-W10 / CA-WEB-V05) -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-6);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-5);">
           <article class="card" style="padding: var(--sp-5);">
             <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-2);">
               Total Reportes Registrados

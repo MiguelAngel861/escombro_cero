@@ -58,13 +58,13 @@ function renderDetalle(r: Reporte, rol: string): void {
   }
 
   container.innerHTML = `
-    <div style="margin-bottom: var(--sp-4);">
+    <div>
       <a href="tablero.html" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
         ← Volver al Tablero
       </a>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 340px; gap: var(--sp-6); align-items: start;">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--sp-6); align-items: start; max-width: 1400px; width: 100%;">
       <!-- Columna Principal -->
       <div style="display: grid; gap: var(--sp-4);">
         <!-- Ficha de Encabezado -->
