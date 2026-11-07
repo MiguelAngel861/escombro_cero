@@ -562,6 +562,7 @@ a.card {
   overflow-x: auto;
   padding-bottom: var(--sp-1);
   scrollbar-width: none;
+  flex-shrink: 0;
 }
 
 .chip {
@@ -577,6 +578,7 @@ a.card {
   background: var(--color-surface);
   cursor: pointer;
   transition: border-color .15s, color .15s;
+  white-space: nowrap;
 }
 
 .chip:hover {
@@ -883,6 +885,10 @@ body:has(.web-shell) {
   flex-direction: column;
   gap: var(--sp-4);
   padding-right: var(--sp-2);
+}
+
+.split-list > * {
+  flex-shrink: 0;
 }
 
 @media (max-width: 1280px) {

@@ -155,6 +155,10 @@ body:has(.web-shell) {
   padding-right: var(--sp-2);
 }
 
+.split-list > * {
+  flex-shrink: 0;
+}
+
 @media (max-width: 1280px) {
   .split-view {
     grid-template-columns: 1fr;
