@@ -171,7 +171,7 @@ function completarRecoleccion(datos) {
     modalTitle.textContent = "Recolección Registrada con Éxito";
     modalBody.innerHTML = `
     <div style="text-align: center; padding: var(--sp-4);">
-      <div style="font-size: 48px; color: var(--color-primary); line-height: 1;">✓</div>
+      <div style="font-size: 48px; color: var(--color-primary); line-height: 1;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;display:block;"><path d="M18 6a6 6 0 1 0-6 6m6-6v6"/><path d="M12 10l2 2 4-4"/></svg></div>
       <h3 style="margin: var(--sp-2) 0; font-size: var(--fs-lg);">Código de Registro: ${nuevoId}</h3>
       <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--sp-4);">
         El reporte <strong>${datos.reporte.id}</strong> ha sido marcado como <strong>Recolectado</strong> y transferido al destino autorizado con trazabilidad completa.
@@ -190,7 +190,7 @@ function completarRecoleccion(datos) {
       <a href="historial.html" class="btn btn--primary">Ver en Historial</a>
     `;
     }
-    modalRoot.removeAttribute("hidden");
+    modalRoot.classList.add("is-visible");
 }
 function solicitarJustificacionDiscrepancia(r, volReal, onConfirm) {
     var _a;
@@ -202,9 +202,7 @@ function solicitarJustificacionDiscrepancia(r, volReal, onConfirm) {
         return;
     modalTitle.textContent = "Validación RB-06: Discrepancia de Volumen";
     modalBody.innerHTML = `
-    <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-xs); color: #b76e00; margin-bottom: var(--sp-3);">
-      ⚠ El volumen recogido (<strong>${volReal} m³</strong>) excede el volumen declarado originalmente por el ciudadano (<strong>${r.volumenM3} m³</strong>). La regla institucional RB-06 exige justificación técnica escrita de mínimo 20 caracteres.
-    </div>
+    <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-xs); color: #b76e00; margin-bottom: var(--sp-3);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:middle;margin-right:4px;"><path d="M21 12a9 9 0 1 0-6.24 2.75L9 17l-2 2-5-5"/><circle cx="12" cy="12" r="1"/></svg> El volumen recogido (<strong>${volReal} m³</strong>) excede el volumen declarado originalmente por el ciudadano (<strong>${r.volumenM3} m³</strong>). La regla institucional RB-06 exige justificación técnica escrita de mínimo 20 caracteres.</div>
 
     <div class="field">
       <label for="justificacion-discrepancia">Causa del exceso de volumen en campo (≥ 20 caracteres)</label>
@@ -218,7 +216,7 @@ function solicitarJustificacionDiscrepancia(r, volReal, onConfirm) {
       <button type="button" class="btn btn--primary" id="btn-confirm-disc" disabled>Confirmar Justificación</button>
     `;
     }
-    modalRoot.removeAttribute("hidden");
+    modalRoot.classList.add("is-visible");
     const txt = document.getElementById("justificacion-discrepancia");
     const count = document.getElementById("disc-count");
     const btn = document.getElementById("btn-confirm-disc");
@@ -230,13 +228,13 @@ function solicitarJustificacionDiscrepancia(r, volReal, onConfirm) {
             btn.disabled = len < 20;
     });
     (_a = document.getElementById("btn-cancel-disc")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-        modalRoot.setAttribute("hidden", "true");
+        modalRoot.classList.remove("is-visible");
     });
     btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", () => {
         var _a;
         const val = (_a = txt === null || txt === void 0 ? void 0 : txt.value.trim()) !== null && _a !== void 0 ? _a : "";
         if (val.length >= 20) {
-            modalRoot.setAttribute("hidden", "true");
+            modalRoot.classList.remove("is-visible");
             onConfirm(val);
         }
     });
