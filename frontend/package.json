@@ -14,12 +14,14 @@
     "html": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views",
     "html:watch": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views --watch",
     "build": "pnpm run css && pnpm run js && pnpm run copy:assets && pnpm run html",
-    "dev": "pnpm run build && npx serve dist"
+    "dev": "concurrently --names CSS,JS,HTML,SVR --prefix-colors cyan,yellow,magenta,green \"pnpm run css:watch\" \"pnpm run js:watch\" \"pnpm run html:watch\" \"npx live-server dist --port=5000 --no-browser --watch=dist\""
   },
   "devDependencies": {
     "@fontsource-variable/host-grotesk": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^10.0.6",
+    "live-server": "^1.2.2",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
