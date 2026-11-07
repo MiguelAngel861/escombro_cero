@@ -10,8 +10,10 @@
     "css:watch": "postcss src/styles/main.css -o dist/styles/main.css --watch",
     "js": "tsc",
     "js:watch": "tsc --watch",
-    "copy": "rm -rf dist/assets dist/mobile dist/web && mkdir -p dist/assets dist/mobile dist/web dist/styles && cp -r src/assets/* dist/assets/ && cp src/views/mobile/*.html dist/mobile/ && (cp src/views/web/*.html dist/web/ 2>/dev/null || true) && cp src/views/index.html dist/index.html",
-    "build": "pnpm run css && pnpm run js && pnpm run copy",
+    "copy:assets": "rm -rf dist/assets && mkdir -p dist/assets dist/styles && cp -r src/assets/* dist/assets/",
+    "html": "posthtml \"src/views/**/*.html\" -o dist -a -r src/views",
+    "html:watch": "posthtml \"src/views/**/*.html\" -o dist -a -r src/views --watch",
+    "build": "pnpm run css && pnpm run js && pnpm run copy:assets && pnpm run html",
     "dev": "pnpm run build && npx serve dist"
   },
   "devDependencies": {
@@ -21,6 +23,9 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
+    "posthtml": "^0.16.7",
+    "posthtml-cli": "^0.10.0",
+    "posthtml-include": "^2.0.1",
     "typescript": "7.0.2"
   }
 }

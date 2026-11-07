@@ -1,4 +1,4 @@
-/* main.css — Bundle maestro modularizado para móvil y web (PostCSS) *//* Escombro 0 — tokens de diseño (única fuente de color/espaciado/tipografía, ADR-05)
+/* main.css — Bundle maestro que unifica componentes y layouts colocalizados *//* Escombro 0 — tokens de diseño (única fuente de color/espaciado/tipografía, ADR-05)
  * Deal tipo: host (Host Grotesk + JetBrains Mono) — variables auto-hospedadas (NFR-S01, sin CDN)
  * Deal hero: split · ground: sage · radius: soft
  */
@@ -91,7 +91,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Componentes compartidos */
+/* Componentes colocalizados */
 
 /* buttons.css — Botones y foco accesible compartidos (móvil y web) */
 .btn {
@@ -713,7 +713,7 @@ a.card {
   40%      { opacity: 1;  transform: scale(1.12); }
 }
 
-/* Shells y layouts */
+/* Layouts colocalizados */
 
 /* mobile-shell.css — Frame de teléfono y navegación móvil (SPEC ADR-05) */
 .screen {

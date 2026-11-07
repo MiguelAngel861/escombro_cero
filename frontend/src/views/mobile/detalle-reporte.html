@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" data-type="software" data-radius="soft">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="page-type" content="software">
-  <meta name="site-kind" content="software">
-  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <include src="src/layouts/common/head.html"></include>
   <title>Escombro 0 — APP-V08 Detalle de reporte</title>
-  <link rel="stylesheet" href="../styles/main.css">
   <script type="module" src="../scripts/detalle-reporte.js"></script>
   <style>
     .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
@@ -40,13 +35,7 @@
     <div id="canvas" style="display:contents;"></div> <!-- renderizado por el script -->
   </section>
 
-  <nav class="bottom-nav" aria-label="Navegación principal">
-    <a href="menu.html"><span class="nav-ico">⌂</span>Inicio</a>
-    <a href="nuevo-reporte.html"><span class="nav-ico">＋</span>Nuevo</a>
-    <a href="mis-reportes.html" class="nav--on" aria-current="page"><span class="nav-ico">▤</span>Reportes</a>
-    <a href="mapa.html"><span class="nav-ico">◎</span>Mapa</a>
-    <a href="perfil.html"><span class="nav-ico">◔</span>Perfil</a>
-  </nav>
+  <include src="src/layouts/mobile/bottom-nav.html"></include>
 </main>
 </body>
 </html>

@@ -1,18 +1,18 @@
-/* main.css — Bundle maestro modularizado para móvil y web (PostCSS) */
-@import "./tokens.css";
-@import "./base.css";
+/* main.css — Bundle maestro que unifica componentes y layouts colocalizados */
+@import "../core/tokens.css";
+@import "../core/base.css";
 
-/* Componentes compartidos */
-@import "./components/buttons.css";
-@import "./components/inputs.css";
-@import "./components/badges.css";
-@import "./components/cards.css";
-@import "./components/tables.css";
-@import "./components/modals.css";
-@import "./components/map.css";
-@import "./components/media.css";
-@import "./components/feedback.css";
+/* Componentes colocalizados */
+@import "../components/button/button.css";
+@import "../components/input/input.css";
+@import "../components/badge/badge.css";
+@import "../components/card/card.css";
+@import "../components/table/table.css";
+@import "../components/modal/modal.css";
+@import "../components/map/map.css";
+@import "../components/media/media.css";
+@import "../components/feedback/feedback.css";
 
-/* Shells y layouts */
-@import "./layouts/mobile-shell.css";
-@import "./layouts/web-shell.css";
+/* Layouts colocalizados */
+@import "../layouts/mobile/mobile-shell.css";
+@import "../layouts/web/web-shell.css";

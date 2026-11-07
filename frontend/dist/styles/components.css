@@ -1,4 +1,4 @@
-/* components.css — Proxy modular de componentes compartidos *//* buttons.css — Botones y foco accesible compartidos (móvil y web) */
+/* components.css — Proxy hacia componentes colocalizados *//* buttons.css — Botones y foco accesible compartidos (móvil y web) */
 .btn {
   display: inline-flex;
   align-items: center;

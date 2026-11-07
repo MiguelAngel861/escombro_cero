@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" data-type="software" data-radius="soft">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="page-type" content="software">
-  <meta name="site-kind" content="software">
-  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <include src="src/layouts/common/head.html"></include>
   <title>Escombro 0 — APP-V01 Splash</title>
-  <link rel="stylesheet" href="../styles/main.css">
   <style>
     /* page CSS: solo estética del splash (todo color/espaciado sale de tokens.css, ADR-05) */
     .splash {
@@ -50,7 +45,7 @@
       <img class="splash-logo" src="../assets/logo.svg" alt="Logo Escombro 0" width="96" height="96">
       <h1 class="splash-name">Escombro 0</h1>
       <p class="splash-tagline">Registra el retiro de escombros de tu zona</p>
-      <span class="loader splash-loader" aria-hidden="true"><i></i><i></i><i></i></span>
+      <include src="src/components/feedback/loader.html"></include>
     </div>
 
     <div class="splash-actions">

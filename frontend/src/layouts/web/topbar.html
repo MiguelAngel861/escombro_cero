@@ -1,0 +1,19 @@
+<header class="topbar">
+  <div style="display: flex; align-items: center; gap: var(--sp-3);">
+    <span style="font-weight: 600; font-size: var(--fs-md); color: var(--color-text);" id="topbar-title">Operación Managua</span>
+    <span class="badge badge--recolectado" style="font-size: 11px;">Zona Piloto Activa</span>
+  </div>
+
+  <div class="topbar-user">
+    <div style="display: flex; align-items: center; gap: var(--sp-2);">
+      <span style="font-size: var(--fs-xs); color: var(--color-text-muted);">Rol activo:</span>
+      <select id="role-switcher" class="input" style="height: 34px; min-height: 34px; padding: 0 var(--sp-3); font-size: var(--fs-xs); border-radius: var(--radius-sm); width: auto;">
+        <option value="admin">Administrador (AD-01)</option>
+        <option value="operador">Operador (OP-01)</option>
+      </select>
+    </div>
+    <button type="button" id="btn-reset-demo" class="btn btn--surface" style="min-height: 34px; padding-inline: var(--sp-3); font-size: var(--fs-xs);">
+      ↺ Reiniciar Demo
+    </button>
+  </div>
+</header>
