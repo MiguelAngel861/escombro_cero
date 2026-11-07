@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V07 Mis reportes</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <script type="module" src="scripts/mis-reportes.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .list { flex: 1; display: grid; gap: var(--sp-3); align-content: start; }
+    .list a.card { text-decoration: none; color: inherit; }
+    .empty { display: none; color: var(--color-text-muted); text-align: center; padding: var(--sp-6); }
+    .empty--on { display: block; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Mis reportes">
+    <div>
+      <h1 class="page-title">Mis reportes</h1>
+      <p class="page-sub" id="count-sub">Filtra por estado — tus reportes en la zona piloto.</p>
+    </div>
+
+    <div class="chips" id="chips-estado" role="tablist" aria-label="Filtrar por estado"></div>
+
+    <div class="list" id="lista-reportes"></div>
+    <p class="emptyam" id="empty">Sigue tus reportes aquí después de reportar uno.</p>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="menu.html"><span class="nav-ico">⌂</span>Inicio</a>
+    <a href="nuevo-reporte.html"><span class="nav-ico">＋</span>Nuevo</a>
+    <a href="mis-reportes.html" class="nav--on" aria-current="page"><span class="nav-ico">▤</span>Reportes</a>
+    <a href="mapa.html"><span class="nav-ico">◎</span>Mapa</a>
+    <a href="perfil.html"><span class="nav-ico">◔</span>Perfil</a>
+  </nav>
+</main>
+</body>
+</html>

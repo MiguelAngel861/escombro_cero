@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V09 Perfil</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <script type="module" src="scripts/perfil.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .head { display: flex; align-items: center; gap: var(--sp-4); }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--color-primary-dark);
+              color: var(--color-surface); display: flex; align-items: center; justify-content: center;
+              font-size: var(--fs-xl); font-weight: 600; line-height: 1; flex-shrink: 0; user-select: none; }
+    .head-info { display: grid; gap: 2px; }
+    .head-info b { font-size: var(--fs-lg); font-weight: 600; color: var(--color-text); }
+    .head-info span { display: block; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .form { display: grid; gap: var(--sp-4); }
+    .section-label { display: block; font-weight: 500; font-size: var(--fs-sm); margin-bottom: var(--sp-2); }
+    .saved-note { color: var(--state-recolectado-ink); background: var(--state-recolectado-bg); border-radius: var(--radius-sm);
+                  padding: var(--sp-2) var(--sp-3); font-size: var(--fs-xs); display: none; }
+    .saved-note--on { display: block; }
+    .content { flex: 1; display: grid; gap: var(--sp-4); align-content: start; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Perfil">
+    <div class="head">
+      <div class="avatar" id="avatar" aria-hidden="true">A</div>
+      <div class="head-info">
+        <b id="perfil-nombre">—</b>
+        <span id="perfil-correo">—</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <form id="form-perfil" class="form" novalidate>
+        <span class="section-label">Datos personales</span>
+        <div class="field">
+          <label for="p-nombre">Nombre</label>
+          <input class="field-input" id="p-nombre" type="text" autocomplete="name">
+          <span class="field-error">Nombre requerido (demo)</span>
+        </div>
+        <div class="field">
+          <label for="p-correo">Correo</label>
+          <input class="field-input" id="p-correo" type="email" inputmode="email" autocomplete="email">
+          <span class="field-error">Correo inválido (demo)</span>
+        </div>
+        <div class="field">
+          <label for="p-telefono">Teléfono</label>
+          <input class="field-input" id="p-telefono" type="tel" inputmode="tel" autocomplete="tel">
+          <span class="field-error">9 dígitos (demo)</span>
+        </div>
+        <span class="saved-note" id="saved-note" role="status">Datos guardados en la demo ✓</span>
+        <button class="btn btn--primary btn--full" id="btn-guardar" type="submit" disabled>Guardar cambios</button>
+      </form>
+
+      <div>
+        <span class="section-label">Demo</span>
+        <div style="display:grid;gap:var(--sp-2);">
+          <button class="btn btn--surface btn--full" id="btn-offline" type="button" aria-pressed="false">Modo offline (demo toggle)</button>
+          <button class="btn btn--surface btn--full" id="btn-reiniciar" type="button">Reiniciar demo</button>
+          <button class="btn btn--danger btn--full" id="btn-salir" type="button">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <a href="menu.html"><span class="nav-ico">⌂</span>Inicio</a>
+      <a href="nuevo-reporte.html"><span class="nav-ico">＋</span>Nuevo</a>
+      <a href="mis-reportes.html"><span class="nav-ico">▤</span>Reportes</a>
+      <a href="mapa.html"><span class="nav-ico">◎</span>Mapa</a>
+      <a href="perfil.html" class="nav--on" aria-current="page"><span class="nav-ico">◔</span>Perfil</a>
+    </nav>
+  </section>
+</main>
+</body>
+</html>

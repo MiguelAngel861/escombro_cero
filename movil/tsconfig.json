@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
+    "rootDir": "src",
+    "outDir": "dist",
+
+    // Tipado ligero: solo lo mínimo para el maquetado (SPEC NFR-M01 pide strict;
+    // aquí se relaja por decisión del equipo — revisar ADR-02 si useFormaliza)
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "isolatedModules": false
+  },
+  "include": ["src/scripts/**/*.ts"]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <rect width="320" height="180" fill="#e8eae6"/>
+  <rect x="24" y="26" width="272" height="128" rx="10" fill="#5c6bc0" opacity=".15"/>
+  <!-- monton de escombros: #c5cae9 -->
+  <path d="M60 130 L110 70 L150 105 L190 55 L260 130 Z" fill="#5c6bc0"/>
+  <path d="M60 130 L110 70 L150 105 Z" fill="#c5cae9" opacity=".55"/>
+  <rect x="96" y="60" width="22" height="14" rx="3" fill="#c5cae9" transform="rotate(-14 107 67)"/>
+  <circle cx="205" cy="88" r="7" fill="#c5cae9" opacity=".8"/>
+  <text x="160" y="158" font-family="system-ui" font-size="12" fill="#5a5f5a" text-anchor="middle">placeholder demo · ADR-09</text>
+</svg>

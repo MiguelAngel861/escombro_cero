@@ -1,0 +1,36 @@
+/* app-shell.css — device frame CSS + status bar + banner conexión (SPEC ADR-05/ui)
+ * Frame solo en demo escritorio (>430px); a pantalla real ≤430px el contenido
+ * ocupa el viewport sin marco (R3-Q6, NFR-R01).
+ */
+.screen {
+  position: relative;
+  margin-inline: auto;
+  inline-size: 100%;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 431px) {
+  body:has(.screen) { display: grid; place-items: center; min-height: 100dvh; background: var(--color-surface); }
+  .screen {
+    inline-size: 390px;                    /* base del deal (R3-Q6) */
+    min-height: 844px;
+    border-radius: 44px;
+    border: 8px solid #101010;             /* marco físico simulado */
+    box-shadow: 0 24px 64px rgb(0 0 0 / .35);
+    transform: translateY(-8px);
+  }
+}
+
+/* banner de conexión simulada (SC-W?/ADR-04 demo) — oculto en splash: no se necesita aquí
+   .conn-banner se define/usa por vista que necesite el toggle offline */
+.conn-banner {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3); margin-inline: var(--sp-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs); font-weight: 500;
+}
+.conn-banner--off { background: var(--state-pendiente-bg); color: var(--state-pendiente-ink); }

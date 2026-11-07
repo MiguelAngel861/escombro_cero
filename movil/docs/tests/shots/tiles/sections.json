@@ -1,0 +1,88 @@
+{
+ "url": "http://127.0.0.1:4173/paleta.html",
+ "views": {
+  "mobile": {
+   "width": 390,
+   "height": 844,
+   "navH": 0,
+   "scrollHeight": 2979,
+   "screens": 3.53,
+   "sections": [
+    {
+     "n": 1,
+     "tag": "section",
+     "id": "base",
+     "cls": "",
+     "top": 126,
+     "h": 1285,
+     "hScreens": 1.52,
+     "offGrid": 441,
+     "tiles": [
+      {
+       "file": "mobile-sec-01-a.jpg",
+       "scrollY": 126
+      },
+      {
+       "file": "mobile-sec-01-b.jpg",
+       "scrollY": 567
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "tag": "section",
+     "id": "estados",
+     "cls": "",
+     "top": 1411,
+     "h": 788,
+     "hScreens": 0.93,
+     "offGrid": 788,
+     "tiles": [
+      {
+       "file": "mobile-sec-02-a.jpg",
+       "scrollY": 1411
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "tag": "section",
+     "id": "tipografia",
+     "cls": "",
+     "top": 2199,
+     "h": 668,
+     "hScreens": 0.79,
+     "offGrid": 668,
+     "tiles": [
+      {
+       "file": "mobile-sec-03-a.jpg",
+       "scrollY": 2135,
+       "cutTop": 64,
+       "height": 668
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "tag": "footer",
+     "id": "",
+     "cls": "",
+     "top": 2867,
+     "h": 112,
+     "hScreens": 0.13,
+     "offGrid": 112,
+     "tiles": [
+      {
+       "file": "mobile-sec-04-a.jpg",
+       "scrollY": 2135,
+       "cutTop": 732,
+       "height": 112
+      }
+     ]
+    }
+   ],
+   "consoleErrors": []
+  }
+ },
+ "at": "2026-11-07T01:44:50.623Z"
+}

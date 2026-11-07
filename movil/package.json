@@ -1,0 +1,26 @@
+{
+  "name": "creanose-movil",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "description": "Vistas del ciudadano (APP-V01..V10) del prototipo Escombro 0 — HTML + CSS tokens + TS ligero de maquetado",
+  "scripts": {
+    "css": "postcss src/styles/*.css --base src/styles --dir dist/styles",
+    "css:watch": "postcss src/styles/*.css --base src/styles --dir dist/styles --watch",
+    "js": "tsc",
+    "js:watch": "tsc --watch",
+    "copy": "cp -r src/assets dist/ && mkdir -p dist/movil dist/web && cp src/views/movil/*.html dist/ && cp src/views/movil/*.html dist/movil/ && (cp src/views/web/*.html dist/web/ 2>/dev/null || true)",
+    "build": "pnpm run css && pnpm run js && pnpm run copy",
+    "dev": "pnpm run build && npx serve dist"
+  },
+  "devDependencies": {
+    "@fontsource-variable/host-grotesk": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.DS_Store
+
+# El .gitignore raíz ignora dist/ y build/ (regla Python de harness/);
+# aquí se re-vinculan porque SPEC NFR-O01 exige versionar dist/
+# (GitHub Pages no ejecuta builds)
+!dist/
+!build/
+# dist/ se versiona a propósito (SPEC NFR-O01/TAC-O1: GitHub Pages no ejecuta builds)

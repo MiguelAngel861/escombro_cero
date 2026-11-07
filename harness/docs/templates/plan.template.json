@@ -1,0 +1,142 @@
+{
+  "$schema": "./plan.schema.json",
+  "plan": {
+    "id": "backend-000-plantilla",
+    "nombre": "Nombre del plan",
+    "tipo": "refactor",
+    "version": "0.1.0",
+    "fecha_creacion": "2000-01-01",
+    "fecha_actualizacion": "2000-01-01",
+    "autor": "equipo-backend",
+    "estado": "draft",
+    "branches_prefix": "plan/f",
+    "tags": ["backend"]
+  },
+  "alcance": {
+    "objetivo": "Objetivo resumido del plan",
+    "contexto": "Estado actual y motivacion",
+    "in_scope": [
+      "Alcance incluido"
+    ],
+    "out_of_scope": [
+      "Alcance excluido"
+    ],
+    "stakeholders": ["equipo-backend"]
+  },
+  "decisiones": [
+    {
+      "id": "G1",
+      "categoria": "arquitectura",
+      "titulo": "Titulo de la decision",
+      "opcion_elegida": "Opcion elegida",
+      "opciones": [
+        {
+          "label": "Opcion A",
+          "descripcion": "Descripcion de la opcion",
+          "elegida": false
+        }
+      ],
+      "justificacion": "Motivo de la decision",
+      "impacto": "medio",
+      "archivos_afectados": ["backend/app/ejemplo_afectado.py"]
+    }
+  ],
+  "estructura": {
+    "arbol": "backend/\n  app/\n    core/\n    utils/",
+    "contrato_dependencias": [
+      {
+        "capa": "services",
+        "puede_importar": ["repositories", "models", "errors"],
+        "no_puede_importar": ["routes", "schemas"]
+      }
+    ],
+    "archivos_nuevos": [
+      {
+        "ruta": "backend/app/core/example.py",
+        "responsabilidad": "Descripcion del archivo nuevo",
+        "decisiones_ref": ["G1"]
+      }
+    ],
+    "archivos_modificados": [
+      {
+        "ruta": "backend/app/services/example_service.py",
+        "responsabilidad": "Cambio realizado",
+        "decisiones_ref": ["G1"]
+      }
+    ],
+    "archivos_eliminados": [
+      {
+        "ruta": "backend/app/ejemplo_eliminado.py",
+        "responsabilidad": "Motivo de la eliminacion",
+        "decisiones_ref": ["G1"]
+      }
+    ]
+  },
+  "fases": [
+    {
+      "id": "F1",
+      "nombre": "Nombre de la fase",
+      "rama": "plan/f1-fase",
+      "objetivo": "Objetivo de la fase",
+      "tareas": [
+        {
+          "id": "F1.1",
+          "accion": "Accion a ejecutar",
+          "archivos": [],
+          "decisiones_ref": ["G1"]
+        },
+        {
+          "id": "F1.2",
+          "accion": "Merge de plan/f1-fase a dev y eliminacion de la rama local y remota",
+          "archivos": [],
+          "decisiones_ref": []
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Criterio de salida de la fase",
+          "Rama plan/f1-fase fusionada a dev y eliminada; solo dev y main visibles"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": []
+    }
+  ],
+  "tests": {
+    "stack": ["pytest", "pytest-flask", "pytest-cov"],
+    "estructura_carpetas": "backend/tests/{smoke,api,services,repositories,utils,integration}",
+    "fixtures": ["app", "client"],
+    "config_pytest": {
+      "testpaths": ["tests"]
+    },
+    "config_ruff": {
+      "target-version": "py313",
+      "line-length": 100
+    },
+    "cobertura": {
+      "gate_minimo": 80,
+      "aplica_desde_fase": "F5"
+    }
+  },
+  "riesgos": [
+    {
+      "id": "R1",
+      "descripcion": "Descripcion del riesgo",
+      "probabilidad": "media",
+      "impacto": "medio",
+      "mitigacion": "Mitigacion propuesta"
+    }
+  ],
+  "metricas_exito": [
+    "Indicador de exito del plan"
+  ],
+  "historial": [
+    {
+      "fecha": "2000-01-01",
+      "version": "0.1.0",
+      "cambio": "Creacion del plan",
+      "autor": "equipo-backend"
+    }
+  ]
+}

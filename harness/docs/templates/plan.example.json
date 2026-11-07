@@ -1,0 +1,98 @@
+{
+  "$schema": "./plan.schema.json",
+  "plan": {
+    "id": "ejemplo-dependency-injection",
+    "nombre": "Migracion a inyeccion de dependencias",
+    "tipo": "migracion",
+    "version": "1.0.0",
+    "fecha_creacion": "2026-01-15",
+    "fecha_actualizacion": "2026-02-03",
+    "autor": "equipo-backend",
+    "estado": "completado",
+    "branches_prefix": "migracion/di-",
+    "tags": ["di", "testabilidad", "refactor"]
+  },
+  "alcance": {
+    "objetivo": "Reemplazar singletons globales por inyeccion de dependencias para mejorar testabilidad.",
+    "contexto": "Los servicios usan db.session como singleton global; no se puede mockear sin monkeypatch. Tests de_service requieren DB real.",
+    "in_scope": [
+      "services",
+      "repositories",
+      "tests/services"
+    ],
+    "out_of_scope": [
+      "routes",
+      "schemas",
+      "frontend"
+    ],
+    "stakeholders": ["@backend", "@qa"]
+  },
+  "decisiones": [
+    {
+      "id": "G1",
+      "categoria": "arquitectura",
+      "titulo": "Estrategia de inyeccion",
+      "opcion_elegida": "Constructor injection manual",
+      "opciones": [
+        { "label": "DI framework (dependency-injector)", "descripcion": "Lib dedicada, container declarativo", "elegida": false },
+        { "label": "Constructor injection manual", "descripcion": "Pasamos deps por __init__; container dict en factory", "elegida": true },
+        { "label": "Service locator", "descripcion": "Anti-patron, evitado", "elegida": false }
+      ],
+      "justificacion": "Suficiente para 3 servicios; sin nueva dependencia; testeable con FakeRepository.",
+      "impacto": "medio",
+      "archivos_afectados": ["app/services/tasks_service.py", "app/services/auth_service.py"]
+    }
+  ],
+  "estructura": {
+    "arbol": "app/\n  core/\n    container.py   # NUEVO\n  services/\n    tasks_service.py  # recibe repo en __init__\n    auth_service.py",
+    "contrato_dependencias": [
+      { "capa": "services", "puede_importar": ["repositories", "models", "errors"], "no_puede_importar": ["routes", "db"] }
+    ],
+    "archivos_nuevos": [
+      { "ruta": "app/core/container.py", "responsabilidad": "Container manual de dependencias instanciado en create_app", "decisiones_ref": ["G1"] }
+    ],
+    "archivos_modificados": [
+      { "ruta": "app/services/tasks_service.py", "responsabilidad": "Constructor recibe repository en vez de instanciarlo" }
+    ],
+    "archivos_eliminados": []
+  },
+  "fases": [
+    {
+      "id": "F1",
+      "nombre": "Container + factories",
+      "rama": "migracion/di-f1-container",
+      "objetivo": "Introducir container sin romper callers existentes",
+      "tareas": [
+        { "id": "F1.1", "accion": "Crear app/core/container.py", "archivos": ["app/core/container.py"], "decisiones_ref": ["G1"] },
+        { "id": "F1.2", "accion": "Wire container en create_app", "archivos": ["app/__init__.py"] },
+        { "id": "F1.3", "accion": "Merge de migracion/di-f1-container a dev y eliminacion de la rama local y remota", "archivos": [] }
+      ],
+      "gate": {
+        "criterios": ["create_app arranca", "tests existentes pasan sin cambios", "Rama migracion/di-f1-container fusionada a dev y eliminada; solo dev y main visibles"],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": []
+    }
+  ],
+  "tests": {
+    "stack": ["pytest", "pytest-flask", "pytest-cov"],
+    "estructura_carpetas": "tests/{services,repositories,api,utils,integration}",
+    "fixtures": ["app", "client", "fake_repo"],
+    "config_pytest": { "testpaths": ["tests"] },
+    "config_ruff": { "target-version": "py313", "line-length": 100 },
+    "cobertura": { "gate_minimo": 80, "aplica_desde_fase": "F3" }
+  },
+  "riesgos": [
+    { "id": "R1", "descripcion": "Container manual crece mucho si aumentan servicios", "probabilidad": "media", "impacto": "bajo", "mitigacion": "Migrar a lib DI cuando services > 8" }
+  ],
+  "metricas_exito": [
+    "Tests de services corren sin instancia real de DB",
+    "100% services con FakeRepository en tests",
+    "Cobertura >= 80% en services"
+  ],
+  "historial": [
+    { "fecha": "2026-01-15", "version": "0.1.0", "cambio": "Borrador inicial", "autor": "equipo-backend" },
+    { "fecha": "2026-02-03", "version": "1.0.0", "cambio": "Marcado completado", "autor": "equipo-backend" }
+  ]
+}

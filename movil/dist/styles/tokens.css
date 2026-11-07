@@ -1,0 +1,71 @@
+/* Escombro 0 — tokens de diseño (única fuente de color/espaciado/tipografía, ADR-05)
+ * Deal tipo: host (Host Grotesk + JetBrains Mono) — variables auto-hospedadas (NFR-S01, sin CDN)
+ * Deal hero: split · ground: sage · radius: soft
+ */
+@font-face {
+  font-family: "Host Grotesk";
+  src: url("../assets/host-grotesk-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../assets/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* color */
+  --color-primary: #2e7d32;
+  --color-primary-dark: #1b5e20;
+  --color-bg: #f6f8f6;
+  --color-surface: #ffffff;
+  --color-text: #1c1b1a;
+  --color-text-muted: #6b6f6b;
+  --color-danger: #c62828;
+  --color-warning: #f9a825;
+
+  /* estados de escombro — alineados a FSM §6.5 (nombres exactos del SPEC);
+   * única divergencia: programado teal (SPEC decía violeta — prohibido por kit, ADR-15)
+   * pin del mapa y badge usan el MISMO token */
+  --state-pendiente:    #546e7a;  --state-pendiente-bg:    #e3eaed;  --state-pendiente-ink:    #37474f;
+  --state-en-revision:  #1565c0;  --state-en-revision-bg:  #dce9fa;  --state-en-revision-ink:  #0d47a1;
+  --state-programado:   #00838f;  --state-programado-bg:   #d8f0f2;  --state-programado-ink:   #006064;
+  --state-recolectado:  #2e7d32;  --state-recolectado-bg:  #ddedde;  --state-recolectado-ink:  #1b5e20;
+  --state-rechazado:    #c62828;  --state-rechazado-bg:    #fbe3e3;  --state-rechazado-ink:    #b71c1c;
+  --state-expirado:     #b26a00;  --state-expirado-bg:     #fbedd2;  --state-expirado-ink:     #7a4b00;
+  --state-reabierto:    #795548;  --state-reabierto-bg:    #ece2de;  --state-reabierto-ink:    #5d4037;
+
+  /* tipografía — deal host (variable, auto-hospedada) */
+  --font-sans: "Host Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-hero: clamp(2.25rem, 5vw, 4.5rem);   /* h1 split: 72px desktop / 40px móvil (deal) */
+  --track-hero: -0.04em;
+
+  /* espaciado */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+
+  /* radios — deal soft (escala fija, nada fuera de estos tres) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.08);
+
+  /* web shell — R2-Q1/Q7 */
+  --sidebar-w: 260px;
+  --sidebar-w-collapsed: 64px;
+  --web-wrap-max: 1200px;
+}

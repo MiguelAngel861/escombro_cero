@@ -1,0 +1,8 @@
+/* base: reset + tipografía (esqueleto inicial) */
+@import "./tokens.css";
+
+@import "./mobile/app-shell.css";
+@import "./components.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-sans); color: var(--color-text); background: var(--color-bg); }

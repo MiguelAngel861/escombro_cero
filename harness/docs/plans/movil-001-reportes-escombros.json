@@ -1,0 +1,458 @@
+{
+  "$schema": "./plan.schema.json",
+  "plan": {
+    "id": "movil-001-reportes-escombros",
+    "nombre": "App móvil (PWA) de reportes de escombros - Reto 3",
+    "tipo": "feature",
+    "version": "0.1.0",
+    "fecha_creacion": "2026-11-06",
+    "fecha_actualizacion": "2026-11-06",
+    "autor": "Equipo - Ingeniería de Sistemas",
+    "estado": "draft",
+    "branches_prefix": "feature/f",
+    "tags": ["movil", "pwa", "reporte-escombros", "retro-3"]
+  },
+  "alcance": {
+    "objetivo": "Crear la aplicación móvil (PWA estática) que permite a personas comunes reportar escombros de obra/demolición, con formulario de captura, geolocalización, guardado local y visualización de historial, desplegada en Render.",
+    "contexto": "Reto 3 del Torneo Académico de Retos Interdisciplinarios UNCSM (7 nov 2026). El rol Ingeniería de Sistemas debe entregar un sistema de registro de escombros. Stack ya decidido: HTML/CSS/JS vanilla, PWA, Render, localStorage. No hay app nativa ni backend propio.",
+    "in_scope": [
+      "Pantalla de inicio con botón para nuevo reporte",
+      "Pantalla de formulario de reporte: tipo de escombro, foto opcional, ubicación/geolocalización, volumen estimado, contacto opcional",
+      "Pantalla de historial/listado de reportes guardados localmente",
+      "Pantalla de administración: ver todos los reportes, cambiar estado (reportado → recogido → transformado → producto), exportar CSV",
+      "Guardado en localStorage del navegador (funciona offline)",
+      "manifest.json para instalación PWA en móvil",
+      "Service worker básico para caché del shell",
+      "Despliegue en Render como Static Site",
+      "Responsive design para móvil y escritorio"
+    ],
+    "out_of_scope": [
+      "App nativa publicada en tiendas (Apple/Google)",
+      "Autenticación de usuarios / login",
+      "Backend propio o API REST",
+      "Notificaciones push",
+      "Pasarela de pagos o cotización automática en línea",
+      "Pruebas unitarias automatizadas"
+    ],
+    "stakeholders": [
+      "Ingeniería de Sistemas (desarrollo de la app)",
+      "Ingeniería Ambiental (caracterización de escombros)",
+      "Ingeniería Civil (volúmenes y usos constructivos)",
+      "Ingeniería Industrial (costos y mercado)",
+      "Arquitectura (diseño 3D del producto final)",
+      "Comité organizador del torneo (entrega a las 10:20 a.m.)"
+    ]
+  },
+  "decisiones": [
+    {
+      "id": "G2",
+      "categoria": "arquitectura",
+      "titulo": "Stack frontend: HTML y CSS vanilla estático para web y móvil",
+      "opcion_elegida": "Una sola aplicación web responsiva (HTML5 + CSS3 vanilla, sin framework JS) que sirve tanto navegador de escritorio como móvil",
+      "justificacion": "Desarrollo rápido en 60 minutos, sin build step, funciona en cualquier navegador móvil.",
+      "impacto": "alto",
+      "archivos_afectados": ["frontend/index.html", "frontend/css/*.css", "frontend/js/*.js"]
+    },
+    {
+      "id": "G4",
+      "categoria": "arquitectura",
+      "titulo": "Arquitectura app móvil: PWA de una sola página (SPA) con HTML/CSS/JS vanilla",
+      "opcion_elegida": "SPA con múltiples vistas simuladas mediante ocultar/mostrar secciones en un mismo HTML",
+      "justificacion": "Navegación instantánea entre pantallas sin recargas, ideal para conectividad intermitente en campo.",
+      "impacto": "alto",
+      "archivos_afectados": ["frontend/index.html", "frontend/js/views.js"]
+    },
+    {
+      "id": "M2",
+      "categoria": "config",
+      "titulo": "Hosting: Render para despliegue estático",
+      "opcion_elegida": "Render (Static Site) conectado a GitHub con despliegue automático",
+      "justificacion": "Capa gratuita, URL pública para entrega del torneo, sin configuración de servidor.",
+      "impacto": "alto",
+      "archivos_afectados": ["render.yaml", "frontend/"]
+    },
+    {
+      "id": "M3",
+      "categoria": "config",
+      "titulo": "Persistencia de reportes: localStorage del navegador",
+      "opcion_elegida": "Array JSON en localStorage bajo clave 'escombros_reportes', exportable a CSV",
+      "justificacion": "Sin backend propio. Funciona offline y persiste entre sesiones del navegador.",
+      "impacto": "alto",
+      "archivos_afectados": ["frontend/js/storage.js"]
+    },
+    {
+      "id": "P3",
+      "categoria": "deploy",
+      "titulo": "Despliegue PWA en Render con manifest.json y service worker básico",
+      "opcion_elegida": "Render Static Site + manifest.json + service worker mínimo para caché offline",
+      "justificacion": "URL pública gratuita, instalable en móvil, funciona sin internet el día del pitch.",
+      "impacto": "medio",
+      "archivos_afectados": ["frontend/manifest.json", "frontend/sw.js"]
+    },
+    {
+      "id": "D1",
+      "categoria": "cleanup",
+      "titulo": "Excluir del MVP: autenticación, backend propio, notificaciones push",
+      "opcion_elegida": "No login, no API propia, no push notifications. Reportes anónimos con nombre opcional.",
+      "justificacion": "Evita complejidad que no aporta al núcleo del reto en 60 minutos de desarrollo.",
+      "impacto": "bajo",
+      "archivos_afectados": []
+    },
+    {
+      "id": "T1",
+      "categoria": "tests",
+      "titulo": "Pruebas funcionales manuales del flujo de reporte",
+      "opcion_elegida": "Validación manual de formulario, geolocalización, localStorage, historial, admin y exportación CSV",
+      "justificacion": "Entregable del torneo es el demo funcional; pruebas manuales cubren el flujo crítico antes del pitch.",
+      "impacto": "medio",
+      "archivos_afectados": []
+    }
+  ],
+  "estructura": {
+    "arbol": "frontend/\n  index.html\n  css/\n    style.css\n    views.css\n  js/\n    app.js\n    storage.js\n    views.js\n  manifest.json\n  sw.js\n  icons/\n    icon-192.png\n    icon-512.png\nrender.yaml\n.gitignore",
+    "contrato_dependencias": [
+      {
+        "capa": "js/views.js",
+        "puede_importar": ["js/storage.js", "js/app.js"],
+        "no_puede_importar": ["backend/", "css/"]
+      },
+      {
+        "capa": "js/storage.js",
+        "puede_importar": [],
+        "no_puede_importar": ["js/views.js", "js/app.js", "backend/"]
+      },
+      {
+        "capa": "js/app.js",
+        "puede_importar": ["js/storage.js", "js/views.js"],
+        "no_puede_importar": ["backend/"]
+      },
+      {
+        "capa": "css/",
+        "puede_importar": [],
+        "no_puede_importar": ["js/", "backend/"]
+      }
+    ],
+    "archivos_nuevos": [
+      {
+        "ruta": "frontend/index.html",
+        "responsabilidad": "Shell de la SPA: navegación entre vistas, encabezado, contenedor de vistas",
+        "decisiones_ref": ["G4", "G2"],
+        "notas": "Contiene las secciones: inicio, reporte, historial, admin. Solo una se muestra a la vez."
+      },
+      {
+        "ruta": "frontend/css/style.css",
+        "responsabilidad": "Estilos base, reset, tipografía, variables de color, layout responsive",
+        "decisiones_ref": ["G2"],
+        "notas": "CSS vanilla, sin frameworks."
+      },
+      {
+        "ruta": "frontend/css/views.css",
+        "responsabilidad": "Estilos específicos de cada vista (formulario, tarjetas de historial, tabla admin)",
+        "decisiones_ref": ["G2"],
+        "notas": "Diseño móvil-first."
+      },
+      {
+        "ruta": "frontend/js/app.js",
+        "responsabilidad": "Controlador principal: enrutamiento entre vistas, inicialización, listeners globales",
+        "decisiones_ref": ["G4", "G2"],
+        "notas": "Navegación mediante mostrar/ocultar secciones."
+      },
+      {
+        "ruta": "frontend/js/storage.js",
+        "responsabilidad": "Capa de persistencia: leer/escribir reportes en localStorage, exportar a CSV",
+        "decisiones_ref": ["M3"],
+        "notas": "Clave localStorage: 'escombros_reportes'."
+      },
+      {
+        "ruta": "frontend/js/views.js",
+        "responsabilidad": "Renderizado de vistas: formulario de reporte, listado historial, tabla admin",
+        "decisiones_ref": ["G4", "M3"],
+        "notas": "Genera HTML dinámico desde los datos de storage."
+      },
+      {
+        "ruta": "frontend/manifest.json",
+        "responsabilidad": "Manifiesto PWA: nombre, iconos, colores, modo standalone, start_url",
+        "decisiones_ref": ["P3"],
+        "notas": "Permite 'Instalar app' en Android/iOS."
+      },
+      {
+        "ruta": "frontend/sw.js",
+        "responsabilidad": "Service worker: cacheo del shell de la app para funcionamiento offline",
+        "decisiones_ref": ["P3"],
+        "notas": "Service worker mínimo, solo caché estática."
+      },
+      {
+        "ruta": "frontend/icons/icon-192.png",
+        "responsabilidad": "Icono PWA 192x192 para manifiesto",
+        "decisiones_ref": ["P3"],
+        "notas": "Requerido por manifest.json."
+      },
+      {
+        "ruta": "frontend/icons/icon-512.png",
+        "responsabilidad": "Icono PWA 512x512 para manifiesto",
+        "decisiones_ref": ["P3"],
+        "notas": "Requerido por manifest.json."
+      },
+      {
+        "ruta": "render.yaml",
+        "responsabilidad": "Configuración de despliegue en Render (Static Site)",
+        "decisiones_ref": ["M2", "P3"],
+        "notas": "Define directorio de publicación y comandos de build."
+      }
+    ],
+    "archivos_modificados": [],
+    "archivos_eliminados": []
+  },
+  "fases": [
+    {
+      "id": "F0",
+      "nombre": "Precondiciones y entorno",
+      "rama": "feature/f0-entorno",
+      "objetivo": "Verificar que el entorno esté listo: repositorio Git, cuenta de Render, íconos PWA disponibles.",
+      "tareas": [
+        {
+          "id": "F0.1",
+          "accion": "Inicializar repositorio Git local y crear repositorio remoto en GitHub",
+          "archivos": [],
+          "decisiones_ref": []
+        },
+        {
+          "id": "F0.2",
+          "accion": "Crear cuenta en Render y conectar repositorio GitHub",
+          "archivos": [],
+          "decisiones_ref": ["M2", "P3"]
+        },
+        {
+          "id": "F0.3",
+          "accion": "Obtener o crear íconos PWA (192x192 y 512x512) en frontend/icons/",
+          "archivos": ["frontend/icons/icon-192.png", "frontend/icons/icon-512.png"],
+          "decisiones_ref": ["P3"]
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Repositorio GitHub accesible y vinculado a Render",
+          "Íconos PWA presentes en frontend/icons/"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": []
+    },
+    {
+      "id": "F1",
+      "nombre": "Estructura base HTML y CSS",
+      "rama": "feature/f1-estructura",
+      "objetivo": "Crear el shell de la SPA con todas las vistas (inicio, reporte, historial, admin) y estilos responsive.",
+      "tareas": [
+        {
+          "id": "F1.1",
+          "accion": "Escribir frontend/index.html con secciones de vistas y navegación",
+          "archivos": ["frontend/index.html"],
+          "decisiones_ref": ["G4", "G2"]
+        },
+        {
+          "id": "F1.2",
+          "accion": "Escribir frontend/css/style.css y frontend/css/views.css (móvil-first)",
+          "archivos": ["frontend/css/style.css", "frontend/css/views.css"],
+          "decisiones_ref": ["G2"]
+        },
+        {
+          "id": "F1.3",
+          "accion": "Verificar renderizado en navegador móvil (emulador o dispositivo real)",
+          "archivos": [],
+          "decisiones_ref": []
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Todas las vistas cargan sin errores de consola",
+          "Diseño se adapta a ancho de móvil (375px) y escritorio",
+          "Navegación entre vistas funciona al hacer clic"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": ["F0"]
+    },
+    {
+      "id": "F2",
+      "nombre": "Lógica JavaScript y persistencia",
+      "rama": "feature/f2-logica",
+      "objetivo": "Implementar formulario de reporte, geolocalización, guardado en localStorage, historial y panel admin con cambio de estado.",
+      "tareas": [
+        {
+          "id": "F2.1",
+          "accion": "Implementar frontend/js/storage.js (leer/escribir localStorage, exportar CSV)",
+          "archivos": ["frontend/js/storage.js"],
+          "decisiones_ref": ["M3"]
+        },
+        {
+          "id": "F2.2",
+          "accion": "Implementar frontend/js/app.js (enrutamiento SPA, listeners globales)",
+          "archivos": ["frontend/js/app.js"],
+          "decisiones_ref": ["G4", "G2"]
+        },
+        {
+          "id": "F2.3",
+          "accion": "Implementar frontend/js/views.js (render formulario, historial, tabla admin)",
+          "archivos": ["frontend/js/views.js"],
+          "decisiones_ref": ["G4", "M3"]
+        },
+        {
+          "id": "F2.4",
+          "accion": "Integrar geolocalización del navegador en el formulario de reporte",
+          "archivos": ["frontend/js/views.js"],
+          "decisiones_ref": []
+        },
+        {
+          "id": "F2.5",
+          "accion": "Probar flujo completo: reportar → ver en historial → cambiar estado en admin → exportar CSV",
+          "archivos": [],
+          "decisiones_ref": ["T1"]
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Formulario guarda reporte en localStorage",
+          "Historial muestra reportes guardados",
+          "Panel admin permite cambiar estado de cada reporte",
+          "Exportación CSV genera archivo descargable",
+          "Funciona sin conexión (offline) después de primera carga"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": ["F1"]
+    },
+    {
+      "id": "F3",
+      "nombre": "PWA y despliegue en Render",
+      "rama": "feature/f3-pwa-deploy",
+      "objetivo": "Agregar manifest.json, service worker y desplegar en Render con URL pública.",
+      "tareas": [
+        {
+          "id": "F3.1",
+          "accion": "Crear frontend/manifest.json con nombre, iconos, modo standalone",
+          "archivos": ["frontend/manifest.json"],
+          "decisiones_ref": ["P3"]
+        },
+        {
+          "id": "F3.2",
+          "accion": "Crear frontend/sw.js con caché mínima del shell",
+          "archivos": ["frontend/sw.js"],
+          "decisiones_ref": ["P3"]
+        },
+        {
+          "id": "F3.3",
+          "accion": "Crear render.yaml y subir cambios a GitHub para despliegue automático en Render",
+          "archivos": ["render.yaml"],
+          "decisiones_ref": ["M2", "P3"]
+        },
+        {
+          "id": "F3.4",
+          "accion": "Verificar URL pública de Render y prueba de instalación PWA en móvil",
+          "archivos": [],
+          "decisiones_ref": []
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Render despliega sin errores y da URL pública",
+          "manifest.json es válido (chrome://inspect o Lighthouse)",
+          "Service worker registra y cachea archivos estáticos",
+          "App se puede 'instalar' desde navegador móvil"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": ["F2"]
+    },
+    {
+      "id": "F4",
+      "nombre": "Cierre y entrega para el torneo",
+      "rama": "feature/f4-cierre",
+      "objetivo": "Preparar carpeta de entrega, ensayar demo y verificar que cumple los 3 entregables del torneo relacionados con Sistemas.",
+      "tareas": [
+        {
+          "id": "F4.1",
+          "accion": "Capturas de pantalla y video corto del flujo reporte → admin para el pitch",
+          "archivos": [],
+          "decisiones_ref": ["T1"]
+        },
+        {
+          "id": "F4.2",
+          "accion": "Copiar archivos del sistema web a la carpeta de entrega 'Equipo N – Reto 3'",
+          "archivos": [],
+          "decisiones_ref": []
+        },
+        {
+          "id": "F4.3",
+          "accion": "Ensayo del pitch de 1 minuto con demo en vivo de la app móvil",
+          "archivos": [],
+          "decisiones_ref": []
+        }
+      ],
+      "gate": {
+        "criterios": [
+          "Demo en vivo funciona sin fallos durante el pitch de 1 minuto",
+          "Carpeta de entrega contiene todos los archivos del sistema web",
+          "Entrega lista antes de las 10:20 a.m. del 7 nov 2026"
+        ],
+        "bloqueante": true,
+        "cobertura_minima": null
+      },
+      "depende_de": ["F3"]
+    }
+  ],
+  "tests": {
+    "stack": ["manual", "navegador web"],
+    "estructura_carpetas": "",
+    "fixtures": [],
+    "config_pytest": {},
+    "config_ruff": {},
+    "cobertura": {
+      "gate_minimo": 0,
+      "aplica_desde_fase": "F4"
+    }
+  },
+  "riesgos": [
+    {
+      "id": "R1",
+      "descripcion": "Sin internet en el auditorio el día del torneo, no se puede acceder a Render",
+      "probabilidad": "media",
+      "impacto": "alto",
+      "mitigacion": "Tener copia funcional en localhost de la laptop (P2) y service worker cacheado (P3)."
+    },
+    {
+      "id": "R2",
+      "descripcion": "localStorage se borra si el usuario limpia datos del navegador",
+      "probabilidad": "baja",
+      "impacto": "medio",
+      "mitigacion": "Exportar a CSV periódicamente desde el panel admin como respaldo."
+    },
+    {
+      "id": "R3",
+      "descripcion": "Geolocalización no disponible o denegada en el dispositivo",
+      "probabilidad": "media",
+      "impacto": "medio",
+      "mitigacion": "Permitir ingreso manual de dirección/ubicación en el formulario."
+    }
+  ],
+  "metricas_exito": [
+    "App móvil accesible por URL pública de Render",
+    "Formulario de reporte funciona y guarda al menos un registro de prueba",
+    "Panel admin muestra listado y permite cambiar estado",
+    "Exportación CSV genera archivo descargable",
+    "Demo en vivo del pitch de 1 minuto sin fallos",
+    "Entrega en carpeta 'Equipo N – Reto 3' antes de las 10:20 a.m."
+  ],
+  "historial": [
+    {
+      "fecha": "2026-11-06",
+      "version": "0.1.0",
+      "cambio": "Creación del plan inicial basado en decisiones G2, G4, M2, M3, P2, P3, D1, T1",
+      "autor": "Ingeniería de Sistemas"
+    }
+  ]
+}

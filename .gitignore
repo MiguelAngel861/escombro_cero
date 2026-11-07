@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+backend/dist/
+backend/build/
+wheels/
+*.egg-info/
+
+# Virtual environments
+.venv/
+
+# Playwright & temporary artifacts
+.playwright-cli/
+.taste-skill/
+/*.png
+
+# OS / Logs
+.DS_Store
+*.log

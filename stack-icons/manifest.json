@@ -1,0 +1,52 @@
+{
+  "html5": {
+    "source": "svgl",
+    "url": "https://svgl.app/library/html5.svg",
+    "file": "html5.svg",
+    "bytes": 382
+  },
+  "css3": {
+    "source": "devicon",
+    "url": "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg",
+    "file": "css3.svg",
+    "bytes": 778
+  },
+  "typescript": {
+    "source": "svgl",
+    "url": "https://svgl.app/library/typescript.svg",
+    "file": "typescript.svg",
+    "bytes": 1744
+  },
+  "figma": {
+    "source": "svgl",
+    "url": "https://svgl.app/library/figma.svg",
+    "file": "figma.svg",
+    "bytes": 1087
+  },
+  "github": {
+    "source": "svgl",
+    "url": "https://svgl.app/library/github_light.svg",
+    "file": "github.svg",
+    "bytes": 997,
+    "dark_file": "github_dark.svg",
+    "dark_url": "https://svgl.app/library/github_dark.svg"
+  },
+  "playwright": {
+    "source": "svgl",
+    "url": "https://svgl.app/library/playwright.svg",
+    "file": "playwright.svg",
+    "bytes": 5032
+  },
+  "json": {
+    "source": "lucide",
+    "url": "https://cdn.jsdelivr.net/npm/lucide-static/icons/file-json.svg",
+    "file": "json.svg",
+    "bytes": 616
+  },
+  "localstorage": {
+    "source": "lucide",
+    "url": "https://cdn.jsdelivr.net/npm/lucide-static/icons/database.svg",
+    "file": "localstorage.svg",
+    "bytes": 405
+  }
+}

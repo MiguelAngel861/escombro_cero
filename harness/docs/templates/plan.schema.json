@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://baredo.local/docs/templates/plan.schema.json",
+  "title": "Plan Template",
+  "description": "Template generico para planes de cualquier tipo (refactor, migracion, feature, cleanup, deploy)",
+  "type": "object",
+  "required": ["plan", "alcance", "decisiones", "estructura", "fases"],
+  "properties": {
+    "plan": {
+      "type": "object",
+      "required": ["id", "nombre", "tipo", "version", "fecha_creacion", "autor", "estado"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Igual al nombre del archivo sin .json, ej: backend-002-cleaning-duplicados" },
+        "nombre": { "type": "string" },
+        "tipo": { "type": "string", "enum": ["refactor", "migracion", "feature", "cleanup", "deploy"], "description": "Tipo de plan; va en plan.tipo, nunca en el nombre del archivo" },
+        "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "fecha_creacion": { "type": "string", "format": "date" },
+        "fecha_actualizacion": { "type": "string", "format": "date" },
+        "autor": { "type": "string" },
+        "estado": { "type": "string", "enum": ["draft", "aprobado", "en_progreso", "completado", "cancelado", "pausado"] },
+        "branches_prefix": { "type": "string", "description": "Prefijo de git branches por fase, ej: refactor/fN-, feature/fN-, migracion/fN-" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "alcance": {
+      "type": "object",
+      "required": ["objetivo", "in_scope", "out_of_scope", "contexto"],
+      "properties": {
+        "objetivo": { "type": "string", "description": "Resumen ejecutivo del objetivo" },
+        "contexto": { "type": "string", "description": "Estado actual / por que se hace" },
+        "in_scope": { "type": "array", "items": { "type": "string" } },
+        "out_of_scope": { "type": "array", "items": { "type": "string" } },
+        "stakeholders": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "decisiones": {
+      "type": "array",
+      "description": "Lista de decisiones tomadas (grilling/sesion de debate)",
+      "items": {
+        "type": "object",
+        "required": ["id", "categoria", "titulo", "opcion_elegida", "justificacion"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[GDTMPB][0-9]+[a-z]?$" },
+          "categoria": { "type": "string", "description": "Prefijo = tema del PLANNING.md 2.2.6; categoria = etiqueta libre del area afectada", "examples": ["arquitectura", "persistencia", "helpers", "tests", "migraciones", "config", "seguridad", "deploy", "cleanup"] },
+          "titulo": { "type": "string" },
+          "opcion_elegida": { "type": "string" },
+          "opciones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["label", "descripcion"],
+              "properties": {
+                "label": { "type": "string" },
+                "descripcion": { "type": "string" },
+                "elegida": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "justificacion": { "type": "string" },
+          "impacto": { "type": "string", "enum": ["bajo", "medio", "alto"] },
+          "archivos_afectados": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "estructura": {
+      "type": "object",
+      "required": ["arbol", "contrato_dependencias", "archivos_nuevos", "archivos_modificados", "archivos_eliminados"],
+      "properties": {
+        "arbol": { "type": "string", "description": "Arbol de carpetas en notacion texto (ASCII)" },
+        "contrato_dependencias": {
+          "type": "array",
+          "description": "Reglas de imports permitidos por capa",
+          "items": {
+            "type": "object",
+            "required": ["capa", "puede_importar", "no_puede_importar"],
+            "properties": {
+              "capa": { "type": "string" },
+              "puede_importar": { "type": "array", "items": { "type": "string" } },
+              "no_puede_importar": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        },
+        "archivos_nuevos": { "type": "array", "items": { "$ref": "#/$defs/archivo" } },
+        "archivos_modificados": { "type": "array", "items": { "$ref": "#/$defs/archivo" } },
+        "archivos_eliminados": { "type": "array", "items": { "$ref": "#/$defs/archivo" }, "description": "Cada eliminacion documenta ruta y motivo (responsabilidad)" }
+      },
+      "additionalProperties": false
+    },
+    "fases": {
+      "type": "array",
+      "description": "Fases secuenciales del plan",
+      "items": {
+        "type": "object",
+        "required": ["id", "nombre", "rama", "objetivo", "tareas", "gate"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^F\\d+$" },
+          "nombre": { "type": "string" },
+          "rama": { "type": "string", "description": "Nombre git branch sugerido, formado con branches_prefix, ej: {branches_prefix}fN-slug" },
+          "objetivo": { "type": "string" },
+          "tareas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "accion"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^F\\d+\\.\\d+$" },
+                "accion": { "type": "string" },
+                "archivos": { "type": "array", "items": { "type": "string" } },
+                "decisiones_ref": { "type": "array", "items": { "type": "string" }, "description": "IDs de decisiones que implementa" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "gate": {
+            "type": "object",
+            "required": ["criterios"],
+            "properties": {
+              "criterios": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+              "bloqueante": { "type": "boolean" },
+              "cobertura_minima": { "type": ["number", "null"], "minimum": 0, "maximum": 100 }
+            },
+            "additionalProperties": false
+          },
+          "depende_de": { "type": "array", "items": { "type": "string" }, "description": "IDs de fases previas (ej: F0) que desbloquean esta fase" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "tests": {
+      "type": "object",
+      "properties": {
+        "stack": { "type": "array", "items": { "type": "string" } },
+        "estructura_carpetas": { "type": "string" },
+        "fixtures": { "type": "array", "items": { "type": "string" } },
+        "config_pytest": { "type": "object" },
+        "config_ruff": { "type": "object" },
+        "cobertura": {
+          "type": "object",
+          "properties": {
+            "gate_minimo": { "type": "number", "minimum": 0, "maximum": 100 },
+            "aplica_desde_fase": { "type": "string", "pattern": "^F\\d+$" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "riesgos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "descripcion", "probabilidad", "impacto", "mitigacion"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^R\\d+$" },
+          "descripcion": { "type": "string" },
+          "probabilidad": { "type": "string", "enum": ["baja", "media", "alta"] },
+          "impacto": { "type": "string", "enum": ["bajo", "medio", "alto"] },
+          "mitigacion": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "metricas_exito": { "type": "array", "items": { "type": "string" }, "description": "Como se sabe que el plan tuvo exito. Condiciones verificables, no opiniones" },
+    "historial": {
+      "type": "array",
+      "description": "Cambios al plan a lo largo del tiempo (append-only)",
+      "items": {
+        "type": "object",
+        "required": ["fecha", "version", "cambio"],
+        "properties": {
+          "fecha": { "type": "string", "format": "date" },
+          "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Version del plan en ese momento" },
+          "cambio": { "type": "string" },
+          "autor": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "archivo": {
+      "type": "object",
+      "required": ["ruta", "responsabilidad"],
+      "properties": {
+        "ruta": { "type": "string", "description": "Path relativo al repo root" },
+        "responsabilidad": { "type": "string" },
+        "decisiones_ref": { "type": "array", "items": { "type": "string" } },
+        "notas": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
