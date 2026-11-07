@@ -123,6 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modalRoot.classList.add("is-visible");
 
+    // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+    modalRoot.addEventListener("click", (ev) => {
+      const target = ev.target as HTMLElement;
+      if (target === modalRoot || target.closest("#modal-close")) {
+        modalRoot.classList.remove("is-visible");
+      }
+    });
+
     const selRol = document.getElementById("user-rol") as HTMLSelectElement | null;
     const wrapVehiculo = document.getElementById("wrapper-vehiculo");
     
@@ -177,14 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
       renderUsuarios();
     });
   }
-
-  // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
-  modalRoot.addEventListener("click", (ev) => {
-    const target = ev.target as HTMLElement;
-    if (target === modalRoot || target.closest("#modal-close")) {
-      modalRoot.classList.remove("is-visible");
-    }
-  });
 
   document.getElementById("btn-nuevo-usuario")?.addEventListener("click", () => {
     abrirModalUsuario();

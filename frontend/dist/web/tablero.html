@@ -96,7 +96,7 @@
           <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);">
             <div>
               <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">Reportes de la Zona</h1>
-              <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 2px 0 0;">Gestión de escombros georreferenciados para brigadas municipales</p>
+              <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: var(--sp-1) 0 0;">Gestión de escombros georreferenciados para brigadas municipales</p>
             </div>
             <span class="badge badge--recolectado" id="count-badge">0 reportes</span>
           </div>
@@ -148,27 +148,27 @@
           </div>
 
           <div class="map-legend">
-            <span style="display: flex; align-items: center; gap: 6px;"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-pendiente);"></i>Pendiente</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-en-revision);"></i>En revisión</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-programado);"></i>Programado</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-recolectado);"></i>Recolectado</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-rechazado);"></i>Rechazado</span>
+            <span style="display: flex; align-items: center; gap: var(--sp-2);"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-pendiente);"></i>Pendiente</span>
+            <span style="display: flex; align-items: center; gap: var(--sp-2);"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-en-revision);"></i>En revisión</span>
+            <span style="display: flex; align-items: center; gap: var(--sp-2);"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-programado);"></i>Programado</span>
+            <span style="display: flex; align-items: center; gap: var(--sp-2);"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-recolectado);"></i>Recolectado</span>
+            <span style="display: flex; align-items: center; gap: var(--sp-2);"><i class="pin" style="width: 8px; height: 8px; border-radius: 50%; background: var(--state-rechazado);"></i>Rechazado</span>
           </div>
         </section>
       </main>
     </div>
   </div>
 
-  <div id="modal-container" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="modal-root" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal">
     <div class="modal-head">
       <h3 id="modal-title" class="modal-title">Título del modal</h3>
-      <button type="button" class="btn btn--surface modal-close" style="min-height: 32px; padding: 0 var(--sp-2); font-size: var(--fs-md);" aria-label="Cerrar modal">✕</button>
+      <button type="button" id="modal-close" class="btn btn--surface modal-close" style="min-height: 32px; padding: 0 var(--sp-2); font-size: var(--fs-md);" aria-label="Cerrar modal">✕</button>
     </div>
     <div id="modal-body" class="modal-body">
       <!-- Contenido dinámico del modal -->
     </div>
-    <div id="modal-foot" class="modal-foot">
+    <div id="modal-footer" class="modal-foot">
       <button type="button" class="btn btn--surface modal-close">Cancelar</button>
       <button type="button" id="modal-action-btn" class="btn btn--primary">Confirmar</button>
     </div>

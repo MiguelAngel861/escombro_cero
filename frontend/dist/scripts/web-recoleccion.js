@@ -176,7 +176,7 @@ function completarRecoleccion(datos) {
       <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--sp-4);">
         El reporte <strong>${datos.reporte.id}</strong> ha sido marcado como <strong>Recolectado</strong> y transferido al destino autorizado con trazabilidad completa.
       </p>
-      <div style="background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-xs); display: grid; gap: 4px; text-align: left;">
+      <div style="background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-xs); display: grid; gap: var(--sp-1); text-align: left;">
         <div><strong>Volumen cargado:</strong> ${datos.volRecogido} m³ (${datos.pesoKg.toLocaleString()} kg)</div>
         <div><strong>Destino:</strong> ${datos.destinoId}</div>
         <div><strong>Operador:</strong> ${datos.idOperador} · ${datos.vehiculo}</div>

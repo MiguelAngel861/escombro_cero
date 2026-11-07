@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
               ID: ${d.id}
             </div>
 
-            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 0 0 var(--sp-4); display: flex; align-items: center; gap: 4px;">
+            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 0 0 var(--sp-4); display: flex; align-items: center; gap: var(--sp-1);">
               <span>📍</span> <span>${store.esc(d.direccion)}</span>
             </p>
 
@@ -137,9 +137,16 @@ document.addEventListener("DOMContentLoaded", () => {
         <button type="button" class="btn btn--primary" id="btn-save-dest">Guardar Destino</button>
       `;
         }
-        modalRoot.removeAttribute("hidden");
+        modalRoot.classList.add("is-visible");
+        // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+        modalRoot.addEventListener("click", (ev) => {
+            const target = ev.target;
+            if (target === modalRoot || target.closest("#modal-close")) {
+                modalRoot.classList.remove("is-visible");
+            }
+        });
         (_a = document.getElementById("btn-cancel-dest")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            modalRoot.setAttribute("hidden", "true");
+            modalRoot.classList.remove("is-visible");
         });
         (_b = document.getElementById("btn-save-dest")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
             var _a, _b, _c, _d, _e;
@@ -174,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 store.guardarDestinos(lista);
             }
-            modalRoot.setAttribute("hidden", "true");
+            modalRoot.classList.remove("is-visible");
             renderDestinos();
         });
     }

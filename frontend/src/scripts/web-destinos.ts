@@ -144,6 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modalRoot.classList.add("is-visible");
 
+    // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+    modalRoot.addEventListener("click", (ev) => {
+      const target = ev.target as HTMLElement;
+      if (target === modalRoot || target.closest("#modal-close")) {
+        modalRoot.classList.remove("is-visible");
+      }
+    });
+
     document.getElementById("btn-cancel-dest")?.addEventListener("click", () => {
       modalRoot.classList.remove("is-visible");
     });
@@ -185,14 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
       renderDestinos();
     });
   }
-
-  // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
-  modalRoot.addEventListener("click", (ev) => {
-    const target = ev.target as HTMLElement;
-    if (target === modalRoot || target.closest("#modal-close")) {
-      modalRoot.classList.remove("is-visible");
-    }
-  });
 
   document.getElementById("btn-nuevo-destino")?.addEventListener("click", () => {
     abrirModalDestino();

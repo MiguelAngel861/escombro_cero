@@ -116,7 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <button type="button" class="btn btn--primary" id="btn-save-user">Guardar Usuario</button>
       `;
         }
-        modalRoot.removeAttribute("hidden");
+        modalRoot.classList.add("is-visible");
+        // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+        modalRoot.addEventListener("click", (ev) => {
+            const target = ev.target;
+            if (target === modalRoot || target.closest("#modal-close")) {
+                modalRoot.classList.remove("is-visible");
+            }
+        });
         const selRol = document.getElementById("user-rol");
         const wrapVehiculo = document.getElementById("wrapper-vehiculo");
         function toggleVehiculoField() {
@@ -127,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         selRol === null || selRol === void 0 ? void 0 : selRol.addEventListener("change", toggleVehiculoField);
         toggleVehiculoField();
         (_a = document.getElementById("btn-cancel-user")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            modalRoot.setAttribute("hidden", "true");
+            modalRoot.classList.remove("is-visible");
         });
         (_b = document.getElementById("btn-save-user")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
             var _a, _b, _c, _d, _e;
@@ -163,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 store.guardarUsuariosSistema(lista);
             }
-            modalRoot.setAttribute("hidden", "true");
+            modalRoot.classList.remove("is-visible");
             renderUsuarios();
         });
     }

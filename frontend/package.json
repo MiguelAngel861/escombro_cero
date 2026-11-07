@@ -11,8 +11,8 @@
     "js": "tsc",
     "js:watch": "tsc --watch",
     "copy:assets": "rm -rf dist/assets && mkdir -p dist/assets dist/styles && cp -r src/assets/* dist/assets/",
-    "html": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views",
-    "html:watch": "posthtml src/views/**/*.html src/views/*.html -o dist -a -r src/views --watch",
+    "html": "node scripts/build-html.mjs",
+    "html:watch": "node scripts/watch-html.mjs",
     "build": "pnpm run css && pnpm run js && pnpm run copy:assets && pnpm run html",
     "dev": "concurrently --names CSS,JS,HTML,SVR --prefix-colors cyan,yellow,magenta,green \"pnpm run css:watch\" \"pnpm run js:watch\" \"pnpm run html:watch\" \"npx live-server dist --port=5000 --no-browser --watch=dist\""
   },

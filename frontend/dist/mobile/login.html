@@ -2,13 +2,13 @@
 <html lang="es" data-type="software" data-radius="soft">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="name" content="Escombro 0 ciudadano - login">
-  <meta name="page-type" content="software">
-  <meta name="site-kind" content="software">
-  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
   <title>Escombro 0 — APP-V02 Login</title>
-  <link rel="stylesheet" href="../styles/main.css">
   <script type="module" src="../scripts/login.js"></script>
   <style>
     /* page CSS login: HEADER clamp y estado demo con tokens (nada de cololor fuera de tokens.css) */
@@ -23,39 +23,36 @@
 
     .pageform-alt { justify-content: center; gap: var(--sp-1); display: flex; color: var(--color-text-muted); font-size: var(--fs-sm); }
     .pageform-alt a { color: var(--color-primary-dark); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
-
-    .demo-note { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--radius-sm);
-                 background: var(--state-programado-bg); color: var(--state-programado-ink); font-size: var(--fs-xs); }
   </style>
 </head>
 <body>
 <main class="screen">
-  <section class="page" aria-label="Iniciar sesión">
+  <section class="page" aria-label="Inicio de sesión">
     <div class="page-header">
       <h1 class="page-title">Iniciar sesión</h1>
-      <p class="page-sub">Accede con tu cuenta de ciudadano para reportar escombros.</p>
+      <p class="page-sub">Ingresa a reportar o dar seguimiento a tus escombros.</p>
     </div>
 
-    <form id="form-login" class="pageform" novalidate>
-      <div class="field">
-        <label for="field-correo">Correo electrónico</label>
-        <input class="field-input" id="field-correo" type="email" inputmode="email"
-               autocomplete="email" placeholder="nombre@correo.com" aria-describedby="err-correo">
-        <span class="field-error" id="err-correo">Formato de correo inválido (demo)</span>
+    <form class="pageform" id="form-login" novalidate="">
+      <div class="field" id="field-contacto">
+        <label for="contacto">Correo o teléfono</label>
+        <input class="field-input" id="contacto" type="text" autocomplete="username" inputmode="email" placeholder="ej. usuario@demo.ni o 8888-1234">
+        <span class="field-error">Ingresa un correo o teléfono válido (demo)</span>
       </div>
 
-      <button class="btn btn--primary btn--full" id="btn-login" type="submit" disabled>Iniciar sesión</button>
+      <div class="field" id="field-pass">
+        <label for="pass">Contraseña (demo)</label>
+        <input class="field-input" id="pass" type="password" autocomplete="current-password" placeholder="Cualquier texto para avanzar">
+        <span class="field-error">Ingresa tu contraseña (demo)</span>
+      </div>
 
-      <p class="pageform-alt">
-        ¿No tienes cuenta?
-        <a href="registro.html">Crear cuenta</a>
-      </p>
+      <button class="btn btn--primary btn--full" id="btn-entrar" type="submit">Entrar</button>
+
+      <div class="pageform-alt">
+        <span>¿No tienes cuenta?</span>
+        <a href="registro.html">Crear una</a>
+      </div>
     </form>
-
-    <div class="demo-note" role="note">
-      <span aria-hidden="true">▸</span>
-      Prototipo: la demo acepta cualquier correo con formato válido (SPEC-A08).
-    </div>
   </section>
 </main>
 </body>

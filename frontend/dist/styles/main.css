@@ -55,6 +55,7 @@
   --sp-2: 8px;
   --sp-3: 12px;
   --sp-4: 16px;
+  --sp-5: 20px;
   --sp-6: 24px;
   --sp-8: 32px;
 
@@ -985,7 +986,7 @@ body:has(.web-shell) {
 .web-header-sub {
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
-  margin: 4px 0 0;
+  margin: var(--sp-1) 0 0;
 }
 
 /* Split View para Web Tablero (WEB-V02: 60/40) */

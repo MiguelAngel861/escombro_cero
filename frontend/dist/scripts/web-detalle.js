@@ -45,7 +45,7 @@ function renderDetalle(r, rol) {
     }
     container.innerHTML = `
     <div>
-      <a href="tablero.html" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+      <a href="tablero.html" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: var(--sp-2);">
         ← Volver al Tablero
       </a>
     </div>
@@ -97,7 +97,7 @@ function renderDetalle(r, rol) {
           </div>
           ${r.descripcion ? `
             <div style="margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
-              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: 4px;">Descripción / Referencia de campo</span>
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-1);">Descripción / Referencia de campo</span>
               <p style="font-size: var(--fs-sm); margin: 0;">${store.esc(r.descripcion)}</p>
             </div>
           ` : ""}
