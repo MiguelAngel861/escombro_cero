@@ -1,0 +1,524 @@
+import * as store from "./store.js";
+import { initWebShell } from "./web-shell.js";
+import {
+  ETIQUETAS_ESTADO,
+  ETIQUETAS_TIPO,
+  MOTIVOS_RECHAZO,
+  MOTIVO_TEXTO,
+  type EstadoReporte,
+  type Reporte,
+  type MotivoRechazo
+} from "./data.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const reporteId = params.get("id") || "R-001";
+
+  const sesion = initWebShell("tablero", `Detalle de Reporte ${reporteId}`);
+  let reporte = store.unReporte(reporteId);
+
+  if (!reporte) {
+    const todos = store.losReportes();
+    reporte = todos[0];
+  }
+
+  if (!reporte) {
+    const mainEl = document.getElementById("detalle-content");
+    if (mainEl) mainEl.innerHTML = `<div class="card" style="padding: var(--sp-8); text-align: center;">Reporte no encontrado</div>`;
+    return;
+  }
+
+  renderDetalle(reporte, sesion.rol);
+
+  window.addEventListener("rol-changed", (e: Event) => {
+    const custom = e as CustomEvent<store.SesionWeb>;
+    const actualizado = store.unReporte(reporte!.id) ?? reporte!;
+    renderDetalle(actualizado, custom.detail.rol);
+  });
+});
+
+function renderDetalle(r: Reporte, rol: string): void {
+  const container = document.getElementById("detalle-content");
+  if (!container) return;
+
+  const pesoEstimado = Math.round(r.volumenM3 * 1350);
+  const esRecolectado = r.estado === "recolectado";
+  const esRechazado = r.estado === "rechazado";
+  const esProgramado = r.estado === "programado";
+  const esEnRevision = r.estado === "en_revision";
+  const esPendiente = r.estado === "pendiente";
+
+  // Badges adicionales
+  let extraBadges = "";
+  if (!r.dentroZona) {
+    extraBadges += `<span class="badge" style="background: #fff3e0; color: #b76e00; border-color: #ffe0b2;">⚠ Fuera de polígono</span>`;
+  }
+  if (r.tipo === "peligroso") {
+    extraBadges += `<span class="badge" style="background: #ffebee; color: #c62828; border-color: #ffcdd2;">☣ Residuo Peligroso</span>`;
+  }
+
+  container.innerHTML = `
+    <div style="margin-bottom: var(--sp-4);">
+      <a href="tablero.html" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+        ← Volver al Tablero
+      </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: var(--sp-6); align-items: start;">
+      <!-- Columna Principal -->
+      <div style="display: grid; gap: var(--sp-4);">
+        <!-- Ficha de Encabezado -->
+        <article class="card" style="padding: var(--sp-5);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); flex-wrap: wrap;">
+            <div>
+              <div style="display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-1);">
+                <span style="font-family: var(--font-mono); font-size: var(--fs-lg); font-weight: 700; color: var(--color-primary-dark);">${store.esc(r.id)}</span>
+                <span class="badge badge--${r.estado}">${ETIQUETAS_ESTADO[r.estado]}</span>
+                ${extraBadges}
+              </div>
+              <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 0;">
+                Ingresado el ${store.formateaFecha(r.fechaCreacion)} · Reportado por Ciudadano (${store.esc(r.idCiudadano)})
+              </p>
+            </div>
+            ${r.idOperadorAsignado ? `
+              <div style="text-align: right; background: color-mix(in srgb, var(--color-primary) 6%, transparent); padding: var(--sp-2) var(--sp-3); border-radius: var(--radius-sm); border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Brigada Asignada</div>
+                <strong style="font-size: var(--fs-sm); color: var(--color-primary-dark); font-family: var(--font-mono);">${store.esc(r.idOperadorAsignado)}</strong>
+                ${r.fechaEstimada ? `<div style="font-size: 11px; color: var(--color-text-muted);">Prog: ${store.esc(r.fechaEstimada)}</div>` : ""}
+              </div>
+            ` : ""}
+          </div>
+        </article>
+
+        <!-- Propiedades del Escombro -->
+        <article class="card" style="padding: var(--sp-5);">
+          <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+            Propiedades del Desecho
+          </h2>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4);">
+            <div style="background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm);">
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block;">Tipo de Material</span>
+              <strong style="font-size: var(--fs-md);">${ETIQUETAS_TIPO[r.tipo]}</strong>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm);">
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block;">Volumen Estimado</span>
+              <strong style="font-size: var(--fs-md); font-family: var(--font-mono);">${r.volumenM3.toFixed(1)} m³</strong>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm);">
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block;">Peso Estimado (ref)</span>
+              <strong style="font-size: var(--fs-md); font-family: var(--font-mono);">~${pesoEstimado.toLocaleString()} kg</strong>
+            </div>
+          </div>
+          ${r.descripcion ? `
+            <div style="margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: 4px;">Descripción / Referencia de campo</span>
+              <p style="font-size: var(--fs-sm); margin: 0;">${store.esc(r.descripcion)}</p>
+            </div>
+          ` : ""}
+          ${r.motivoRechazo ? `
+            <div style="margin-top: var(--sp-4); padding: var(--sp-3); background: #ffebee; border-radius: var(--radius-sm); border: 1px solid #ffcdd2;">
+              <strong style="font-size: var(--fs-xs); color: #c62828; display: block;">Motivo de rechazo:</strong>
+              <span style="font-size: var(--fs-sm); color: #b71c1c;">${MOTIVO_TEXTO[r.motivoRechazo] ?? r.motivoRechazo}</span>
+            </div>
+          ` : ""}
+        </article>
+
+        <!-- Georreferenciación y Mapa Mini -->
+        <article class="card" style="padding: var(--sp-5);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-3);">
+            <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0;">
+              Ubicación Georreferenciada
+            </h2>
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted);">
+              12.132° N, -86.250° O
+            </span>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4);">
+            <span style="font-size: var(--fs-md);">📍</span>
+            <span style="font-size: var(--fs-sm); font-weight: 500;">${store.esc(r.ubicacion)}</span>
+          </div>
+
+          <!-- Mini SVG Map Canvas -->
+          <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); height: 200px; background: color-mix(in srgb, var(--color-primary) 4%, var(--color-bg)); position: relative;">
+            <svg viewBox="0 0 400 200" style="width: 100%; height: 100%; display: block;">
+              <defs>
+                <pattern id="mini-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="color-mix(in srgb, var(--color-text) 5%, transparent)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="400" height="200" fill="url(#mini-grid)" />
+              <!-- Polígono de la zona -->
+              <polygon points="80,20 320,30 350,160 220,190 70,150" fill="color-mix(in srgb, var(--color-primary) 10%, transparent)" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="4 3"/>
+              <!-- Vía principal -->
+              <path d="M 20 90 Q 200 80 380 110" fill="none" stroke="color-mix(in srgb, var(--color-text) 15%, transparent)" stroke-width="3"/>
+              <!-- Pin destacado del reporte -->
+              <circle cx="210" cy="95" r="14" fill="var(--color-surface)" stroke="var(--state-${r.estado})" stroke-width="3" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"/>
+              <circle cx="210" cy="95" r="6" fill="var(--state-${r.estado})"/>
+              <text x="210" y="125" font-size="11" font-weight="700" text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)">${store.esc(r.id)}</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- Evidencias Fotográficas -->
+        <article class="card" style="padding: var(--sp-5);">
+          <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+            Evidencia Fotográfica
+          </h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div>
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: 6px;">Foto Reportada (Inicial)</span>
+              <div style="aspect-ratio: 16/9; background: #e0e0e0; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed #bdbdbd; color: #616161;">
+                <span style="font-size: 28px;">📷</span>
+                <span style="font-size: var(--fs-xs); font-family: var(--font-mono); margin-top: 4px;">foto_inicial_${r.id}.jpg</span>
+              </div>
+            </div>
+            <div>
+              <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: 6px;">Foto Post-Recolección</span>
+              <div style="aspect-ratio: 16/9; background: ${esRecolectado ? '#e8f5e9' : '#fafafa'}; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed ${esRecolectado ? 'var(--color-primary)' : '#e0e0e0'}; color: ${esRecolectado ? 'var(--color-primary-dark)' : '#9e9e9e'};">
+                <span style="font-size: 28px;">${esRecolectado ? '✓' : '⌛'}</span>
+                <span style="font-size: var(--fs-xs); font-family: var(--font-mono); margin-top: 4px;">
+                  ${esRecolectado ? `recoleccion_${r.id}.jpg` : 'Pendiente de captura'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Columna Lateral: Acciones por Rol y Línea de Tiempo FSM -->
+      <div style="display: grid; gap: var(--sp-4);">
+        <!-- Caja de Acciones de Rol -->
+        <article class="card" style="padding: var(--sp-5); border-top: 4px solid var(--color-primary);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-3);">
+            <strong style="font-size: var(--fs-sm);">Acciones Operativas</strong>
+            <span class="badge" style="font-size: 10px; background: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary-dark);">
+              Rol: ${rol.toUpperCase()}
+            </span>
+          </div>
+
+          <div style="display: grid; gap: var(--sp-2);">
+            ${renderAccionesPorRol(r, rol)}
+          </div>
+        </article>
+
+        <!-- Historial / Timeline FSM -->
+        <article class="card" style="padding: var(--sp-5);">
+          <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+            Trazabilidad del Reporte
+          </h2>
+          <div class="timeline" style="display: grid; gap: var(--sp-3); position: relative; padding-left: var(--sp-4); border-left: 2px solid color-mix(in srgb, var(--color-text) 12%, transparent); margin-left: var(--sp-2);">
+            ${r.historial.map((h, i) => `
+              <div style="position: relative;">
+                <div style="position: absolute; left: calc(-1 * var(--sp-4) - 5px); top: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--state-${h.estado}); ring: 3px solid var(--color-surface);"></div>
+                <div style="font-size: var(--fs-xs); font-weight: 600; color: var(--color-text);">${ETIQUETAS_ESTADO[h.estado] ?? h.estado}</div>
+                <div style="font-size: 11px; color: var(--color-text-muted); font-family: var(--font-mono);">${store.formateaFecha(h.fecha)}</div>
+              </div>
+            `).join("")}
+          </div>
+        </article>
+      </div>
+    </div>
+  `;
+
+  conectarEventosAcciones(r);
+}
+
+function renderAccionesPorRol(r: Reporte, rol: string): string {
+  if (rol === "operador") {
+    if (r.estado === "programado") {
+      return `
+        <a href="registro-recoleccion.html?id=${r.id}" class="btn btn--primary btn--full">
+          ✍ Proceder con Recolección
+        </a>
+      `;
+    }
+    if (r.estado === "recolectado") {
+      return `
+        <div style="font-size: var(--fs-xs); color: var(--state-recolectado-ink); background: var(--state-recolectado-bg); padding: var(--sp-3); border-radius: var(--radius-sm); text-align: center;">
+          ✓ Escombro recolectado y trasladado a destino.
+        </div>
+      `;
+    }
+    return `
+      <div style="font-size: var(--fs-xs); color: var(--color-text-muted); text-align: center; padding: var(--sp-2);">
+        No hay acciones pendientes para operador en este estado (${ETIQUETAS_ESTADO[r.estado]}).
+      </div>
+    `;
+  }
+
+  // Rol Administrador
+  const botones: string[] = [];
+
+  if (r.estado === "pendiente") {
+    botones.push(`
+      <button type="button" class="btn btn--primary btn--full" id="btn-validar">
+        ✓ Validar Reporte (En Revisión)
+      </button>
+    `);
+  }
+
+  if (r.estado === "pendiente" || r.estado === "en_revision") {
+    botones.push(`
+      <button type="button" class="btn btn--outline btn--full" id="btn-asignar" style="color: var(--color-primary-dark); border-color: var(--color-primary);">
+        👤 Asignar a Brigada (Programar)
+      </button>
+      <button type="button" class="btn btn--outline btn--full" id="btn-rechazar" style="color: var(--state-rechazado-ink); border-color: var(--state-rechazado);">
+        ✕ Rechazar con Motivo
+      </button>
+    `);
+  }
+
+  if (r.estado === "programado") {
+    botones.push(`
+      <button type="button" class="btn btn--outline btn--full" id="btn-reasignar">
+        ⇄ Reasignar Brigada
+      </button>
+      <a href="registro-recoleccion.html?id=${r.id}" class="btn btn--outline btn--full">
+        ✍ Registrar Recolección (Manual)
+      </a>
+    `);
+  }
+
+  if (r.estado === "recolectado" || r.estado === "rechazado" || r.estado === "expirado") {
+    botones.push(`
+      <button type="button" class="btn btn--outline btn--full" id="btn-reabrir" style="color: var(--color-primary-dark);">
+        ↺ Reabrir Reporte (Admin)
+      </button>
+    `);
+  }
+
+  return botones.join("");
+}
+
+function conectarEventosAcciones(r: Reporte): void {
+  const ahora = new Date().toISOString().slice(0, 16);
+
+  // Validar
+  const btnValidar = document.getElementById("btn-validar");
+  if (btnValidar) {
+    btnValidar.addEventListener("click", () => {
+      store.actualizarReporte(r.id, (prev) => ({
+        ...prev,
+        estado: "en_revision",
+        historial: [...prev.historial, { estado: "en_revision", fecha: ahora }]
+      }));
+      window.location.reload();
+    });
+  }
+
+  // Asignar / Reasignar (WEB-V03)
+  const btnAsignar = document.getElementById("btn-asignar") || document.getElementById("btn-reasignar");
+  if (btnAsignar) {
+    btnAsignar.addEventListener("click", () => {
+      abrirModalAsignar(r);
+    });
+  }
+
+  // Rechazar (WEB-V05)
+  const btnRechazar = document.getElementById("btn-rechazar");
+  if (btnRechazar) {
+    btnRechazar.addEventListener("click", () => {
+      abrirModalRechazar(r);
+    });
+  }
+
+  // Reabrir (WEB-V06)
+  const btnReabrir = document.getElementById("btn-reabrir");
+  if (btnReabrir) {
+    btnReabrir.addEventListener("click", () => {
+      abrirModalReabrir(r);
+    });
+  }
+}
+
+function abrirModalAsignar(r: Reporte): void {
+  const modalRoot = document.getElementById("modal-root");
+  const modalTitle = document.getElementById("modal-title");
+  const modalBody = document.getElementById("modal-body");
+  const modalFooter = document.getElementById("modal-footer");
+  if (!modalRoot || !modalBody || !modalTitle) return;
+
+  const operadores = store.losUsuariosSistema().filter((u) => u.rol === "operador" && u.activo);
+  const manana = new Date();
+  manana.setDate(manana.getDate() + 1);
+  const fechaDefault = manana.toISOString().slice(0, 10);
+
+  modalTitle.textContent = `Asignar Brigada a ${r.id}`;
+  modalBody.innerHTML = `
+    <form id="form-modal-asignar" class="field" style="gap: var(--sp-4);">
+      <div class="field">
+        <label for="op-select">Operador Responsable</label>
+        <select id="op-select" class="field-input" required>
+          ${operadores.map((op) => `
+            <option value="${op.id}" ${r.idOperadorAsignado === op.id ? 'selected' : ''}>
+              ${op.nombre} (${op.id}) — ${op.vehiculo ?? 'Sin vehículo asignado'}
+            </option>
+          `).join("")}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fecha-estimada">Fecha Estimada de Recolección</label>
+        <input type="date" id="fecha-estimada" class="field-input" value="${r.fechaEstimada ?? fechaDefault}" required>
+      </div>
+
+      <div class="field">
+        <label for="instrucciones">Instrucciones Especiales (opcional)</label>
+        <textarea id="instrucciones" class="field-input" rows="2" placeholder="Ej. Acceso estrecho por el portón este..."></textarea>
+      </div>
+    </form>
+  `;
+
+  if (modalFooter) {
+    modalFooter.innerHTML = `
+      <button type="button" class="btn btn--outline" id="btn-cancel-modal">Cancelar</button>
+      <button type="button" class="btn btn--primary" id="btn-confirm-asignar">Confirmar Asignación</button>
+    `;
+  }
+
+  modalRoot.removeAttribute("hidden");
+
+  document.getElementById("btn-cancel-modal")?.addEventListener("click", () => {
+    modalRoot.setAttribute("hidden", "true");
+  });
+
+  document.getElementById("btn-confirm-asignar")?.addEventListener("click", () => {
+    const opSelect = document.getElementById("op-select") as HTMLSelectElement | null;
+    const fechaInput = document.getElementById("fecha-estimada") as HTMLInputElement | null;
+    if (!opSelect || !fechaInput) return;
+
+    const opId = opSelect.value;
+    const fecha = fechaInput.value;
+    const ahora = new Date().toISOString().slice(0, 16);
+
+    store.actualizarReporte(r.id, (prev) => ({
+      ...prev,
+      estado: "programado",
+      idOperadorAsignado: opId,
+      fechaEstimada: fecha,
+      historial: [...prev.historial, { estado: "programado", fecha: ahora }]
+    }));
+
+    modalRoot.setAttribute("hidden", "true");
+    window.location.reload();
+  });
+}
+
+function abrirModalRechazar(r: Reporte): void {
+  const modalRoot = document.getElementById("modal-root");
+  const modalTitle = document.getElementById("modal-title");
+  const modalBody = document.getElementById("modal-body");
+  const modalFooter = document.getElementById("modal-footer");
+  if (!modalRoot || !modalBody || !modalTitle) return;
+
+  modalTitle.textContent = `Rechazar Reporte ${r.id}`;
+  modalBody.innerHTML = `
+    <form id="form-modal-rechazar" class="field" style="gap: var(--sp-4);">
+      <div class="field">
+        <label for="motivo-select">Motivo de Descarte (Catálogo Oficial)</label>
+        <select id="motivo-select" class="field-input" required>
+          ${MOTIVOS_RECHAZO.map((m) => `
+            <option value="${m}">${MOTIVO_TEXTO[m]}</option>
+          `).join("")}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="comentario-rechazo">Explicación para el ciudadano / Trazabilidad</label>
+        <textarea id="comentario-rechazo" class="field-input" rows="3" placeholder="Detalles de inspección que sustentan el descarte..." required></textarea>
+      </div>
+    </form>
+  `;
+
+  if (modalFooter) {
+    modalFooter.innerHTML = `
+      <button type="button" class="btn btn--outline" id="btn-cancel-modal">Cancelar</button>
+      <button type="button" class="btn btn--primary" id="btn-confirm-rechazo" style="background: var(--state-rechazado);">Confirmar Rechazo</button>
+    `;
+  }
+
+  modalRoot.removeAttribute("hidden");
+
+  document.getElementById("btn-cancel-modal")?.addEventListener("click", () => {
+    modalRoot.setAttribute("hidden", "true");
+  });
+
+  document.getElementById("btn-confirm-rechazo")?.addEventListener("click", () => {
+    const sel = document.getElementById("motivo-select") as HTMLSelectElement | null;
+    if (!sel) return;
+
+    const motivo = sel.value as MotivoRechazo;
+    const ahora = new Date().toISOString().slice(0, 16);
+
+    store.actualizarReporte(r.id, (prev) => ({
+      ...prev,
+      estado: "rechazado",
+      motivoRechazo: motivo,
+      historial: [...prev.historial, { estado: "rechazado", fecha: ahora }]
+    }));
+
+    modalRoot.setAttribute("hidden", "true");
+    window.location.reload();
+  });
+}
+
+function abrirModalReabrir(r: Reporte): void {
+  const modalRoot = document.getElementById("modal-root");
+  const modalTitle = document.getElementById("modal-title");
+  const modalBody = document.getElementById("modal-body");
+  const modalFooter = document.getElementById("modal-footer");
+  if (!modalRoot || !modalBody || !modalTitle) return;
+
+  modalTitle.textContent = `Reapertura de Reporte ${r.id} (RB-14)`;
+  modalBody.innerHTML = `
+    <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-xs); color: #b76e00; margin-bottom: var(--sp-3);">
+      ⚠ La reapertura devuelve el reporte al estado <strong>Pendiente</strong> y requiere una justificación técnica obligatoria de al menos 20 caracteres.
+    </div>
+
+    <form id="form-modal-reabrir" class="field" style="gap: var(--sp-4);">
+      <div class="field">
+        <label for="justificacion-reapertura">Justificación del Administrador (≥ 20 caracteres)</label>
+        <textarea id="justificacion-reapertura" class="field-input" rows="3" placeholder="Explique la causa de la reapertura o reincidencia del escombro..." required minlength="20"></textarea>
+        <span id="char-count" style="font-size: 11px; color: var(--color-text-muted); font-family: var(--font-mono); text-align: right;">0 / 20 caracteres</span>
+      </div>
+    </form>
+  `;
+
+  if (modalFooter) {
+    modalFooter.innerHTML = `
+      <button type="button" class="btn btn--outline" id="btn-cancel-modal">Cancelar</button>
+      <button type="button" class="btn btn--primary" id="btn-confirm-reabrir" disabled>Reabrir Caso</button>
+    `;
+  }
+
+  modalRoot.removeAttribute("hidden");
+
+  const txt = document.getElementById("justificacion-reapertura") as HTMLTextAreaElement | null;
+  const countEl = document.getElementById("char-count");
+  const btnConfirm = document.getElementById("btn-confirm-reabrir") as HTMLButtonElement | null;
+
+  txt?.addEventListener("input", () => {
+    const len = txt.value.trim().length;
+    if (countEl) countEl.textContent = `${len} / 20 caracteres`;
+    if (btnConfirm) btnConfirm.disabled = len < 20;
+  });
+
+  document.getElementById("btn-cancel-modal")?.addEventListener("click", () => {
+    modalRoot.setAttribute("hidden", "true");
+  });
+
+  btnConfirm?.addEventListener("click", () => {
+    if (!txt || txt.value.trim().length < 20) return;
+    const ahora = new Date().toISOString().slice(0, 16);
+
+    store.actualizarReporte(r.id, (prev) => ({
+      ...prev,
+      estado: "pendiente",
+      motivoRechazo: undefined,
+      historial: [...prev.historial, { estado: "pendiente", fecha: ahora }]
+    }));
+
+    modalRoot.setAttribute("hidden", "true");
+    window.location.reload();
+  });
+}

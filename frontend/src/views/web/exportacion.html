@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 Web — Exportación de Datos</title>
+  <script type="module" src="../scripts/web-exportacion.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <include src="src/layouts/web/sidebar.html"></include>
+
+    <div class="web-main">
+      <include src="src/layouts/web/topbar.html"></include>
+
+      <main class="page-body" style="max-width: 1300px; margin: 0 auto; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+          <div>
+            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+              Exportación y Auditoría de Datos
+            </h1>
+            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+              Descarga estructurada de datos abiertos y bitácoras operativas conforme a las 10 columnas del PRD §6.2.
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: var(--sp-3);">
+            <select id="select-formato" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs);">
+              <option value="CSV">Formato CSV (.csv)</option>
+              <option value="GeoJSON">Formato GeoJSON (.geojson)</option>
+            </select>
+            <button type="button" class="btn btn--primary" id="btn-exportar-csv" style="display: inline-flex; align-items: center; gap: 6px;">
+              ⤓ Descargar CSV (simulado)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabla Estructurada con 10 columnas obligatorias -->
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>1. ID</th>
+                <th>2. Creación</th>
+                <th>3. Coordenadas</th>
+                <th>4. Dirección</th>
+                <th>5. Tipo</th>
+                <th>6. Vol. (m³)</th>
+                <th>7. Estado</th>
+                <th>8. Operador</th>
+                <th>9. Destino</th>
+                <th>10. Recolección</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-exportacion-body"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <include src="src/components/modal/modal.html"></include>
+</body>
+</html>

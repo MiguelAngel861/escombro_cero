@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 Web — Catálogo de Destinos</title>
+  <script type="module" src="../scripts/web-destinos.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <include src="src/layouts/web/sidebar.html"></include>
+
+    <div class="web-main">
+      <include src="src/layouts/web/topbar.html"></include>
+
+      <main class="page-body" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+          <div>
+            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+              Catálogo de Destinos Autorizados
+            </h1>
+            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+              Sitios oficiales de vertido, plantas de reciclaje y estaciones de transferencia temporal para residuos de construcción y demolición.
+            </p>
+          </div>
+          <button type="button" class="btn btn--primary" id="btn-nuevo-destino" style="display: inline-flex; align-items: center; gap: 6px;">
+            + Nuevo Destino
+          </button>
+        </div>
+
+        <!-- Cuadrícula de Destinos -->
+        <div id="destinos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--sp-5);">
+          <!-- Renderizado dinámico desde web-destinos.ts -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <include src="src/components/modal/modal.html"></include>
+</body>
+</html>

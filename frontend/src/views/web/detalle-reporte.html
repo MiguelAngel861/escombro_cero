@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 Web — Detalle de Reporte</title>
+  <script type="module" src="../scripts/web-detalle.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <include src="src/layouts/web/sidebar.html"></include>
+
+    <div class="web-main">
+      <include src="src/layouts/web/topbar.html"></include>
+
+      <main class="page-body" id="detalle-content" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+        <!-- Renderizado dinámico desde web-detalle.ts -->
+      </main>
+    </div>
+  </div>
+
+  <include src="src/components/modal/modal.html"></include>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 Web — Registro de Recolección</title>
+  <script type="module" src="../scripts/web-recoleccion.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <include src="src/layouts/web/sidebar.html"></include>
+
+    <div class="web-main">
+      <include src="src/layouts/web/topbar.html"></include>
+
+      <main class="page-body" style="max-width: 860px; margin: 0 auto; width: 100%;">
+        <div style="margin-bottom: var(--sp-6);">
+          <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+            Registro Oficial de Recolección
+          </h1>
+          <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+            Acta operativa para brigadas de limpieza urbana. Verifica volúmenes reales y destino final autorizado (RB-03, RB-06).
+          </p>
+        </div>
+
+        <form id="form-recoleccion" class="card" style="padding: var(--sp-6); display: grid; gap: var(--sp-5);">
+          <!-- Selección de Reporte -->
+          <div class="field">
+            <label for="select-reporte">Reporte Asignado / En Ejecución</label>
+            <select id="select-reporte" class="field-input" required></select>
+          </div>
+
+          <!-- Ficha de resumen del reporte seleccionado -->
+          <div id="info-reporte-seleccionado" style="display: none; background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm); border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
+          </div>
+
+          <!-- Mediciones en Sitio -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="volumen-recogido">Volumen Real Recogido (m³)</label>
+              <input type="number" id="volumen-recogido" class="field-input" step="0.1" min="0.1" placeholder="Ej. 2.5" required>
+              <span style="font-size: 11px; color: var(--color-text-muted);">Medición física en tolva o cajón de recolección</span>
+            </div>
+
+            <div class="field">
+              <label for="peso-estimado">Peso Estimado (kg)</label>
+              <input type="number" id="peso-estimado" class="field-input" step="10" placeholder="Ej. 3375" required>
+              <span style="font-size: 11px; color: var(--color-text-muted);">Calculado a ~1,350 kg/m³ según densidad típica de escombro</span>
+            </div>
+          </div>
+
+          <!-- Destino y Fecha -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="select-destino">Destino Autorizado de Descarga</label>
+              <select id="select-destino" class="field-input" required></select>
+            </div>
+
+            <div class="field">
+              <label for="fecha-recoleccion">Fecha y Hora de Cierre</label>
+              <input type="datetime-local" id="fecha-recoleccion" class="field-input" required>
+            </div>
+          </div>
+
+          <!-- Responsable y Vehículo -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="operador-nombre">Brigadista Responsable</label>
+              <input type="text" id="operador-nombre" class="field-input" readonly style="background: var(--color-bg);">
+            </div>
+
+            <div class="field">
+              <label for="vehiculo-placa">Vehículo y Placa de Transporte</label>
+              <input type="text" id="vehiculo-placa" class="field-input" required>
+            </div>
+          </div>
+
+          <!-- Evidencia Fotográfica en Terreno -->
+          <div class="field">
+            <label>Evidencia Fotográfica de la Operación</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+              <div style="border: 2px dashed color-mix(in srgb, var(--color-text) 15%, transparent); border-radius: var(--radius-sm); padding: var(--sp-4); text-align: center; background: var(--color-surface);">
+                <div style="font-size: 24px; margin-bottom: 4px;">📷</div>
+                <strong style="font-size: var(--fs-xs); display: block;">Foto Antes (Llegada)</strong>
+                <span style="font-size: 11px; color: var(--color-text-muted);">Capturada con geolocalización</span>
+                <span class="badge" style="display: inline-block; margin-top: 6px; font-size: 10px; background: #e8f5e9; color: #2e7d32;">✓ Verificada</span>
+              </div>
+
+              <div style="border: 2px dashed var(--color-primary); border-radius: var(--radius-sm); padding: var(--sp-4); text-align: center; background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));">
+                <div style="font-size: 24px; margin-bottom: 4px;">✅</div>
+                <strong style="font-size: var(--fs-xs); display: block;">Foto Después (Sitio Despejado)</strong>
+                <span style="font-size: 11px; color: var(--color-text-muted);">Obligatoria para cierre de acta</span>
+                <span class="badge" style="display: inline-block; margin-top: 6px; font-size: 10px; background: color-mix(in srgb, var(--color-primary) 12%, transparent); color: var(--color-primary-dark);">✓ Listo para registrar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div style="display: flex; justify-content: flex-end; gap: var(--sp-3); margin-top: var(--sp-2); padding-top: var(--sp-4); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
+            <a href="tablero.html" class="btn btn--outline">Cancelar</a>
+            <button type="submit" class="btn btn--primary" style="padding-inline: var(--sp-6);">
+              Guardar y Finalizar Recolección
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <include src="src/components/modal/modal.html"></include>
+</body>
+</html>

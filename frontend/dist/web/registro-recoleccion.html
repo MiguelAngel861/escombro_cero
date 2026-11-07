@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 Web — Registro de Recolección</title>
+  <script type="module" src="../scripts/web-recoleccion.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <aside class="sidebar" aria-label="Menú principal">
+  <div>
+    <div style="padding: var(--sp-4) var(--sp-4) var(--sp-6); display: flex; align-items: center; gap: var(--sp-3);">
+      <img src="../assets/logo.svg" alt="Logo Escombro 0" width="36" height="36">
+      <div>
+        <div style="font-weight: 700; font-size: var(--fs-md); color: var(--color-primary-dark); line-height: 1.1;">Escombro 0</div>
+        <div style="font-size: var(--fs-xs); color: var(--color-text-muted);">Plataforma Web</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="tablero.html" class="sidebar-item" data-page="tablero">
+        <span class="sidebar-ico">⊞</span>
+        <span>Tablero</span>
+      </a>
+      <a href="registro-recoleccion.html" class="sidebar-item" data-page="recoleccion">
+        <span class="sidebar-ico">✍</span>
+        <span>Recolección</span>
+      </a>
+      <a href="historial.html" class="sidebar-item" data-page="historial">
+        <span class="sidebar-ico">⏱</span>
+        <span>Historial</span>
+      </a>
+      <a href="destinos.html" class="sidebar-item" data-page="destinos" data-role="admin">
+        <span class="sidebar-ico">⚑</span>
+        <span>Destinos</span>
+      </a>
+      <a href="metricas.html" class="sidebar-item" data-page="metricas" data-role="admin">
+        <span class="sidebar-ico">▲</span>
+        <span>Métricas KPI</span>
+      </a>
+      <a href="exportacion.html" class="sidebar-item" data-page="exportacion" data-role="admin">
+        <span class="sidebar-ico">⤓</span>
+        <span>Exportación</span>
+      </a>
+      <a href="usuarios.html" class="sidebar-item" data-page="usuarios" data-role="admin">
+        <span class="sidebar-ico">👥</span>
+        <span>Usuarios</span>
+      </a>
+    </nav>
+  </div>
+
+  <div style="padding-inline: var(--sp-3); display: grid; gap: var(--sp-2);">
+    <a href="../index.html" class="sidebar-item" style="color: var(--color-text-muted); font-size: var(--fs-xs);">
+      <span class="sidebar-ico">⇄</span>
+      <span>Cambiar a App Móvil</span>
+    </a>
+    <a href="login.html" class="sidebar-item" style="color: var(--state-rechazado-ink);">
+      <span class="sidebar-ico">⏻</span>
+      <span>Cerrar sesión</span>
+    </a>
+  </div>
+</aside>
+
+
+    <div class="web-main">
+      <header class="topbar">
+  <div style="display: flex; align-items: center; gap: var(--sp-3);">
+    <span style="font-weight: 600; font-size: var(--fs-md); color: var(--color-text);" id="topbar-title">Operación Managua</span>
+    <span class="badge badge--recolectado" style="font-size: 11px;">Zona Piloto Activa</span>
+  </div>
+
+  <div class="topbar-user">
+    <div style="display: flex; align-items: center; gap: var(--sp-2);">
+      <span style="font-size: var(--fs-xs); color: var(--color-text-muted);">Rol activo:</span>
+      <select id="role-switcher" class="input" style="height: 34px; min-height: 34px; padding: 0 var(--sp-3); font-size: var(--fs-xs); border-radius: var(--radius-sm); width: auto;">
+        <option value="admin">Administrador (AD-01)</option>
+        <option value="operador">Operador (OP-01)</option>
+      </select>
+    </div>
+    <button type="button" id="btn-reset-demo" class="btn btn--surface" style="min-height: 34px; padding-inline: var(--sp-3); font-size: var(--fs-xs);">
+      ↺ Reiniciar Demo
+    </button>
+  </div>
+</header>
+
+
+      <main class="page-body" style="max-width: 860px; margin: 0 auto; width: 100%;">
+        <div style="margin-bottom: var(--sp-6);">
+          <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+            Registro Oficial de Recolección
+          </h1>
+          <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+            Acta operativa para brigadas de limpieza urbana. Verifica volúmenes reales y destino final autorizado (RB-03, RB-06).
+          </p>
+        </div>
+
+        <form id="form-recoleccion" class="card" style="padding: var(--sp-6); display: grid; gap: var(--sp-5);">
+          <!-- Selección de Reporte -->
+          <div class="field">
+            <label for="select-reporte">Reporte Asignado / En Ejecución</label>
+            <select id="select-reporte" class="field-input" required=""></select>
+          </div>
+
+          <!-- Ficha de resumen del reporte seleccionado -->
+          <div id="info-reporte-seleccionado" style="display: none; background: var(--color-bg); padding: var(--sp-3); border-radius: var(--radius-sm); border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
+          </div>
+
+          <!-- Mediciones en Sitio -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="volumen-recogido">Volumen Real Recogido (m³)</label>
+              <input type="number" id="volumen-recogido" class="field-input" step="0.1" min="0.1" placeholder="Ej. 2.5" required="">
+              <span style="font-size: 11px; color: var(--color-text-muted);">Medición física en tolva o cajón de recolección</span>
+            </div>
+
+            <div class="field">
+              <label for="peso-estimado">Peso Estimado (kg)</label>
+              <input type="number" id="peso-estimado" class="field-input" step="10" placeholder="Ej. 3375" required="">
+              <span style="font-size: 11px; color: var(--color-text-muted);">Calculado a ~1,350 kg/m³ según densidad típica de escombro</span>
+            </div>
+          </div>
+
+          <!-- Destino y Fecha -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="select-destino">Destino Autorizado de Descarga</label>
+              <select id="select-destino" class="field-input" required=""></select>
+            </div>
+
+            <div class="field">
+              <label for="fecha-recoleccion">Fecha y Hora de Cierre</label>
+              <input type="datetime-local" id="fecha-recoleccion" class="field-input" required="">
+            </div>
+          </div>
+
+          <!-- Responsable y Vehículo -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="field">
+              <label for="operador-nombre">Brigadista Responsable</label>
+              <input type="text" id="operador-nombre" class="field-input" readonly="" style="background: var(--color-bg);">
+            </div>
+
+            <div class="field">
+              <label for="vehiculo-placa">Vehículo y Placa de Transporte</label>
+              <input type="text" id="vehiculo-placa" class="field-input" required="">
+            </div>
+          </div>
+
+          <!-- Evidencia Fotográfica en Terreno -->
+          <div class="field">
+            <label>Evidencia Fotográfica de la Operación</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+              <div style="border: 2px dashed color-mix(in srgb, var(--color-text) 15%, transparent); border-radius: var(--radius-sm); padding: var(--sp-4); text-align: center; background: var(--color-surface);">
+                <div style="font-size: 24px; margin-bottom: 4px;">📷</div>
+                <strong style="font-size: var(--fs-xs); display: block;">Foto Antes (Llegada)</strong>
+                <span style="font-size: 11px; color: var(--color-text-muted);">Capturada con geolocalización</span>
+                <span class="badge" style="display: inline-block; margin-top: 6px; font-size: 10px; background: #e8f5e9; color: #2e7d32;">✓ Verificada</span>
+              </div>
+
+              <div style="border: 2px dashed var(--color-primary); border-radius: var(--radius-sm); padding: var(--sp-4); text-align: center; background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));">
+                <div style="font-size: 24px; margin-bottom: 4px;">✅</div>
+                <strong style="font-size: var(--fs-xs); display: block;">Foto Después (Sitio Despejado)</strong>
+                <span style="font-size: 11px; color: var(--color-text-muted);">Obligatoria para cierre de acta</span>
+                <span class="badge" style="display: inline-block; margin-top: 6px; font-size: 10px; background: color-mix(in srgb, var(--color-primary) 12%, transparent); color: var(--color-primary-dark);">✓ Listo para registrar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div style="display: flex; justify-content: flex-end; gap: var(--sp-3); margin-top: var(--sp-2); padding-top: var(--sp-4); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
+            <a href="tablero.html" class="btn btn--outline">Cancelar</a>
+            <button type="submit" class="btn btn--primary" style="padding-inline: var(--sp-6);">
+              Guardar y Finalizar Recolección
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-container" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-title" class="modal-title">Título del modal</h3>
+      <button type="button" class="btn btn--surface modal-close" style="min-height: 32px; padding: 0 var(--sp-2); font-size: var(--fs-md);" aria-label="Cerrar modal">✕</button>
+    </div>
+    <div id="modal-body" class="modal-body">
+      <!-- Contenido dinámico del modal -->
+    </div>
+    <div id="modal-foot" class="modal-foot">
+      <button type="button" class="btn btn--surface modal-close">Cancelar</button>
+      <button type="button" id="modal-action-btn" class="btn btn--primary">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

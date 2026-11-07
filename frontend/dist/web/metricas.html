@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 Web — Métricas de Impacto</title>
+  <script type="module" src="../scripts/web-metricas.js"></script>
+</head>
+<body>
+  <div class="web-shell">
+    <aside class="sidebar" aria-label="Menú principal">
+  <div>
+    <div style="padding: var(--sp-4) var(--sp-4) var(--sp-6); display: flex; align-items: center; gap: var(--sp-3);">
+      <img src="../assets/logo.svg" alt="Logo Escombro 0" width="36" height="36">
+      <div>
+        <div style="font-weight: 700; font-size: var(--fs-md); color: var(--color-primary-dark); line-height: 1.1;">Escombro 0</div>
+        <div style="font-size: var(--fs-xs); color: var(--color-text-muted);">Plataforma Web</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="tablero.html" class="sidebar-item" data-page="tablero">
+        <span class="sidebar-ico">⊞</span>
+        <span>Tablero</span>
+      </a>
+      <a href="registro-recoleccion.html" class="sidebar-item" data-page="recoleccion">
+        <span class="sidebar-ico">✍</span>
+        <span>Recolección</span>
+      </a>
+      <a href="historial.html" class="sidebar-item" data-page="historial">
+        <span class="sidebar-ico">⏱</span>
+        <span>Historial</span>
+      </a>
+      <a href="destinos.html" class="sidebar-item" data-page="destinos" data-role="admin">
+        <span class="sidebar-ico">⚑</span>
+        <span>Destinos</span>
+      </a>
+      <a href="metricas.html" class="sidebar-item" data-page="metricas" data-role="admin">
+        <span class="sidebar-ico">▲</span>
+        <span>Métricas KPI</span>
+      </a>
+      <a href="exportacion.html" class="sidebar-item" data-page="exportacion" data-role="admin">
+        <span class="sidebar-ico">⤓</span>
+        <span>Exportación</span>
+      </a>
+      <a href="usuarios.html" class="sidebar-item" data-page="usuarios" data-role="admin">
+        <span class="sidebar-ico">👥</span>
+        <span>Usuarios</span>
+      </a>
+    </nav>
+  </div>
+
+  <div style="padding-inline: var(--sp-3); display: grid; gap: var(--sp-2);">
+    <a href="../index.html" class="sidebar-item" style="color: var(--color-text-muted); font-size: var(--fs-xs);">
+      <span class="sidebar-ico">⇄</span>
+      <span>Cambiar a App Móvil</span>
+    </a>
+    <a href="login.html" class="sidebar-item" style="color: var(--state-rechazado-ink);">
+      <span class="sidebar-ico">⏻</span>
+      <span>Cerrar sesión</span>
+    </a>
+  </div>
+</aside>
+
+
+    <div class="web-main">
+      <header class="topbar">
+  <div style="display: flex; align-items: center; gap: var(--sp-3);">
+    <span style="font-weight: 600; font-size: var(--fs-md); color: var(--color-text);" id="topbar-title">Operación Managua</span>
+    <span class="badge badge--recolectado" style="font-size: 11px;">Zona Piloto Activa</span>
+  </div>
+
+  <div class="topbar-user">
+    <div style="display: flex; align-items: center; gap: var(--sp-2);">
+      <span style="font-size: var(--fs-xs); color: var(--color-text-muted);">Rol activo:</span>
+      <select id="role-switcher" class="input" style="height: 34px; min-height: 34px; padding: 0 var(--sp-3); font-size: var(--fs-xs); border-radius: var(--radius-sm); width: auto;">
+        <option value="admin">Administrador (AD-01)</option>
+        <option value="operador">Operador (OP-01)</option>
+      </select>
+    </div>
+    <button type="button" id="btn-reset-demo" class="btn btn--surface" style="min-height: 34px; padding-inline: var(--sp-3); font-size: var(--fs-xs);">
+      ↺ Reiniciar Demo
+    </button>
+  </div>
+</header>
+
+
+      <main class="page-body" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;">
+          <div>
+            <h1 style="font-size: var(--fs-xl); font-weight: 600; margin: 0; letter-spacing: -0.02em;">
+              Métricas y Trazabilidad Municipal
+            </h1>
+            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0;">
+              Indicadores clave de desempeño ambiental y gestión territorial de escombros en la Zona Piloto.
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--sp-2);">
+            <label for="selector-periodo" style="font-size: var(--fs-xs); color: var(--color-text-muted);">Período:</label>
+            <select id="selector-periodo" class="field-input" style="padding-block: var(--sp-2); font-size: var(--fs-xs);">
+              <option value="mes">Noviembre 2026 (Mes en curso)</option>
+              <option value="trimestre">Último trimestre</option>
+              <option value="historico">Histórico total piloto</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 4 Tarjetas KPI Principales (SPEC-W10 / CA-WEB-V05) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-6);">
+          <article class="card" style="padding: var(--sp-5);">
+            <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-2);">
+              Total Reportes Registrados
+            </span>
+            <div id="kpi-total" style="font-size: 32px; font-weight: 700; font-family: var(--font-mono); line-height: 1; color: var(--color-text);">
+              0
+            </div>
+            <span style="font-size: 11px; color: var(--color-text-muted); margin-top: 6px; display: block;">100% geolocalizados</span>
+          </article>
+
+          <article class="card" style="padding: var(--sp-5);">
+            <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-2);">
+              Reportes Resueltos (Recolectados)
+            </span>
+            <div id="kpi-recolectados" style="font-size: 32px; font-weight: 700; font-family: var(--font-mono); line-height: 1; color: var(--color-primary-dark);">
+              0
+            </div>
+            <span style="font-size: 11px; color: var(--color-text-muted); margin-top: 6px; display: block;">Efectividad de brigadas</span>
+          </article>
+
+          <article class="card" style="padding: var(--sp-5);">
+            <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-2);">
+              Volumen Total Trasladado
+            </span>
+            <div id="kpi-volumen" style="font-size: 32px; font-weight: 700; font-family: var(--font-mono); line-height: 1; color: var(--color-primary);">
+              0.0 m³
+            </div>
+            <span id="kpi-volumen-sub" style="font-size: 11px; color: var(--color-text-muted); margin-top: 6px; display: block;">~0 Toneladas</span>
+          </article>
+
+          <article class="card" style="padding: var(--sp-5);">
+            <span style="font-size: var(--fs-xs); color: var(--color-text-muted); display: block; margin-bottom: var(--sp-2);">
+              Cobertura Territorial Piloto
+            </span>
+            <div id="kpi-cobertura" style="font-size: 32px; font-weight: 700; font-family: var(--font-mono); line-height: 1; color: var(--color-text);">
+              94.2%
+            </div>
+            <span style="font-size: 11px; color: var(--color-text-muted); margin-top: 6px; display: block;">Dentro del polígono UNCSM</span>
+          </article>
+        </div>
+
+        <!-- Paneles de Desglose Analítico -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: var(--sp-6);">
+          <!-- Desglose por Tipo de Material -->
+          <article class="card" style="padding: var(--sp-5);">
+            <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+              Composición por Tipo de Material
+            </h2>
+            <div id="material-breakdown"></div>
+          </article>
+
+          <!-- Distribución por Estados FSM -->
+          <article class="card" style="padding: var(--sp-5);">
+            <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+              Distribución por Estado Operativo
+            </h2>
+            <div id="status-breakdown"></div>
+          </article>
+
+          <!-- Uso de Capacidad en Destinos -->
+          <article class="card" style="padding: var(--sp-5); grid-column: 1 / -1;">
+            <h2 style="font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 0 0 var(--sp-4);">
+              Ocupación en Centros de Destino y Reciclaje
+            </h2>
+            <div id="destinos-breakdown"></div>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

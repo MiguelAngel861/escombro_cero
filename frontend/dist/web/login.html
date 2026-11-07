@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 Web — Iniciar sesión</title>
+  <script type="module" src="../scripts/web-login.js"></script>
+  <style>
+    .web-login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-6);
+      background: radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--color-primary) 10%, var(--color-bg)) 0%, var(--color-bg) 75%);
+    }
+    .web-login-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-modal);
+      border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+      width: 100%;
+      max-width: 440px;
+      padding: var(--sp-8);
+      display: grid;
+      gap: var(--sp-6);
+    }
+    .web-login-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      text-align: center;
+    }
+    .web-login-title {
+      font-size: var(--fs-xl);
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .web-login-sub {
+      color: var(--color-text-muted);
+      font-size: var(--fs-sm);
+      margin: 0;
+    }
+    .role-hint {
+      background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-3);
+      font-size: var(--fs-xs);
+      color: var(--color-primary-dark);
+      display: flex;
+      gap: var(--sp-2);
+    }
+  </style>
+</head>
+<body>
+  <main class="web-login-wrap">
+    <div class="web-login-card">
+      <div class="web-login-brand">
+        <img src="../assets/logo.svg" alt="Logo Escombro 0" width="64" height="64">
+        <div>
+          <h1 class="web-login-title">Plataforma Web</h1>
+          <p class="web-login-sub">Gestión, recolección y trazabilidad municipal</p>
+        </div>
+      </div>
+
+      <div class="role-hint">
+        <span aria-hidden="true">ℹ</span>
+        <span>Selecciona el rol para la demostración interactiva: el Administrador tiene control total y el Operador gestiona recolección.</span>
+      </div>
+
+      <form id="form-login" class="field" style="gap: var(--sp-4);">
+        <div class="field">
+          <label for="rol-select">Rol de acceso</label>
+          <select id="rol-select" class="field-input">
+            <option value="admin">Administrador / Supervisor Municipal</option>
+            <option value="operador">Operador de Recolección (Brigadista)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo electrónico institucional</label>
+          <input type="email" id="correo" class="field-input" value="carlos.admin@alcaldia.gob.ni" required="">
+        </div>
+
+        <div class="field">
+          <label for="pass">Contraseña (demo)</label>
+          <input type="password" id="pass" class="field-input" value="admin2026" required="">
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full" style="margin-top: var(--sp-2);">
+          Acceder al sistema
+        </button>
+      </form>
+
+      <div style="text-align: center; font-size: var(--fs-xs); color: var(--color-text-muted); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); padding-top: var(--sp-4);">
+        <a href="../index.html" style="color: var(--color-primary-dark); text-decoration: none; font-weight: 500;">← Volver al selector de plataformas</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
