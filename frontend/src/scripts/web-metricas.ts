@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const pct = Math.round((v / volumenGeneral) * 100);
         return `
           <div style="margin-bottom: var(--sp-4);">
-            <div style="display: flex; justify-content: space-between; font-size: var(--fs-xs); margin-bottom: 4px;">
+            <div style="display: flex; justify-content: space-between; font-size: var(--fs-xs); margin-bottom: var(--sp-1);">
               <span><strong>${ETIQUETAS_TIPO[t]}</strong></span>
               <span style="font-family: var(--font-mono); color: var(--color-text-muted);">${v.toFixed(1)} m³ (${pct}%)</span>
             </div>

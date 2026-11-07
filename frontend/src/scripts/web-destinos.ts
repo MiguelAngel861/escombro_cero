@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
               ID: ${d.id}
             </div>
 
-            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 0 0 var(--sp-4); display: flex; align-items: center; gap: 4px;">
+            <p style="font-size: var(--fs-xs); color: var(--color-text-muted); margin: 0 0 var(--sp-4); display: flex; align-items: center; gap: var(--sp-1);">
               <span>📍</span> <span>${store.esc(d.direccion)}</span>
             </p>
 
