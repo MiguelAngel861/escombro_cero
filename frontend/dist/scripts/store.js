@@ -47,9 +47,9 @@ export function ensureSeed() {
     if (leer(K.recolecciones, null) === null) {
         guardar(K.recolecciones, RECOLECCIONES_DEMO);
     }
-    if (leer(K.adoquines, null) === null) {
-        guardar(K.adoquines, ADOQUINES_DEMO);
-    }
+    // El catálogo de adoquines es maestro (solo Adoquín Trebol): siempre se sobrescribe
+    // para que nunca queden productos antiguos de ejecuciones previas en localStorage.
+    guardar(K.adoquines, ADOQUINES_DEMO);
     if (leer(K.pedidos, null) === null) {
         guardar(K.pedidos, PEDIDOS_DEMO);
     }
