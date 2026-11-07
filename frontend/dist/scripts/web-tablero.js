@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (items.length === 0) {
             listaContainer.innerHTML = `
         <div class="card" style="text-align: center; padding: var(--sp-8); color: var(--color-text-muted);">
-          <div style="font-size: 32px; margin-bottom: var(--sp-2);">📭</div>
+          <div style="font-size: 32px; margin-bottom: var(--sp-2);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;display:inline-block;"><polyline points="7 5 12 10 17 5"/><path d="M7 5v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5"/></svg></div>
           <strong>No hay reportes en esta categoría</strong>
           <p style="font-size: var(--fs-xs); margin: var(--sp-1) 0 0;">Selecciona otro filtro para visualizar registros de la zona piloto.</p>
         </div>`;
@@ -108,10 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
               
               <div style="flex: 1; min-width: 0;">
                 <div class="card-title" style="margin-bottom: var(--sp-1);">${tipoLabel} · <strong>${r.volumenM3} m³</strong></div>
-                <div style="font-size: var(--fs-xs); color: var(--color-text-muted); line-height: 1.4;">📍 ${r.ubicacion || "Ubicación en zona piloto (Managua)"}</div>
+                <div style="font-size: var(--fs-xs); color: var(--color-text-muted); line-height: 1.4; display: flex; align-items: center; gap: var(--sp-1);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0"/></svg>${r.ubicacion || "Ubicación en zona piloto (Managua)"}</div>
                 <div class="card-meta" style="margin-top: var(--sp-2);">
-                  <span>🕒 ${store.formateaFecha(r.fechaCreacion)}</span>
-                  ${r.idOperadorAsignado ? `<span>👷 Asignado a: <strong>${r.idOperadorAsignado}</strong></span>` : ""}
+                  <span style="display: flex; align-items: center; gap: var(--sp-1);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${store.formateaFecha(r.fechaCreacion)}</span>
+                  ${r.idOperadorAsignado ? `<span style="display: flex; align-items: center; gap: var(--sp-1);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><path d="M9 12h6m6-6v6a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-6m6-6h.01"/><path d="M17 22h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4"/></svg>Asignado a: <strong>${r.idOperadorAsignado}</strong></span>` : ""}
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Modal de asignación de brigada (WEB-V03)
     function abrirModalAsignacion(idReporte) {
         var _a;
-        const backdrop = document.getElementById("modal-container");
+        const backdrop = document.getElementById("modal-root");
         const title = document.getElementById("modal-title");
         const body = document.getElementById("modal-body");
         const actionBtn = document.getElementById("modal-action-btn");
