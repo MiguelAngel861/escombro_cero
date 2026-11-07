@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    modalRoot.removeAttribute("hidden");
+    modalRoot.classList.add("is-visible");
 
     const selRol = document.getElementById("user-rol") as HTMLSelectElement | null;
     const wrapVehiculo = document.getElementById("wrapper-vehiculo");
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleVehiculoField();
 
     document.getElementById("btn-cancel-user")?.addEventListener("click", () => {
-      modalRoot.setAttribute("hidden", "true");
+      modalRoot.classList.remove("is-visible");
     });
 
     document.getElementById("btn-save-user")?.addEventListener("click", () => {
@@ -173,10 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
         store.guardarUsuariosSistema(lista);
       }
 
-      modalRoot.setAttribute("hidden", "true");
+      modalRoot.classList.remove("is-visible");
       renderUsuarios();
     });
   }
+
+  // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+  modalRoot.addEventListener("click", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (target === modalRoot || target.closest("#modal-close")) {
+      modalRoot.classList.remove("is-visible");
+    }
+  });
 
   document.getElementById("btn-nuevo-usuario")?.addEventListener("click", () => {
     abrirModalUsuario();

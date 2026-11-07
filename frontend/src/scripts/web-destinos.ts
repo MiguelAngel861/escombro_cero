@@ -142,10 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    modalRoot.removeAttribute("hidden");
+    modalRoot.classList.add("is-visible");
 
     document.getElementById("btn-cancel-dest")?.addEventListener("click", () => {
-      modalRoot.setAttribute("hidden", "true");
+      modalRoot.classList.remove("is-visible");
     });
 
     document.getElementById("btn-save-dest")?.addEventListener("click", () => {
@@ -181,10 +181,18 @@ document.addEventListener("DOMContentLoaded", () => {
         store.guardarDestinos(lista);
       }
 
-      modalRoot.setAttribute("hidden", "true");
+      modalRoot.classList.remove("is-visible");
       renderDestinos();
     });
   }
+
+  // Cerrar modal al hacer clic fuera del contenido (backdrop) o en el botón X
+  modalRoot.addEventListener("click", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (target === modalRoot || target.closest("#modal-close")) {
+      modalRoot.classList.remove("is-visible");
+    }
+  });
 
   document.getElementById("btn-nuevo-destino")?.addEventListener("click", () => {
     abrirModalDestino();
