@@ -1,0 +1,99 @@
+/* inputs.css — Formularios y campos compartidos (móvil y web) */
+.field {
+  display: grid;
+  gap: var(--sp-2);
+  min-width: 0;
+  width: 100%;
+}
+
+.field label,
+.label {
+  display: block;
+  font: 500 var(--fs-sm)/1.2 var(--font-sans);
+  color: var(--color-text);
+}
+
+.field .field-input,
+.field-input,
+.input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 48px;
+  height: 48px;
+  padding: 0 var(--sp-3);
+  border: 1.5px solid color-mix(in srgb, var(--color-text) 18%, transparent);
+  border-radius: var(--radius-md);
+  font: 400 var(--fs-md)/1 var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  transition: border-color .15s ease, box-shadow .15s ease;
+  outline: none;
+}
+
+.field .field-input:focus,
+.field-input:focus,
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  outline: none;
+}
+
+.field select.field-input,
+.field select.input,
+select.field-input,
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--color-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-3) center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+select.field-input option,
+select.input option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  padding: 8px 12px;
+}
+
+textarea.field-input,
+textarea.input {
+  height: auto;
+  min-height: 84px;
+  padding: var(--sp-3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.field--error .field-input,
+.field--error .input {
+  border-color: var(--state-rechazado);
+}
+
+.field .field-error {
+  display: none;
+  font-size: var(--fs-xs);
+  color: var(--state-rechazado-ink);
+}
+
+.field--error .field-error {
+  display: block;
+}
+
+.field-input.is-off,
+.input.is-off {
+  opacity: .55;
+}

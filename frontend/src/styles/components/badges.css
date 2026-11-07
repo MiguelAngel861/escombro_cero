@@ -1,0 +1,84 @@
+/* badges.css — Badges de estado FSM y alertas (SPEC §6.5 / ADR-14) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  width: fit-content;
+}
+
+.badge i.pin {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+}
+
+.badge--pendiente {
+  color: var(--state-pendiente-ink);
+  background: var(--state-pendiente-bg);
+}
+.badge--pendiente i.pin {
+  background: var(--state-pendiente);
+}
+
+.badge--en-revision,
+.badge--en_revision {
+  color: var(--state-en-revision-ink);
+  background: var(--state-en-revision-bg);
+}
+.badge--en-revision i.pin,
+.badge--en_revision i.pin {
+  background: var(--state-en-revision);
+}
+
+.badge--programado {
+  color: var(--state-programado-ink);
+  background: var(--state-programado-bg);
+}
+.badge--programado i.pin {
+  background: var(--state-programado);
+}
+
+.badge--recolectado {
+  color: var(--state-recolectado-ink);
+  background: var(--state-recolectado-bg);
+}
+.badge--recolectado i.pin {
+  background: var(--state-recolectado);
+}
+
+.badge--rechazado {
+  color: var(--state-rechazado-ink);
+  background: var(--state-rechazado-bg);
+}
+.badge--rechazado i.pin {
+  background: var(--state-rechazado);
+}
+
+.badge--expirado {
+  color: var(--state-expirado-ink);
+  background: var(--state-expirado-bg);
+}
+.badge--expirado i.pin {
+  background: var(--state-expirado);
+}
+
+/* Alertas especiales (SPEC-W02 / RB-08: duplicado, peligroso) */
+.badge--alert-danger {
+  color: var(--state-rechazado-ink);
+  background: var(--state-rechazado-bg);
+}
+.badge--alert-danger i.pin {
+  background: var(--color-danger);
+}
+
+.badge--alert-warning {
+  color: var(--state-expirado-ink);
+  background: var(--state-expirado-bg);
+}
+.badge--alert-warning i.pin {
+  background: var(--color-warning);
+}

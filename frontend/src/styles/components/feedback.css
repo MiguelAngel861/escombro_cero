@@ -1,0 +1,82 @@
+/* feedback.css — Micro-interacciones, chips de filtro, toasts y loaders */
+.chips {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  padding-bottom: var(--sp-1);
+  scrollbar-width: none;
+}
+
+.chip {
+  flex: none;
+  padding: var(--sp-1) var(--sp-3);
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid color-mix(in srgb, var(--color-text) 15%, transparent);
+  border-radius: 999px;
+  font: 500 var(--fs-xs)/1 var(--font-sans);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+
+.chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.chip--on {
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+  background: var(--state-recolectado-bg);
+}
+
+/* Toast de notificación simulada */
+.toast {
+  position: fixed;
+  inset-inline: var(--sp-4);
+  bottom: 84px;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-dark);
+  color: var(--color-surface);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.toast--on {
+  opacity: 1;
+  transform: none;
+}
+
+/* Loader — 3 puntos que respiran (kit: loops 2.5–4 s) */
+.loader {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.loader i {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .35;
+  animation: loader-breathe 3s ease-in-out infinite;
+}
+
+.loader i:nth-child(2) { animation-delay: .35s; }
+.loader i:nth-child(3) { animation-delay: .7s; }
+
+@keyframes loader-breathe {
+  0%, 100% { opacity: .3; transform: scale(.9); }
+  40%      { opacity: 1;  transform: scale(1.12); }
+}

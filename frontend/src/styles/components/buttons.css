@@ -1,0 +1,70 @@
+/* buttons.css — Botones y foco accesible compartidos (móvil y web) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding-inline: var(--sp-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  font: 500 var(--fs-md)/1 var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+.btn--primary {
+  background: var(--color-primary-dark);
+  color: var(--color-surface);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  background: var(--color-primary);
+}
+.btn--primary:active {
+  transform: translateY(0) scale(.97);
+}
+
+.btn--surface {
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  border: 1.5px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+.btn--surface:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--color-surface) 90%, var(--color-primary));
+}
+.btn--surface:active {
+  transform: translateY(0) scale(.97);
+}
+
+.btn--danger {
+  background: var(--color-danger);
+  color: var(--color-surface);
+}
+.btn--danger:hover {
+  transform: translateY(-2px);
+  background: var(--state-rechazado-ink);
+}
+.btn--danger:active {
+  transform: translateY(0) scale(.97);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--disabled {
+  background: color-mix(in srgb, var(--color-text) 8%, var(--color-surface));
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}

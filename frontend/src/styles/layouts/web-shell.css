@@ -1,0 +1,164 @@
+/* web-shell.css — Shell de plataforma web: Sidebar, Topbar, Content y Split View (SPEC-W01) */
+body:has(.web-shell) {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+  background: var(--color-bg) !important;
+}
+
+.web-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background: var(--color-bg);
+  box-sizing: border-box;
+}
+
+.web-shell--collapsed {
+  grid-template-columns: var(--sidebar-w-collapsed) minmax(0, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .web-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sidebar {
+    display: none;
+  }
+}
+
+.web-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-bg);
+  box-sizing: border-box;
+}
+
+.topbar {
+  height: 64px;
+  background: var(--color-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--sp-6);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+}
+
+.sidebar {
+  background: var(--color-surface);
+  border-right: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: var(--sp-4);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: var(--sp-1);
+  padding-inline: var(--sp-3);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.sidebar-item:hover {
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  color: var(--color-primary-dark);
+}
+
+.sidebar-item.is-active {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.sidebar-ico {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+/* Contenido principal web unificado (DESIGN §5) */
+.web-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--sp-6);
+  gap: var(--sp-6);
+  min-width: 0;
+}
+
+/* Split View para Web Tablero (WEB-V02: 60/40) */
+.split-view {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--sp-6);
+  height: calc(100vh - 64px);
+  padding: var(--sp-6);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.split-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding-right: var(--sp-2);
+}
+
+@media (max-width: 1280px) {
+  .split-view {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+}

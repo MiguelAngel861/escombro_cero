@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V01 Splash</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    /* page CSS: solo estética del splash (todo color/espaciado sale de tokens.css, ADR-05) */
+    .splash {
+      flex: 1;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--sp-6) var(--sp-4) var(--sp-8);
+      background:
+        radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--color-primary) 55%, var(--color-primary-dark)) 0%, var(--color-primary-dark) 72%);
+      color: var(--color-surface);
+      text-align: center;
+    }
+
+    .splash-hero {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--sp-3);
+      animation: splash-fade .7s ease both;
+    }
+    .splash-logo { inline-size: 96px; block-size: 96px; }
+    .splash-name {
+      font-size: var(--fs-hero); font-weight: 500;
+      letter-spacing: var(--track-hero); line-height: 1.02; margin: var(--sp-3) 0 0;
+      color: var(--color-surface);
+    }
+    .splash-tagline { margin: 0; color: color-mix(in srgb, var(--color-surface) 80%, var(--color-primary-dark)); font-size: var(--fs-md); }
+    .splash-loader { margin-top: var(--sp-6); color: var(--color-surface); }
+
+    .splash-actions { display: grid; gap: var(--sp-3); margin-top: var(--sp-6); animation: splash-rise .7s ease .35s both; }
+    .splash-version { margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-xs); opacity: .6; }
+
+    @keyframes splash-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes splash-rise { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body data-ground="sage">
+<main class="screen" style="color: var(--color-surface);">
+  <section class="splash" aria-label="Bienvenida">
+    <div class="splash-hero">
+      <img class="splash-logo" src="../assets/logo.svg" alt="Logo Escombro 0" width="96" height="96">
+      <h1 class="splash-name">Escombro 0</h1>
+      <p class="splash-tagline">Registra el retiro de escombros de tu zona</p>
+      <span class="loader splash-loader" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+
+    <div class="splash-actions">
+      <a class="btn btn--surface btn--full" href="login.html">Comenzar</a>
+      <span class="splash-version">prototipo cnsv1 · APP-V01</span>
+    </div>
+  </section>
+</main>
+</body>
+</html>

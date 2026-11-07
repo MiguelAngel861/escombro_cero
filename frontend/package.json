@@ -1,0 +1,26 @@
+{
+  "name": "creanose-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "description": "Prototipo de vistas móvil y web del sistema Escombro 0 — HTML5 semántico, CSS modular BEM + PostCSS, TypeScript",
+  "scripts": {
+    "css": "postcss src/styles/main.css -o dist/styles/main.css && postcss src/styles/tokens.css -o dist/styles/tokens.css && postcss src/styles/base.css -o dist/styles/base.css && postcss src/styles/components.css -o dist/styles/components.css",
+    "css:watch": "postcss src/styles/main.css -o dist/styles/main.css --watch",
+    "js": "tsc",
+    "js:watch": "tsc --watch",
+    "copy": "rm -rf dist/assets dist/mobile dist/web && mkdir -p dist/assets dist/mobile dist/web dist/styles && cp -r src/assets/* dist/assets/ && cp src/views/mobile/*.html dist/mobile/ && (cp src/views/web/*.html dist/web/ 2>/dev/null || true) && cp src/views/index.html dist/index.html",
+    "build": "pnpm run css && pnpm run js && pnpm run copy",
+    "dev": "pnpm run build && npx serve dist"
+  },
+  "devDependencies": {
+    "@fontsource-variable/host-grotesk": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "typescript": "7.0.2"
+  }
+}

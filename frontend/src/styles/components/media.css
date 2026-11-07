@@ -1,0 +1,47 @@
+/* media.css — Captura de fotos simulada y placeholders demo (APP-V05, WEB-V04) */
+.img-capture {
+  inline-size: 100%;
+  align-self: stretch;
+  border-radius: var(--radius-md);
+  border: 1.5px dashed color-mix(in srgb, var(--color-text) 25%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  display: grid;
+  place-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6) var(--sp-4);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color .15s ease;
+}
+
+.img-capture:hover {
+  border-color: var(--color-primary);
+}
+
+.img-capture img {
+  inline-size: 100%;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.img-capture--filled {
+  border-style: solid;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.meta-gps {
+  position: absolute;
+  left: var(--sp-2);
+  bottom: var(--sp-2);
+  display: inline-flex;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: 999px;
+  background: rgb(255 255 255 / .92);
+  color: var(--color-primary-dark);
+  font: 500 var(--fs-xs)/1 var(--font-mono);
+}

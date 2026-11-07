@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V08 Detalle de reporte</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <script type="module" src="../scripts/detalle-reporte.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
+    .back { align-self: flex-start; color: var(--color-primary-dark); font-weight: 500; text-decoration: none; font-size: var(--fs-sm); }
+    .back:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .header { display: grid; gap: var(--sp-1); }
+    .header h1 { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .header .card-id { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted); }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+    .fact { background: var(--color-surface); border-radius: var(--radius-sm); padding: var(--sp-2) var(--sp-3); }
+    .fact small { display: block; color: var(--color-text-muted); font-size: var(--fs-xs); }
+    .fact b { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+    .mini-map { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
+    .timeline { display: grid; gap: 0; }
+    .tstep { display: grid; grid-template-columns: 20px 1fr auto; gap: var(--sp-3); align-items: baseline; padding-block: var(--sp-2); }
+    .tstep .dot { inline-size: 12px; block-size: 12px; border-radius: 50%; align-self: center; border: 2px solid currentColor; }
+    .tstep.done .dot { background: currentColor; }
+    .tstep .lbl { font-size: var(--fs-sm); font-weight: 500; }
+    .tstep time { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted); }
+    .rule { inline-size: 2px; justify-self: center; background: color-mix(in srgb, var(--color-text) 15%, transparent); grid-row: span 1; }
+    .banner-cambios { background: var(--state-en-revision-bg); color: var(--state-en-revision-ink); padding: var(--sp-3); border-radius: var(--radius-sm); font-size: var(--fs-sm); font-weight: 500; display: flex; gap: var(--sp-2); }
+    .motivo-box { background: var(--state-rechazado-bg); color: var(--state-rechazado-ink); padding: var(--sp-3); border-radius: var(--radius-sm); display: grid; gap: var(--sp-1); font-size: var(--fs-sm); }
+    section .full { display: grid; gap: var(--sp-2); }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" id="detalle" aria-label="Detalle del reporte">
+    <a class="back" href="mis-reportes.html">‹ Mis reportes</a>
+    <div id="canvas" style="display:contents;"></div> <!-- renderizado por el script -->
+  </section>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="menu.html"><span class="nav-ico">⌂</span>Inicio</a>
+    <a href="nuevo-reporte.html"><span class="nav-ico">＋</span>Nuevo</a>
+    <a href="mis-reportes.html" class="nav--on" aria-current="page"><span class="nav-ico">▤</span>Reportes</a>
+    <a href="mapa.html"><span class="nav-ico">◎</span>Mapa</a>
+    <a href="perfil.html"><span class="nav-ico">◔</span>Perfil</a>
+  </nav>
+</main>
+</body>
+</html>

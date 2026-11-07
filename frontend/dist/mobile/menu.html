@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V04 Menú</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <script type="module" src="../scripts/menu.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .greet { display: grid; gap: 2px; padding-block: var(--sp-2); }
+    .greet h1 { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .greet p { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+
+    .summary { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+    .summary .card { align-items: center; display: grid; place-items: center; gap: 2px; padding: var(--sp-4) var(--sp-2); }
+    .summary b { font-size: var(--fs-xl); font-variant-numeric: tabular-nums; }
+
+    .quick { display: grid; gap: var(--sp-3); }
+    .quick .card { grid-template-columns: auto 1fr auto; align-items: center; display: grid; gap: var(--sp-3);
+                   text-decoration: none; color: inherit; }
+    .quick .card .qico { inline-size: 40px; block-size: 40px; border-radius: var(--radius-sm); background: var(--state-recolectado-bg);
+                        display: grid; place-items: center; color: var(--color-primary-dark); font-size: var(--fs-lg); }
+    .quick .card strong { font-weight: 500; }
+    .quick .card span.sub { display: block; color: var(--color-text-muted); font-size: var(--fs-xs); margin-top: 2px; }
+    .quick .card > span.chev { color: var(--color-text-muted); font-size: var(--fs-lg); }
+    .card--tapp:hover { transform: translateY(-2px); }
+    .content { flex: 1; display: grid; gap: var(--sp-4); align-content: start; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Menú principal">
+    <div class="greet">
+      <h1 id="greet-name">Hola</h1>
+      <p id="greet-zona">Zona piloto · Cercado</p>
+    </div>
+
+    <div class="summary">
+      <div class="card"><b id="sum-activos">0</b><span class="card-meta">Reportes activos</span></div>
+      <div class="card"><b id="sum-recolectados">0</b><span class="card-meta">Recolectados</span></div>
+    </div>
+
+    <div class="content quick">
+      <a class="card card--tapp" href="nuevo-reporte.html">
+        <span class="qico" aria-hidden="true">＋</span>
+        <strong>Nuevo reporte<span class="sub">Toma foto y describe el escombro</span></strong>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+      <a class="card card--tapp" href="mis-reportes.html">
+        <span class="qico" aria-hidden="true">▤</span>
+        <strong>Mis reportes<span class="sub" id="q-sub-reportes">Sigue el estado de tus reportes</span></strong>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+      <a class="card card--tapp" href="mapa.html">
+        <span class="qico" aria-hidden="true">◎</span>
+        <strong>Mapa de tu zona<span class="sub">Tus reportes sobre la zona piloto</span></strong>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <a href="menu.html" class="nav--on" aria-current="page"><span class="nav-ico">⌂</span>Inicio</a>
+      <a href="nuevo-reporte.html"><span class="nav-ico">＋</span>Nuevo</a>
+      <a href="mis-reportes.html"><span class="nav-ico">▤</span>Reportes</a>
+      <a href="mapa.html"><span class="nav-ico">◎</span>Mapa</a>
+      <a href="perfil.html"><span class="nav-ico">◔</span>Perfil</a>
+    </nav>
+  </section>
+</main>
+</body>
+</html>

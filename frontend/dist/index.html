@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — Prototipo Reto #3 (UNCSM)</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .portal-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-6) var(--sp-4);
+      background: radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--color-primary) 12%, var(--color-bg)) 0%, var(--color-bg) 80%);
+    }
+    .portal-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 48px rgb(0 0 0 / .08);
+      border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+      max-width: 680px;
+      width: 100%;
+      padding: var(--sp-8);
+      display: grid;
+      gap: var(--sp-6);
+      text-align: center;
+    }
+    .portal-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+    .portal-logo { width: 80px; height: 80px; }
+    .portal-title {
+      margin: 0;
+      font-size: var(--fs-xl);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-primary-dark);
+    }
+    .portal-sub {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: var(--fs-md);
+      max-width: 480px;
+    }
+    .portal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+      margin-top: var(--sp-2);
+    }
+    @media (max-width: 600px) {
+      .portal-grid { grid-template-columns: 1fr; }
+    }
+    .portal-option {
+      border: 1.5px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      text-decoration: none;
+      color: inherit;
+      background: var(--color-surface);
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .portal-option:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-primary);
+      box-shadow: 0 8px 24px rgb(0 0 0 / .08);
+    }
+    .portal-option-ico {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+      color: var(--color-primary-dark);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+    }
+    .portal-option-title {
+      font-weight: 600;
+      font-size: var(--fs-md);
+      margin: 0;
+    }
+    .portal-option-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .portal-foot {
+      font-size: var(--fs-xs);
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+      padding-top: var(--sp-4);
+    }
+  </style>
+</head>
+<body>
+  <main class="portal-wrap">
+    <div class="portal-card">
+      <div class="portal-brand">
+        <img class="portal-logo" src="assets/logo.svg" alt="Logo Escombro 0" width="80" height="80">
+        <h1 class="portal-title">Escombro 0 — Reto #3</h1>
+        <p class="portal-sub">Sistema interdisciplinario de registro, trazabilidad y aprovechamiento de escombros de Managua (UNCSM).</p>
+      </div>
+
+      <div class="portal-grid">
+        <a class="portal-option" href="mobile/splash.html">
+          <div class="portal-option-ico">📱</div>
+          <h2 class="portal-option-title">App Móvil (Ciudadano)</h2>
+          <p class="portal-option-desc">Reporte georreferenciado de escombros, captura de fotos, volumen m³, validación de zona y seguimiento.</p>
+          <span class="btn btn--primary btn--full" style="margin-top:auto;min-height:38px;font-size:var(--fs-sm);">Abrir App</span>
+        </a>
+
+        <a class="portal-option" href="web/login.html">
+          <div class="portal-option-ico">💻</div>
+          <h2 class="portal-option-title">Plataforma Web (Operador / Admin)</h2>
+          <p class="portal-option-desc">Tablero interactivo 60/40, asignación de brigadas, registro de recolección, métricas e historial.</p>
+          <span class="btn btn--surface btn--full" style="margin-top:auto;min-height:38px;font-size:var(--fs-sm);">Abrir Web</span>
+        </a>
+      </div>
+
+      <div class="portal-foot">
+        Prototipo de Ingeniería de Sistemas · Torneo Comandante Carlos Fonseca Amador · 2026
+      </div>
+    </div>
+  </main>
+</body>
+</html>

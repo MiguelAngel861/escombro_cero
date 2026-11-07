@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 · Sistema de diseño — Tokens y estados</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    /* Solo page-CSS con tokens (kit: collage propio permitido, contraste extra via tokens derivados) */
+    html { font-family: var(--font-sans); color: var(--color-text); background: var(--color-bg); }
+    body { margin: 0; }
+    .wrap { max-width: var(--web-wrap-max); margin-inline: auto; padding-inline: max(32px, calc((100vw - var(--web-wrap-max)) / 2)); }
+
+    header.topbar { padding-block: var(--sp-6); display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: var(--sp-3); font-size: var(--fs-lg); font-weight: 500; }
+    .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--color-primary); }
+    .theme-tag { color: var(--color-text-muted); font-size: var(--fs-sm); }
+
+    section { padding-block: var(--sp-8); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); }
+    h2 { font-size: var(--fs-xl); font-weight: 500; margin: 0 0 var(--sp-2); letter-spacing: -0.02em; }
+    .sub { color: var(--color-text-muted); font-size: var(--fs-sm); margin: 0 0 var(--sp-6); }
+
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 390px)  { .grid { grid-template-columns: 1fr; } }
+
+    /* Swatch base — tarjeta clicable del motion layer (kit regla 5) */
+    .swatch { background: var(--color-surface); border-radius: var(--radius-md); overflow: hidden;
+              box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease; cursor: default; }
+    .swatch:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgb(0 0 0 / .12); }
+    .chip-color { height: 84px; }
+    .chip-meta { display: flex; justify-content: space-between; align-items: baseline; padding: var(--sp-3) var(--sp-4); gap: var(--sp-2); }
+    .chip-name { font-weight: 500; font-size: var(--fs-sm); }
+    .chip-hex  { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted); }
+
+    /* Tarjeta de estado — badge real de la demo, no muestra */
+    .states { display: grid; gap: var(--sp-3); }
+    .state-row { display: grid; grid-template-columns: minmax(0, 220px) 1fr; align-items: center; gap: var(--sp-4);
+                 background: var(--color-surface); padding: var(--sp-3) var(--sp-4); border-radius: var(--radius-md); box-shadow: var(--shadow-card);
+                 transition: transform .15s ease; cursor: default; }
+    .state-row:hover { transform: translateY(-2px); }
+    @media (max-width: 390px) { .state-row { grid-template-columns: 1fr; gap: var(--sp-2); } }
+    .badge { display: inline-flex; align-items: center; gap: var(--sp-2); padding: var(--sp-1) var(--sp-3);
+             border-radius: 999px; font-size: var(--fs-xs); font-weight: 500; width: fit-content; }
+    .state-meta { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted);
+                  display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+    .pin { width: 14px; height: 14px; border-radius: 50%; flex: none; border: 2px solid var(--color-surface);
+           box-shadow: 0 1px 2px rgb(0 0 0 / .25); }
+    .badge i.pin { width: 8px; height: 8px; border-width: 1.5px; box-shadow: none; }
+
+    .u-pend   { color: var(--state-pendiente-ink);    background: var(--state-pendiente-bg); }
+    .u-en_rev    { color: var(--state-en-revision-ink);     background: var(--state-en-revision-bg); }
+    .u-prog   { color: var(--state-programado-ink);   background: var(--state-programado-bg); }
+    .u-rec    { color: var(--state-recolectado-ink);  background: var(--state-recolectado-bg); }
+    .u-rech   { color: var(--state-rechazado-ink);    background: var(--state-rechazado-bg); }
+    .u-reab   { color: var(--state-reabierto-ink);    background: var(--state-reabierto-bg); }
+
+    /* Momento tipográfico — deal host (mismo que llevará el login) */
+    .type-moment { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--sp-6); align-items: center;
+                   background: var(--color-primary-dark); color: var(--color-surface);
+                   border-radius: var(--radius-lg); padding: var(--sp-8); overflow: hidden; }
+    @media (max-width: 1024px) { .type-moment { grid-template-columns: 1fr; } }
+    .type-moment h3 { font-size: var(--fs-hero); letter-spacing: var(--track-hero); line-height: 1.02; margin: 0 0 var(--sp-2); font-weight: 500; }
+    .type-moment p { color: color-mix(in srgb, var(--color-surface) 75%, var(--color-primary-dark)); font-size: var(--fs-md); max-width: 42ch; }
+    .mono-sample { font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 2; }
+    .mono-sample b { color: var(--a1ffcb, #a1ffcb); font-weight: 500; }
+
+    footer { padding-block: var(--sp-8); color: var(--color-text-muted); font-size: var(--fs-xs);
+             display: flex; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; }
+  </style>
+</head>
+<body data-ground="sage">
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand"><span class="brand-dot"></span>Escombro 0 · Sistema de diseño</div>
+    <div class="theme-tag">modo claro · deal soft · kind software</div>
+  </header>
+
+  <main>
+    <!-- Tokens base -->
+    <section id="base" style="border-top: 0;">
+      <h2>Tokens de color base</h2>
+      <p class="sub">Fuente única de color (ADR-05): cero hex fuera de <code>styles/tokens.css</code>, verificable con grep.</p>
+      <div class="grid" role="list">
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-primary)"></div><div class="chip-meta"><span class="chip-name">primary</span><span class="chip-hex"> #2e7d32</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-primary-dark)"></div><div class="chip-meta"><span class="chip-name">primary-dark</span><span class="chip-hex"> #1b5e20</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-bg); outline: 1px solid rgb(0 0 0 / .06); outline-offset: -1px;"></div><div class="chip-meta"><span class="chip-name">bg</span><span class="chip-hex"> #f6f8f6</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-surface); outline: 1px solid rgb(0 0 0 / .06); outline-offset: -1px;"></div><div class="chip-meta"><span class="chip-name">surface</span><span class="chip-hex"> #ffffff</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-text)"></div><div class="chip-meta"><span class="chip-name">text</span><span class="chip-hex"> #1c1b1a</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-text-muted)"></div><div class="chip-meta"><span class="chip-name">text-muted</span><span class="chip-hex"> #6b6f6b</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-danger)"></div><div class="chip-meta"><span class="chip-name">danger</span><span class="chip-hex"> #c62828</span></div></div>
+        <div class="swatch" role="listitem"><div class="chip-color" style="background:var(--color-warning)"></div><div class="chip-meta"><span class="chip-name">warning</span><span class="chip-hex"> #f9a825</span></div></div>
+      </div>
+    </section>
+
+    <!-- Estados -->
+    <section id="estados">
+      <h2>Estados de escombro</h2>
+      <p class="sub">Mismo token para pin del mapa y badge en todo el sistema (R3-Q4/Q5). Cada muestra: badge real + fórmula mono.</p>
+      <div class="states" role="list">
+        <div class="state-row" role="listitem">
+          <span class="badge u-pend"><i class="pin" style="background:var(--state-pendiente)"></i>Pendiente de validación</span>
+          <span class="state-meta"><span>base #b26a00</span><span>bg #fbedd2</span><span>ink #7a4b00</span><span>tablero → pin</span></span>
+        </div>
+        <div class="state-row" role="listitem">
+          <span class="badge u-en_rev"><i class="pin" style="background:var(--state-en-revision)"></i>Validado en zona</span>
+          <span class="state-meta"><span>base #1565c0</span><span>bg #dce9fa</span><span>ink #0d47a1</span></span>
+        </div>
+        <div class="state-row" role="listitem">
+          <span class="badge u-prog"><i class="pin" style="background:var(--state-programado)"></i>Programado (brigada asignada)</span>
+          <span class="state-meta"><span>base #546e7a</span><span>bg #e3eaed</span><span>ink #37474f</span></span>
+        </div>
+        <div class="state-row" role="listitem">
+          <span class="badge u-rec"><i class="pin" style="background:var(--state-recolectado)"></i>Recolectado</span>
+          <span class="state-meta"><span>base #2e7d32</span><span>bg #ddedde</span><span>ink #1b5e20</span><span>= primary</span></span>
+        </div>
+        <div class="state-row" role="listitem">
+          <span class="badge u-rech"><i class="pin" style="background:var(--state-rechazado)"></i>Rechazado con motivo</span>
+          <span class="state-meta"><span>base #c62828</span><span>bg #fbe3e3</span><span>ink #b71c1c</span><span>= danger</span></span>
+        </div>
+        <div class="state-row" role="listitem">
+          <span class="badge u-reab"><i class="pin" style="background:var(--state-reabierto)"></i>Reabierto (admin)</span>
+          <span class="state-meta"><span>base #795548</span><span>bg #ece2de</span><span>ink #5d4037</span><span>terra · sin violeta</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tipografía -->
+    <section id="tipografia">
+      <h2>Deal tipográfico: host</h2>
+      <p class="sub">Host Grotesk variable (eje wght) + JetBrains Mono · woff2 locales en <code>assets/fonts/</code> · 60&nbsp;KB en total · cero CDN (NFR-S01).</p>
+      <div class="type-moment">
+        <div>
+          <h3>Escombro 0 registra<br>escombros de obra</h3>
+          <p>Host Grotesk display 500 con tracking −4%, un hecho duro en la primera pantalla y numerales tabulares donde importan los datos.</p>
+        </div>
+        <div class="mono-sample">
+          <div>REP-0247&nbsp;&nbsp;<b>12.5 m³</b>&nbsp;&nbsp;Pendiente</div>
+          <div>REP-0248&nbsp;&nbsp;<b>4.0 m³</b>&nbsp;&nbsp;Validado</div>
+          <div>REP-0249&nbsp;&nbsp;<b>8.2 m³</b>&nbsp;&nbsp;Programado</div>
+          <div>REP-0250&nbsp;&nbsp;<b>2.1 m³</b>&nbsp;&nbsp;Recolectado</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Escombro 0 — prototipo de vistas · reto #3</span>
+    <span>tokens.css v0.2 · paleta.html es referencia, no vista del flujo</span>
+  </footer>
+</div>
+</body>
+</html>

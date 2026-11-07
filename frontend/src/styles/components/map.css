@@ -1,0 +1,43 @@
+/* map.css — Visualización y paneles de mapa SVG compartidos (APP-V10, WEB-V02) */
+.split-map {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+}
+
+.map-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.map-legend {
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--color-surface);
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+}
+
+.map-pin {
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+.map-pin:hover {
+  transform: scale(1.25);
+}

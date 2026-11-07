@@ -1,0 +1,68 @@
+/* modals.css — Modales accesibles compartidos (WEB-V03, WEB-V05, WEB-V06) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / .45);
+  z-index: 100;
+  display: none;
+  place-items: center;
+  padding: var(--sp-4);
+  backdrop-filter: blur(2px);
+  animation: modal-fade-in .15s ease-out;
+}
+
+.modal-backdrop.is-visible {
+  display: grid;
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 48px rgb(0 0 0 / .2);
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-6);
+  animation: modal-scale-up .15s ease-out;
+}
+
+.modal-head,
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.modal-body {
+  display: grid;
+  gap: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+.modal-foot,
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  padding-top: var(--sp-2);
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-scale-up {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: none; }
+}

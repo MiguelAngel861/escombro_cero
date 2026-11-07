@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="name" content="Escombro 0 ciudadano - login">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V02 Login</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <script type="module" src="../scripts/login.js"></script>
+  <style>
+    /* page CSS login: HEADER clamp y estado demo con tokens (nada de cololor fuera de tokens.css) */
+    .page { padding: var(--sp-6) var(--sp-4) var(--sp-8); gap: var(--sp-6); display: flex; flex-direction: column; flex: 1; }
+    .page-header { display: grid; gap: var(--sp-2); }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+
+    .pageform { display: grid; gap: var(--sp-4); }
+    .pageform .btn { margin-top: var(--sp-2); }
+    .btn--disabled { background: color-mix(in srgb, var(--color-text) 8%, var(--color-surface)); color: var(--color-text-muted); cursor: not-allowed; transform: none; }
+
+    .pageform-alt { justify-content: center; gap: var(--sp-1); display: flex; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .pageform-alt a { color: var(--color-primary-dark); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+    .demo-note { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--radius-sm);
+                 background: var(--state-programado-bg); color: var(--state-programado-ink); font-size: var(--fs-xs); }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Iniciar sesión">
+    <div class="page-header">
+      <h1 class="page-title">Iniciar sesión</h1>
+      <p class="page-sub">Accede con tu cuenta de ciudadano para reportar escombros.</p>
+    </div>
+
+    <form id="form-login" class="pageform" novalidate>
+      <div class="field">
+        <label for="field-correo">Correo electrónico</label>
+        <input class="field-input" id="field-correo" type="email" inputmode="email"
+               autocomplete="email" placeholder="nombre@correo.com" aria-describedby="err-correo">
+        <span class="field-error" id="err-correo">Formato de correo inválido (demo)</span>
+      </div>
+
+      <button class="btn btn--primary btn--full" id="btn-login" type="submit" disabled>Iniciar sesión</button>
+
+      <p class="pageform-alt">
+        ¿No tienes cuenta?
+        <a href="registro.html">Crear cuenta</a>
+      </p>
+    </form>
+
+    <div class="demo-note" role="note">
+      <span aria-hidden="true">▸</span>
+      Prototipo: la demo acepta cualquier correo con formato válido (SPEC-A08).
+    </div>
+  </section>
+</main>
+</body>
+</html>

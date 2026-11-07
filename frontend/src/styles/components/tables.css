@@ -1,0 +1,42 @@
+/* tables.css — Tablas de datos compartidas (WEB-V08, WEB-V09, WEB-V11) */
+.table-wrap {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  text-align: left;
+}
+
+.table th {
+  padding: var(--sp-3) var(--sp-4);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: color-mix(in srgb, var(--color-bg) 60%, var(--color-surface));
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  white-space: nowrap;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.table td {
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 6%, transparent);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tr:hover td {
+  background: color-mix(in srgb, var(--color-primary) 3%, var(--color-surface));
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <title>Escombro 0 — APP-V06 Validación de zona</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <script type="module" src="../scripts/validacion-zona.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .mapa { width: 100%; border-radius: var(--radius-md); display: block; box-shadow: var(--shadow-card); }
+    .result { display: grid; gap: var(--sp-2); padding: var(--sp-4); border-radius: var(--radius-md); }
+    .result--ok { background: var(--state-recolectado-bg); color: var(--state-recolectado-ink); }
+    .result--bad { background: var(--state-rechazado-bg); color: var(--state-rechazado-ink); }
+    .result b { font-size: var(--fs-md); }
+    .result p { margin: 0; font-size: var(--fs-sm); }
+    .demo-tabs { display: flex; gap: var(--sp-2); }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Validación de zona (demo)">
+    <div>
+      <h1 class="page-title">Validación de zona</h1>
+      <p class="page-sub">Demo dedicada: pasa por los dos resultados antes de tocar el reporte.</p>
+    </div>
+
+    <div class="demo-tabs" role="tablist" aria-label="Escenario demo">
+      <button class="chip chip--on" id="tab-dentro" role="tab" aria-selected="true">Dentro de zona</button>
+      <button class="chip" id="tab-fuera" role="tab" aria-selected="false">Fuera de zona</button>
+    </div>
+
+    <svg class="mapa" id="mapa-zona" viewBox="0 0 340 200" aria-label="Zona piloto con posición GPS simulada">
+      <rect width="340" height="200" fill="var(--color-bg)"/>
+      <polygon id="poligono" points="60,40 280,30 300,120 190,180 70,150" fill="var(--state-recolectado-bg)" stroke="var(--color-primary)" stroke-width="2.5"/>
+      <text x="110" y="70" font-size="11" fill="var(--color-primary-dark)" font-family="var(--font-mono)">Zona piloto</text>
+      <!-- calle demo vertical/horizontal -->
+      <path d="M150 20 V180 M20 100 H330" stroke="var(--color-text-muted)" stroke-width="1" stroke-dasharray="4 4" opacity=".4"/>
+      <!-- punto GPS (movido por script) -->
+      <circle id="gps-dot" cx="165" cy="95" r="10" fill="var(--color-primary)" stroke="var(--color-surface)" stroke-width="3">
+        <animate attributeName="r" values="8;10;8" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle id="gps-outer" cx="165" cy="95" r="17" fill="var(--color-primary)" opacity=".18"/>
+    </svg>
+
+    <div class="result" id="zona-result" aria-live="polite"></div>
+
+    <a class="btn btn--surface btn--full" href="nuevo-reporte.html" style="justify-content:center;margin-top:auto;">Volver al reporte</a>
+  </section>
+</main>
+</body>
+</html>
