@@ -18,15 +18,15 @@
     .opt small { color: var(--color-text-muted); }
     .volumen { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
     .fieldset-label { display: block; font-weight: 500; font-size: var(--fs-sm); margin-bottom: var(--sp-2); }
-    textarea.field-input { min-height: 150px; padding: var(--sp-3); font-family: var(--font-sans); resize: vertical; width: 100%; }
     .field-error-text { color: var(--state-rechazado-ink); font-size: var(--fs-xs); display: none; }
     .field--error .field-error-text { display: block; }
-    .actions { margin-top: auto; display: grid; gap: var(--sp-2); }
+    .actions { margin-top: auto; display: grid; gap: var(--sp-2); padding-top: var(--sp-2); }
     .gps-banner { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3);
       border-radius: var(--radius-sm); font-size: var(--fs-xs); font-weight: 500; }
     .gps-banner--ok { background: var(--state-recolectado-bg); color: var(--state-recolectado-ink); }
     .gps-banner--bad { background: var(--state-rechazado-bg); color: var(--state-rechazado-ink); }
     .gps-banner a { color: inherit; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+    #form-reporte { display: grid; gap: var(--sp-4); }
   </style>
 </head>
 <body>
@@ -51,26 +51,26 @@
     </button>
 
     <form id="form-reporte" novalidate>
-      <fieldset style="border:0;padding:0;margin:0 0 var(--sp-4);">
+      <fieldset style="border:0;padding:0;margin:0;">
         <label class="fieldset-label">¿Qué tipo de escombro es?</label>
         <div class="catalog" id="cat-tipos" role="radiogroup" aria-label="Tipo de escombro"></div>
       </fieldset>
 
-      <fieldset style="border:0;padding:0;margin:0 0 var(--sp-4);" class="field" id="field-volumen">
+      <fieldset style="border:0;padding:0;margin:0;" class="field" id="field-volumen">
         <label class="fieldset-label">Volumen aproximado (m³)</label>
         <div class="volumen" id="cat-volumen" role="radiogroup" aria-label="Volumen aproximado"></div>
         <span class="field-error field-error-text">Elige un volumen (demo)</span>
       </fieldset>
 
-      <div class="field" style="margin-bottom:var(--sp-4);">
+      <div class="field">
         <label for="f-dir">Dirección</label>
         <input class="field-input" id="f-dir" type="text" autocomplete="street-address" placeholder="Calle / av. + distancia y referencia (demo)">
         <span class="field-hint" style="display:block;font-size:var(--fs-xs);color:var(--color-text-muted);margin-top:var(--sp-1);">Opcional — si lo dejas vacío usamos la ubicación GPS automática.</span>
       </div>
 
-      <div class="field" style="margin-bottom:var(--sp-4);">
+      <div class="field">
         <label for="f-desc">Descripción (opcional)</label>
-        <textarea class="field-input" id="f-desc" placeholder="Detalles útiles para la brigada: entrada de calle, aviso, peligro…" style="min-height:150px;"></textarea>
+        <textarea class="field-input" id="f-desc" placeholder="Detalles útiles para la brigada: entrada de calle, aviso, peligro…"></textarea>
       </div>
 
       <div class="actions">

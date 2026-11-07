@@ -191,10 +191,10 @@ body {
   box-sizing: border-box;
   min-height: 48px;
   height: 48px;
-  padding: 0 var(--sp-3);
+  padding: 0 var(--sp-4);
   border: 1.5px solid color-mix(in srgb, var(--color-text) 18%, transparent);
   border-radius: var(--radius-md);
-  font: 400 var(--fs-md)/1 var(--font-sans);
+  font: 400 var(--fs-md)/1.5 var(--font-sans);
   color: var(--color-text);
   background-color: var(--color-surface);
   transition: border-color .15s ease, box-shadow .15s ease;
@@ -219,9 +219,9 @@ select.input {
   background-color: var(--color-surface);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right var(--sp-3) center;
+  background-position: right var(--sp-4) center;
   background-size: 16px;
-  padding-right: 40px;
+  padding-right: 42px;
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -240,10 +240,30 @@ select.input option {
 textarea.field-input,
 textarea.input {
   height: auto;
-  min-height: 84px;
-  padding: var(--sp-3);
+  min-height: 120px;
+  padding: var(--sp-3) var(--sp-4);
   line-height: 1.5;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
   resize: vertical;
+}
+
+/* Placeholders unificados para inputs y textareas */
+::-moz-placeholder, .field-input::-moz-placeholder, .input::-moz-placeholder {
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  opacity: 1;
+}
+::placeholder,
+.field-input::placeholder,
+.input::placeholder {
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  opacity: 1;
 }
 
 .field--error .field-input,
