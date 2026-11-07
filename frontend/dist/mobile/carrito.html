@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 — APP-V13 Carrito de Compras</title>
+  <script type="module" src="../scripts/carrito.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .empty { display: none; color: var(--color-text-muted); text-align: center; padding: var(--sp-8) var(--sp-4); }
+    .empty--on { display: block; }
+    .empty h2 { margin: 0 0 var(--sp-2); font-size: var(--fs-lg); font-weight: 500; }
+    .empty p { margin: 0; font-size: var(--fs-sm); }
+    .list { flex: 1; display: grid; gap: var(--sp-3); align-content: start; }
+    .item-card { background: var(--color-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: var(--sp-4); display: grid; grid-template-columns: 56px 1fr auto; gap: var(--sp-3); align-items: center; }
+    .item-card .img-wrap { inline-size: 56px; block-size: 56px; border-radius: var(--radius-sm); background: var(--color-bg); overflow: hidden; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); }
+    .item-card .img-wrap img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+    .item-card .info { display: grid; gap: 2px; }
+    .item-card .nombre { font-weight: 500; font-size: var(--fs-md); margin: 0; }
+    .item-card .precio { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--color-primary-dark); font-weight: 600; margin: 0; }
+    .item-card .subtotal { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--color-text); font-weight: 600; margin: 0; }
+    .item-card .ctrl { display: flex; align-items: center; gap: var(--sp-2); }
+    .item-card .ctrl button { inline-size: 32px; block-size: 32px; border-radius: var(--radius-sm); border: 1.5px solid color-mix(in srgb, var(--color-text) 18%, transparent); background: var(--color-surface); color: var(--color-primary-dark); font-size: var(--fs-md); font-weight: 700; cursor: pointer; display: grid; place-items: center; }
+    .item-card .ctrl button:hover { background: color-mix(in srgb, var(--color-surface) 90%, var(--color-primary)); }
+    .item-card .ctrl .valor { font-family: var(--font-mono); font-variant-numeric: tabular-nums; min-inline-size: 24px; text-align: center; }
+    .resumen { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: var(--sp-6); display: grid; gap: var(--sp-4); }
+    .resumen-line { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-sm); color: var(--color-text-muted); }
+    .resumen-total { display: flex; justify-content: space-between; gap: var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-xl); font-weight: 700; color: var(--color-text); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); padding-top: var(--sp-3); }
+    .actions { display: grid; gap: var(--sp-2); margin-top: auto; }
+    .simulado { margin-top: var(--sp-2); font-size: var(--fs-xs); color: var(--color-text-muted); text-align: center; font-style: italic; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Carrito de compras">
+    <div>
+      <h1 class="page-title">Carrito de compras</h1>
+      <p class="page-sub">Revisa tus adoquines antes de generar el pedido simulado.</p>
+    </div>
+
+    <div id="vacio" class="empty empty--on">
+      <h2>Tu carrito está vacío</h2>
+      <p>Agrega adoquines desde el catálogo para iniciar tu pedido.</p>
+    </div>
+
+    <div class="list" id="lista-items"></div>
+
+    <div class="resumen">
+      <div class="resumen-line"><span>Subtotal</span><span id="subtotal-total">0<span>.00</span></span></div>
+      <div class="resumen-line"><span>Envío</span><span>Incluido (demo)</span></div>
+      <div class="resumen-total"><span>Total</span><span id="total-total">0<span>.00</span></span></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary btn--full" id="btn-pagar" disabled="">Pagar (simulado)</button>
+      <a class="btn btn--surface btn--full" href="catalogo-adoquines.html" style="justify-content:center;">Seguir comprando</a>
+    </div>
+    <p class="simulado">El pago es simulado (demo) — no se realiza cobro real.</p>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+  <a href="menu.html" data-nav="menu"><span class="nav-ico">⌂</span>Inicio</a>
+  <a href="nuevo-reporte.html" data-nav="nuevo"><span class="nav-ico">＋</span>Nuevo</a>
+  <a href="mis-reportes.html" data-nav="reportes"><span class="nav-ico">▤</span>Reportes</a>
+  <a href="mapa.html" data-nav="mapa"><span class="nav-ico">◎</span>Mapa</a>
+  <a href="perfil.html" data-nav="perfil"><span class="nav-ico">◔</span>Perfil</a>
+</nav>
+
+</main>
+</body>
+</html>

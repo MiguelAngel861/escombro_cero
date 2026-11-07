@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 — APP-V15 Mis Pedidos</title>
+  <script type="module" src="../scripts/mis-pedidos.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .list { flex: 1; display: grid; gap: var(--sp-3); align-content: start; }
+    .empty { display: none; color: var(--color-text-muted); text-align: center; padding: var(--sp-8) var(--sp-4); }
+    .empty--on { display: block; }
+    .empty h2 { margin: 0 0 var(--sp-2); font-size: var(--fs-lg); font-weight: 500; }
+    .empty p { margin: 0; font-size: var(--fs-sm); }
+    .card-pedido { background: var(--color-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: var(--sp-4); display: grid; gap: var(--sp-3); }
+    .card-pedido .head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-2); }
+    .card-pedido .id { font-family: var(--font-mono); font-size: var(--fs-md); font-weight: 600; color: var(--color-primary-dark); }
+    .card-pedido .fecha { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--color-text-muted); }
+    .card-pedido .items { font-size: var(--fs-sm); color: var(--color-text-muted); margin: 0; }
+    .card-pedido .subtotal { font-family: var(--font-mono); font-size: var(--fs-md); font-weight: 700; color: var(--color-text); margin: 0; }
+    .actions { display: grid; gap: var(--sp-2); margin-top: var(--sp-2); }
+    .actions .btn { justify-content: center; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Mis pedidos">
+    <div>
+      <h1 class="page-title">Mis pedidos</h1>
+      <p class="page-sub">Historial de tus compras de adoquines reciclados (demo).</p>
+    </div>
+
+    <div id="vacío" class="empty empty--on">
+      <h2>No tienes pedidos aún</h2>
+      <p>Compra adoquines desde el catálogo y tus pedidos aparecerán aquí.</p>
+    </div>
+
+    <div class="list" id="lista-pedidos"></div>
+  </section>
+
+  <include src="src/components/feedback/toast.html"></include>
+  <include src="src/layouts/mobile/bottom-nav.html"></include>
+</main>
+</body>
+</html>

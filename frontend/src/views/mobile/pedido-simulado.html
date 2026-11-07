@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <include src="src/layouts/common/head.html"></include>
+  <title>Escombro 0 — APP-V14 Pedido Simulado</title>
+  <script type="module" src="../scripts/pedido-simulado.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; text-align: center; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; color: var(--color-primary-dark); }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .confirm { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); padding: var(--sp-6) var(--sp-4); flex: 1; }
+    .icon-ok { inline-size: 80px; block-size: 80px; border-radius: 50%; background: var(--state-recolectado-bg); color: var(--state-recolectado-ink); display: grid; place-items: center; font-size: 40px; }
+    .numero-pedido { font-family: var(--font-mono); font-size: var(--fs-xl); font-weight: 700; color: var(--color-text); margin: 0; }
+    .numero-pedido span { font-size: var(--fs-xs); font-family: var(--font-sans); color: var(--color-text-muted); font-weight: 500; }
+    .estado-pedido { display: inline-flex; align-items: center; gap: var(--sp-2); padding: var(--sp-1) var(--sp-4); border-radius: 999px; font-size: var(--fs-xs); font-weight: 500; background: var(--state-pagado-bg); color: var(--state-pagado-ink); }
+    .estado-pedido i.pin { inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--state-pagado); }
+    .resumen { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: var(--sp-6); width: 100%; }
+    .resumen h2 { margin: 0 0 var(--sp-4); font-size: var(--fs-lg); font-weight: 500; text-align: left; }
+    .resumen-list { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-4); }
+    .resumen-item { display: grid; grid-template-columns: auto 1fr auto; gap: var(--sp-3); font-size: var(--fs-sm); align-items: center; border-bottom: 1px solid color-mix(in srgb, var(--color-text) 6%, transparent); padding-block: var(--sp-2); }
+    .resumen-item .nombre { font-weight: 500; color: var(--color-text); }
+    .resumen-item .cant { font-family: var(--font-mono); color: var(--color-text-muted); text-align: center; }
+    .resumen-item .sub { font-family: var(--font-mono); font-weight: 600; color: var(--color-primary-dark); text-align: right; }
+    .resumen-total { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: var(--fs-lg); font-weight: 700; color: var(--color-text); border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); padding-top: var(--sp-3); margin-top: var(--sp-2); }
+    .simulado { padding: var(--sp-4); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-warning) 12%, var(--color-surface)); color: var(--state-expirado-ink); font-size: var(--fs-sm); font-weight: 500; margin-top: var(--sp-4); }
+    .actions { display: grid; gap: var(--sp-2); margin-top: auto; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Pedido simulado">
+    <div class="confirm">
+      <div class="icon-ok" aria-hidden="true">✓</div>
+      <h1 class="page-title">Pedido confirmado</h1>
+      <p class="page-sub">Tu pedido de adoquines reciclados ha sido registrado (demo).</p>
+
+      <h2 class="numero-pedido" id="numero-pedido">PED-001<span>Número de pedido</span></h2>
+      <span id="estado-pedido" class="estado-pedido"><i class="pin"></i>Pagado</span>
+
+      <div class="resumen">
+        <h2>Resumen de tu pedido</h2>
+        <div class="resumen-list" id="lista-items"></div>
+        <div class="resumen-total">
+          <span>Total</span>
+          <span id="total-pedido">0<span>.00</span></span>
+        </div>
+      </div>
+
+      <p class="simulado">Pedido simulado — sin transacción real (RB-15). El método de pago es simulado.</p>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn--primary btn--full" href="mis-pedidos.html">Ver mis pedidos</a>
+      <a class="btn btn--surface btn--full" href="catalogo-adoquines.html" style="justify-content:center;">Seguir comprando</a>
+    </div>
+  </section>
+
+  <include src="src/components/feedback/toast.html"></include>
+  <include src="src/layouts/mobile/bottom-nav.html"></include>
+</main>
+</body>
+</html>

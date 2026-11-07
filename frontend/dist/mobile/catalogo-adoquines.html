@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 — APP-V11 Catálogo de Adoquines</title>
+  <script type="module" src="../scripts/catalogo-adoquines.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); align-content: start; }
+    .card-ado { display: grid; gap: var(--sp-3); }
+    .card-ado .img-wrap { aspect-ratio: 1; border-radius: var(--radius-md); background: var(--color-surface); overflow: hidden; display: grid; place-items: center; border: 1.5px solid color-mix(in srgb, var(--color-text) 12%, transparent); }
+    .card-ado .img-wrap img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+    .card-ado .nombre { font-weight: 500; font-size: var(--fs-md); margin: 0; }
+    .card-ado .precio { display: flex; align-items: baseline; gap: var(--sp-1); font-family: var(--font-mono); font-size: var(--fs-lg); color: var(--color-primary-dark); font-weight: 700; }
+    .card-ado .precio span { font-size: var(--fs-xs); font-family: var(--font-sans); font-weight: 500; color: var(--color-text-muted); }
+    .card-ado .stock { font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: var(--sp-1); }
+    .card-ado .stock--bajo { color: var(--state-rechazado-ink); font-weight: 500; }
+    .card-ado .desc { font-size: var(--fs-sm); color: var(--color-text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-ado .acciones { display: grid; grid-template-columns: 1fr; gap: var(--sp-2); margin-top: auto; }
+    .badge-tipo { display: inline-flex; align-items: center; gap: var(--sp-1); padding: var(--sp-1) var(--sp-3); border-radius: 999px; font-size: var(--fs-xs); font-weight: 500; background: var(--color-bg); color: var(--color-text); }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Catálogo de adoquines reciclados">
+    <div>
+      <h1 class="page-title">Catálogo de adoquines</h1>
+      <p class="page-sub">Adoquines reciclados de escombros. Tipo Trebol y otros modelos. Precios simulados (demo).</p>
+    </div>
+
+    <div class="grid" id="grid-adoquines"></div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+  <a href="menu.html" data-nav="menu"><span class="nav-ico">⌂</span>Inicio</a>
+  <a href="nuevo-reporte.html" data-nav="nuevo"><span class="nav-ico">＋</span>Nuevo</a>
+  <a href="mis-reportes.html" data-nav="reportes"><span class="nav-ico">▤</span>Reportes</a>
+  <a href="mapa.html" data-nav="mapa"><span class="nav-ico">◎</span>Mapa</a>
+  <a href="perfil.html" data-nav="perfil"><span class="nav-ico">◔</span>Perfil</a>
+</nav>
+
+</main>
+</body>
+</html>

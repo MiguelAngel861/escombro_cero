@@ -39,6 +39,13 @@
   --state-expirado:     #b26a00;  --state-expirado-bg:     #fbedd2;  --state-expirado-ink:     #7a4b00;
   --state-reabierto:    #795548;  --state-reabierto-bg:    #ece2de;  --state-reabierto-ink:    #5d4037;
 
+  /* estados de pedido (venta simulada, RB-15/RB-16) — reusan tonos del FSM para no agregar hex */
+  --state-pagado:       #2e7d32;  --state-pagado-bg:       #ddedde;  --state-pagado-ink:       #1b5e20;
+  --state-en-preparacion: #546e7a; --state-en-preparacion-bg: #e3eaed; --state-en-preparacion-ink: #37474f;
+  --state-listo-para-retiro: #1565c0; --state-listo-para-retiro-bg: #dce9fa; --state-listo-para-retiro-ink: #0d47a1;
+  --state-entregado:    #2e7d32;  --state-entregado-bg:    #ddedde;  --state-entregado-ink:    #1b5e20;
+  --state-cancelado:    #c62828;  --state-cancelado-bg:    #fbe3e3;  --state-cancelado-ink:    #b71c1c;
+
   /* tipografía — deal host (variable, auto-hospedada) */
   --font-sans: "Host Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;

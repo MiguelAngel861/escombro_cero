@@ -72,3 +72,39 @@ export const RECOLECCIONES_DEMO = [
         vehiculo: "Camión Liviano (3T)"
     }
 ];
+export const TIPOS_ADOQUIN = ["trebol"];
+export const ETIQUETADOS_ADOQUIN = {
+    trebol: "Adoquín Trebol",
+};
+export const ADOQUINES_DEMO = [
+    {
+        id: "ADO-01",
+        nombre: "Adoquín Trebol",
+        tipo: "trebol",
+        precioUnitario: 12.00,
+        stockSimulado: 500,
+        descripcion: "Adoquín reciclado de forma de trébol, ideal para áreas peatonales y jardines. Fabricado a partir de escombros de demolición procesados en la planta de valorización.",
+        imagenUrl: "../assets/adoquines/ado-trebol.svg",
+    },
+];
+export const ESTADOS_PEDIDO = ["pagado", "en_preparacion", "listo_para_retiro", "entregado", "cancelado"];
+export const ETIQUETADOS_PEDIDO = {
+    pagado: "Pagado",
+    en_preparacion: "En preparación",
+    listo_para_retiro: "Listo para retiro",
+    entregado: "Entregado",
+    cancelado: "Cancelado",
+};
+export const PEDIDOS_DEMO = [
+    {
+        id: "PED-001",
+        idCliente: "US-01",
+        fechaCreacion: "2026-11-06T10:00",
+        items: [{ idAdoquin: "ADO-01", cantidad: 2, precioUnitario: 12.00, subtotal: 24.00 }],
+        subtotal: 24.00,
+        estado: "pagado",
+        direccionEntrega: "Distrito 1 · Calle demo 1",
+        metodoPago: "simulado",
+        nota: "Pedido de demostración — sin cobro real",
+    },
+];

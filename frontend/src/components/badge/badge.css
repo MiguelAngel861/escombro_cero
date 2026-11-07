@@ -82,3 +82,40 @@
 .badge--alert-warning i.pin {
   background: var(--color-warning);
 }
+
+/* Estados de pedido simulado (RB-15 / RB-16) */
+.badge--pagado {
+  color: var(--state-pagado-ink);
+  background: var(--state-pagado-bg);
+}
+.badge--pagado i.pin {
+  background: var(--state-pagado);
+}
+.badge--en-preparacion {
+  color: var(--state-en-preparacion-ink);
+  background: var(--state-en-preparacion-bg);
+}
+.badge--en-preparacion i.pin {
+  background: var(--state-en-preparacion);
+}
+.badge--listo-para-retiro {
+  color: var(--state-listo-para-retiro-ink);
+  background: var(--state-listo-para-retiro-bg);
+}
+.badge--listo-para-retiro i.pin {
+  background: var(--state-listo-para-retiro);
+}
+.badge--entregado {
+  color: var(--state-entregado-ink);
+  background: var(--state-entregado-bg);
+}
+.badge--entregado i.pin {
+  background: var(--state-entregado);
+}
+.badge--cancelado {
+  color: var(--state-cancelado-ink);
+  background: var(--state-cancelado-bg);
+}
+.badge--cancelado i.pin {
+  background: var(--state-cancelado);
+}

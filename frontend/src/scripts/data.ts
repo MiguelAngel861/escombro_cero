@@ -145,3 +145,82 @@ export const RECOLECCIONES_DEMO: Recoleccion[] = [
     vehiculo: "Camión Liviano (3T)"
   }
 ];
+
+/* ── Catálogo de adoquines reciclados (solo Adoquín Trebol) — SPEC §6.3 ── */
+
+export type TipoAdoquin = "trebol";
+
+export const TIPOS_ADOQUIN: TipoAdoquin[] = ["trebol"];
+
+export const ETIQUETADOS_ADOQUIN: Record<TipoAdoquin, string> = {
+  trebol: "Adoquín Trebol",
+};
+
+export interface Adoquin {
+  id: string;
+  nombre: string;
+  tipo: TipoAdoquin;
+  precioUnitario: number;
+  stockSimulado: number;
+  descripcion: string;
+  imagenUrl: string;
+}
+
+export const ADOQUINES_DEMO: Adoquin[] = [
+  {
+    id: "ADO-01",
+    nombre: "Adoquín Trebol",
+    tipo: "trebol",
+    precioUnitario: 12.00,
+    stockSimulado: 500,
+    descripcion: "Adoquín reciclado de forma de trébol, ideal para áreas peatonales y jardines. Fabricado a partir de escombros de demolición procesados en la planta de valorización.",
+    imagenUrl: "../assets/adoquines/ado-trebol.svg",
+  },
+];
+
+/* ── Pedidos simulados (RB-15: sin transacción real) — SPEC §6.1 ── */
+
+export type EstadoPedido = "pagado" | "en_preparacion" | "listo_para_retiro" | "entregado" | "cancelado";
+
+export const ESTADOS_PEDIDO: EstadoPedido[] = ["pagado", "en_preparacion", "listo_para_retiro", "entregado", "cancelado"];
+
+export const ETIQUETADOS_PEDIDO: Record<EstadoPedido, string> = {
+  pagado: "Pagado",
+  en_preparacion: "En preparación",
+  listo_para_retiro: "Listo para retiro",
+  entregado: "Entregado",
+  cancelado: "Cancelado",
+};
+
+export interface ItemCarrito {
+  idAdoquin: string;
+  cantidad: number;
+  precioUnitario: number;
+  subtotal: number;
+}
+
+export interface Pedido {
+  id: string;
+  idCliente: string;
+  fechaCreacion: string;
+  items: ItemCarrito[];
+  subtotal: number;
+  estado: EstadoPedido;
+  direccionEntrega?: string;
+  metodoPago: "simulado";
+  nota?: string;
+}
+
+export const PEDIDOS_DEMO: Pedido[] = [
+  {
+    id: "PED-001",
+    idCliente: "US-01",
+    fechaCreacion: "2026-11-06T10:00",
+    items: [{ idAdoquin: "ADO-01", cantidad: 2, precioUnitario: 12.00, subtotal: 24.00 }],
+    subtotal: 24.00,
+    estado: "pagado",
+    direccionEntrega: "Distrito 1 · Calle demo 1",
+    metodoPago: "simulado",
+    nota: "Pedido de demostración — sin cobro real",
+  },
+];

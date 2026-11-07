@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" data-type="software" data-radius="soft">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles/main.css">
+
+  <title>Escombro 0 — APP-V12 Detalle de Adoquín</title>
+  <script type="module" src="../scripts/detalle-adoquin.js"></script>
+  <style>
+    .page { padding: var(--sp-4) var(--sp-4) var(--sp-8); gap: var(--sp-4); display: flex; flex-direction: column; flex: 1; }
+    .page-title { margin: 0; font-size: var(--fs-xl); font-weight: 500; letter-spacing: -0.02em; }
+    .page-sub { margin: 0; color: var(--color-text-muted); font-size: var(--fs-sm); }
+    .hero-img { aspect-ratio: 1; border-radius: var(--radius-lg); background: var(--color-surface); overflow: hidden; border: 1.5px solid color-mix(in srgb, var(--color-text) 12%, transparent); display: grid; place-items: center; }
+    .hero-img img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+    .nombre { margin: var(--sp-2) 0 var(--sp-1); font-weight: 500; font-size: var(--fs-xl); }
+    .tipo-badge { display: inline-flex; align-items: center; gap: var(--sp-1); padding: var(--sp-1) var(--sp-3); border-radius: 999px; font-size: var(--fs-xs); font-weight: 500; background: var(--color-bg); color: var(--color-text); margin-bottom: var(--sp-3); }
+    .precio { font-family: var(--font-mono); font-size: var(--fs-xl); font-weight: 700; color: var(--color-primary-dark); margin-bottom: var(--sp-1); }
+    .precio span { font-size: var(--fs-xs); font-family: var(--font-sans); font-weight: 500; color: var(--color-text-muted); }
+    .stock { font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--sp-4); }
+    .stock--bajo { color: var(--state-rechazado-ink); font-weight: 500; }
+    .descripcion { font-size: var(--fs-sm); color: var(--color-text-muted); line-height: 1.6; margin-bottom: var(--sp-6); }
+    .cantidad-box { display: grid; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+    .label-cant { font-weight: 500; font-size: var(--fs-sm); }
+    .ctrl-cant { display: flex; align-items: center; gap: var(--sp-3); border: 1.5px solid color-mix(in srgb, var(--color-text) 18%, transparent); border-radius: var(--radius-md); padding: 0 var(--sp-4); background: var(--color-surface); }
+    .ctrl-cant button { inline-size: 44px; block-size: 44px; border-radius: var(--radius-sm); border: 0; background: var(--color-bg); color: var(--color-primary-dark); font-size: var(--fs-lg); font-weight: 700; cursor: pointer; display: grid; place-items: center; }
+    .ctrl-cant button:hover { background: color-mix(in srgb, var(--color-surface) 90%, var(--color-primary)); }
+    .ctrl-cant .valor { font-family: var(--font-mono); font-size: var(--fs-md); font-variant-numeric: tabular-nums; min-inline-size: 28px; text-align: center; }
+    .subtotal { font-family: var(--font-mono); font-size: var(--fs-lg); font-weight: 700; color: var(--color-text); margin-top: var(--sp-2); }
+    .subtotal span { font-size: var(--fs-xs); font-family: var(--font-sans); font-weight: 500; color: var(--color-text-muted); }
+    .actions { display: grid; gap: var(--sp-2); margin-top: auto; }
+  </style>
+</head>
+<body>
+<main class="screen">
+  <section class="page" aria-label="Detalle de adoquín">
+    <div class="hero-img" id="hero-img">
+      <img id="img-adoquin" src="../assets/adoquines/ado-trebol.svg" alt="Adoquín Trebol" width="200" height="200">
+    </div>
+
+    <h1 id="nombre-adoquin" class="nombre">Adoquín Trebol</h1>
+    <span id="tipo-badge" class="tipo-badge">Tipo: Trebol</span>
+
+    <div id="precio-adoquin" class="precio">12<span>.00</span></div>
+    <div id="stock-adoquin" class="stock">Stock simulado: 500 disponibles</div>
+
+    <p id="desc-adoquin" class="descripcion">Adoquín reciclado de forma de trébol, ideal para áreas peatonales y jardines. Fabricado a partir de escombros de demolición procesados en la planta de valorización.</p>
+
+    <div class="cantidad-box">
+      <label class="label-cant">Cantidad</label>
+      <div class="ctrl-cant">
+        <button type="button" id="btn-menos" aria-label="Disminuir cantidad">−</button>
+        <span class="valor" id="valor-cantidad">1</span>
+        <button type="button" id="btn-mas" aria-label="Aumentar cantidad">+</button>
+      </div>
+      <div id="subtotal-adoquin" class="subtotal">Subtotal: 12<span>.00</span></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary btn--full" id="btn-agregar">Agregar al carrito</button>
+      <a class="btn btn--surface btn--full" href="catalogo-adoquines.html" style="justify-content:center;">Volver al catálogo</a>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+  <a href="menu.html" data-nav="menu"><span class="nav-ico">⌂</span>Inicio</a>
+  <a href="nuevo-reporte.html" data-nav="nuevo"><span class="nav-ico">＋</span>Nuevo</a>
+  <a href="mis-reportes.html" data-nav="reportes"><span class="nav-ico">▤</span>Reportes</a>
+  <a href="mapa.html" data-nav="mapa"><span class="nav-ico">◎</span>Mapa</a>
+  <a href="perfil.html" data-nav="perfil"><span class="nav-ico">◔</span>Perfil</a>
+</nav>
+
+</main>
+</body>
+</html>

@@ -10,7 +10,7 @@
     "css:watch": "postcss src/styles/main.css -o dist/styles/main.css --watch",
     "js": "tsc",
     "js:watch": "tsc --watch",
-    "copy:assets": "rm -rf dist/assets && mkdir -p dist/assets dist/styles && cp -r src/assets/* dist/assets/",
+    "copy:assets": "node scripts/copy-assets.mjs",
     "html": "node scripts/build-html.mjs",
     "html:watch": "node scripts/watch-html.mjs",
     "build": "pnpm run css && pnpm run js && pnpm run copy:assets && pnpm run html",

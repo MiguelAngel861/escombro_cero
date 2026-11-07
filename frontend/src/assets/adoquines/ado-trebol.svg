@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" fill="#f6f8f6" rx="12"/>
+  <path d="M100 30 L140 70 L100 110 L60 70 Z" fill="#2e7d32" stroke="#1b5e20" stroke-width="3"/>
+  <path d="M100 45 L125 70 L100 95 L75 70 Z" fill="#ffffff" stroke="#2e7d32" stroke-width="2"/>
+  <text x="100" y="160" font-family="JetBrains Mono, monospace" font-size="12" fill="#6b6f6b" text-anchor="middle">Adoquín Trebol</text>
+</svg>

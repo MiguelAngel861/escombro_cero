@@ -2,7 +2,7 @@
  * store.ts — acceso namespaced a localStorage (ADR-04: prefijo `cnsv1:`).
  * Siembra idempotente del dataset demo y helpers de sesión/usuario.
  */
-import { REPORTES_DEMO, USUARIO_DEMO, DESTINOS_DEMO, USUARIOS_SISTEMA_DEMO, RECOLECCIONES_DEMO, ESTADOS_REPORTE, TIPOS_ESCOMBRO } from "./data.js";
+import { REPORTES_DEMO, USUARIO_DEMO, DESTINOS_DEMO, USUARIOS_SISTEMA_DEMO, RECOLECCIONES_DEMO, ADOQUINES_DEMO, PEDIDOS_DEMO, ESTADOS_REPORTE, TIPOS_ESCOMBRO, } from "./data.js";
 export const K = {
     sesion: "cnsv1:sesion",
     sesionWeb: "cnsv1:sesion_web",
@@ -12,6 +12,8 @@ export const K = {
     destinos: "cnsv1:destinos",
     usuariosSistema: "cnsv1:usuarios_sistema",
     recolecciones: "cnsv1:recolecciones",
+    adoquines: "cnsv1:adoquines",
+    pedidos: "cnsv1:pedidos",
 };
 export function leer(key, fallback) {
     try {
@@ -44,6 +46,12 @@ export function ensureSeed() {
     }
     if (leer(K.recolecciones, null) === null) {
         guardar(K.recolecciones, RECOLECCIONES_DEMO);
+    }
+    if (leer(K.adoquines, null) === null) {
+        guardar(K.adoquines, ADOQUINES_DEMO);
+    }
+    if (leer(K.pedidos, null) === null) {
+        guardar(K.pedidos, PEDIDOS_DEMO);
     }
 }
 /** Valida un reporte leído del storage (localStorage de demo puede tener filas
@@ -159,4 +167,28 @@ export function formateaFecha(iso) {
 }
 export function esc(s) {
     return s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+}
+/* ── Adoquines (catálogo) ── */
+export function losAdoquines() {
+    ensureSeed();
+    return leer(K.adoquines, ADOQUINES_DEMO);
+}
+export function unAdoquin(id) {
+    return losAdoquines().find((a) => a.id === id);
+}
+/* ── Pedidos simulados ── */
+export function losPedidos() {
+    ensureSeed();
+    return leer(K.pedidos, PEDIDOS_DEMO);
+}
+export function unPedido(id) {
+    return losPedidos().find((p) => p.id === id);
+}
+export function losPedidosDe(idCliente) {
+    return losPedidos().filter((p) => p.idCliente === idCliente);
+}
+export function agregarPedido(p) {
+    const todas = losPedidos();
+    todas.unshift(p);
+    guardar(K.pedidos, todas);
 }

@@ -7,17 +7,17 @@
 **Contexto:** Primer Torneo Académico de Retos Interdisciplinarios "Comandante Carlos Fonseca Amador" — Universidad Nacional Casimiro Sotelo Montenegro (UNCSM), Managua, Nicaragua  
 **Reto asignado:** Reto #3 — Escombros a recursos  
 **Rol de Ingeniería de Sistemas:** Diseñar y entregar únicamente las **vistas/pantallas** (interfaz de usuario) de dos plataformas: (1) app móvil para reporte de escombros y (2) plataforma web para registro de puntos de recolección y sus datos.  
-**Alcance estricto:** Prototipado de vistas únicamente. No hay backend, no hay base de datos, no hay servidor, no hay lógica de negocio ejecutable, no hay exportación real de datos, no hay autenticación funcional. Todo lo relativo a negocio, venta, cotización, Modelo Canvas, pitch y diseño 3D le corresponde a las otras carreras del equipo interdisciplinario y está fuera de este documento.
+**Alcance estricto:** Prototipado de vistas únicamente. No hay backend, no hay base de datos, no hay servidor, no hay lógica de negocio ejecutable, no hay exportación real de datos, no hay autenticación funcional. Todo lo relativo a negocio, cotización, Modelo Canvas, pitch y diseño 3D le corresponde a las otras carreras del equipo interdisciplinario y está fuera de este documento. **Excepción:** la vista de venta de adoquines de tipo Trebol (catálogo, detalle, carrito, pedido simulado, mis pedidos) sí se diseña como vista de prototipo en la app móvil (§5.1, §6.1, CU-07); el pago real y la lógica de backend quedan fuera.
 
 ---
 
 ## 1. Resumen ejecutivo y visión del prototipo
 
 ### 1.1 Visión
-Entregar un conjunto de vistas (pantallas) que simulen el comportamiento de dos plataformas: una app móvil donde un ciudadano reporta escombros en una zona determinada, y una web donde un operador registra el lugar y datos de cada punto de recolección. El prototipo sirve como soporte visual para el pitch y para demostrar el flujo tecnológico propuesto por Ingeniería de Sistemas dentro del reto #3.
+Entregar un conjunto de vistas (pantallas) que simulen el comportamiento de dos plataformas: una app móvil donde un ciudadano reporta escombros en una zona determinada y compra adoquines reciclados, y una web donde un operador registra el lugar y datos de cada punto de recolección. El prototipo sirve como soporte visual para el pitch y para demostrar el flujo tecnológico propuesto por Ingeniería de Sistemas dentro del reto #3.
 
 ### 1.2 Objetivo del producto (en una frase)
-Diseñar las vistas de una app móvil y una web que ilustren cómo se registrarían digitalmente los escombros y sus puntos de recolección, sin desarrollar funcionalidad backend.
+Diseñar las vistas de una app móvil y una web que ilustren cómo se registrarían digitalmente los escombros y sus puntos de recolección, y cómo se venderían los adoquines reciclados (tipo Trebol) desde la app, sin desarrollar funcionalidad backend.
 
 ---
 
@@ -25,8 +25,8 @@ Diseñar las vistas de una app móvil y una web que ilustren cómo se registrar�
 
 | Área | Descripción (desde Ingeniería de Sistemas) |
 |------|--------------------------------------------|
-| **Problema principal** | No existe una representación visual de cómo se capturaría digitalmente la ubicación, tipo y volumen de escombros, ni cómo se registrarían los puntos de recolección. |
-| **Causa raíz** | Falta de un prototipo de interfaces que muestre el flujo de datos entre ciudadano, operador y administrador. |
+| **Problema principal** | No existe una representación visual de cómo se capturaría digitalmente la ubicación, tipo y volumen de escombros, ni cómo se registrarían los puntos de recolección, ni cómo se venderían los adoquines reciclados. |
+| **Causa raíz** | Falta de un prototipo de interfaces que muestre el flujo de datos entre ciudadano, operador, administrador y cliente comprador. |
 | **Impacto** | El equipo interdisciplinario no cuenta con un参照 visual para el Modelo Canvas, el cálculo de impacto ambiental ni el diseño 3D del producto reciclado. |
 | **Oportunidad** | Crear vistas realistas que comuniquen la solución tecnológica propuesta, aunque no sean funcionales. |
 
@@ -41,6 +41,7 @@ Diseñar las vistas de una app móvil y una web que ilustren cómo se registrar�
 | **Ciudadano reportante** | Persona que reporta escombros | App móvil (mockup Android/iOS) | Pantallas de login, registro, nuevo reporte con foto/GPS/tipo/volumen, mis reportes y estados. |
 | **Operador de recolección** | Brigadista que recoge el escombro | Web (mockup tablet/PC) | Pantallas de login, tablero de reportes asignados, formulario de registro de recolección (lugar, fecha, volumen m³, destino, fotos antes/después). |
 | **Administrador / Supervisor** | Encargado que valida y asigna | Web (mockup PC) | Pantallas de tablero general, validación de reportes, asignación de brigada, exportación simulada de datos, gestión de usuarios. |
+| **Cliente comprador** | Persona que compra adoquines reciclados | App móvil (mockup Android/iOS) | Pantallas de catálogo de adoquines (tipo Trebol), detalle de producto, carrito, pedido simulado y mis pedidos. |
 
 ### 3.2 Zona geográfica representada en las vistas
 Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de referencia definidas por el comité organizador / alcaldía). Las vistas mostrarán validación de zona (dentro/fuera de cobertura).
@@ -56,6 +57,7 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 | OBJ-03 | Simular el flujo de trazabilidad de un escombro (reporte → asignación → recolección). | Prototipo navegable (wireframes conectados) | 1 flujo completo demostrable |
 | OBJ-04 | Proveer pantallas que apoyen el pitch de 1 minuto. | Imágenes o renders de las vistas principales | Disponibles para el pitch |
 | OBJ-05 | Entregar dataset simulado (imágenes de exportación) para el equipo interdisciplinario. | Capturas de pantalla de tabla de exportación CSV/Excel | 1 vista de exportación simulada |
+| OBJ-06 | Diseñar vistas de la app móvil para venta de adoquines reciclados (tipo Trebol). | Mockups de catálogo, detalle, carrito, pedido simulado y mis pedidos | 1 flujo de compra simulada demostrable |
 
 ---
 
@@ -74,6 +76,13 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 - Pantalla de detalle de reporte con estado y notificación simulada.
 - Pantalla de edición de perfil.
 - Pantalla de mapa simple de reportes propios (estático).
+
+**App móvil — Vistas de venta de adoquines (tipo Trebol)**
+- Pantalla "Catálogo de adoquines": lista de tipos de adoquín reciclado (Trebol, etc.) con precio unitario simulado y botón "Agregar al carrito".
+- Pantalla "Detalle de adoquín": imagen, descripción, precio, cantidad, botón "Agregar al carrito".
+- Pantalla "Carrito de compras": lista de ítems, subtotal, botón "Pagar (simulado)".
+- Pantalla "Pedido simulado": resumen de compra, confirmación sin pago real, número de pedido.
+- Pantalla "Mis pedidos": lista de pedidos con estado simulado (Pagado / En preparación / Listo para retiro / Entregado / Cancelado).
 
 **Web — Vistas de registro de recolección**
 - Pantalla de inicio de sesión con roles (operador / administrador).
@@ -100,8 +109,9 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 - Sincronización de datos.
 - Cálculo de volumen, peso o métricas reales.
 - Diseño en 3D del producto final (adoquines, bloques, mobiliario).
-- Modelo Canvas, pitch, cotización, venta en línea.
+- Modelo Canvas, pitch, cotización.
 - Cualquier lógica ejecutable.
+- Pago real ni transacciones de compra (el flujo de adoquines es solo vista simulada).
 
 ---
 
@@ -114,13 +124,18 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 | APP-V01 | Bienvenida / Splash | Pantalla de entrada con logo del sistema. |
 | APP-V02 | Inicio de sesión | Formulario simulado de correo/teléfono y contraseña. |
 | APP-V03 | Registro de usuario | Formulario simulado de nombre, correo/teléfono y contraseña. |
-| APP-V04 | Menú principal | Opciones: Nuevo reporte, Mis reportes, Perfil. |
+| APP-V04 | Menú principal | Opciones: Nuevo reporte, Mis reportes, Perfil, Catálogo de adoquines, Mis pedidos. |
 | APP-V05 | Nuevo reporte | Captura de foto (placeholder), GPS (simulado), tipo de escombro, volumen m³, descripción, botón Enviar. |
 | APP-V06 | Validación de zona | Mensaje de dentro/fuera de la zona determinada. |
 | APP-V07 | Mis reportes | Lista de reportes con estados simulados. |
 | APP-V08 | Detalle de reporte | Vista de detalle con cambio de estado simulado y notificación in-app. |
 | APP-V09 | Edición de perfil | Formulario simulado de datos personales. |
 | APP-V10 | Mapa de reportes propios | Mapa estático con marcadores de reportes. |
+| APP-V11 | Catálogo de adoquines | Lista de adoquines reciclados (tipo Trebol y otros) con precio unitario simulado y botón Agregar al carrito. |
+| APP-V12 | Detalle de adoquín | Imagen, descripción, precio, selector de cantidad y botón Agregar al carrito. |
+| APP-V13 | Carrito de compras | Lista de ítems, subtotal simulado y botón Pagar (simulado). |
+| APP-V14 | Pedido simulado | Resumen de compra, número de pedido y confirmación sin cobro real. |
+| APP-V15 | Mis pedidos | Lista de pedidos con estados simulados (Pagado, En preparación, Listo para retiro, Entregado, Cancelado). |
 
 ### 6.2 Web — Vistas
 
@@ -172,6 +187,11 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 - **Flujo de pantallas:** Pantalla de exportación → Seleccionar rango de fechas → Ver tabla de datos → Botón Descargar CSV (sin acción real).
 - **Resultado:** Se muestra la vista de exportación simulada para uso del equipo interdisciplinario.
 
+### CU-07 — Cliente compra adoquines tipo Trebol (vistas app)
+- **Actor:** Cliente comprador.
+- **Flujo de pantallas:** Menú principal → Catálogo de adoquines → Seleccionar Trebol → Detalle de adoquín → Agregar al carrito → Carrito → Pagar (simulado) → Pedido simulado → Mis pedidos.
+- **Resultado:** Se recorre el flujo de compra simulada de adoquines de tipo Trebol, sin pago real ni backend.
+
 ---
 
 ## 8. Reglas de negocio ilustrativas (solo para el diseño de vistas)
@@ -192,6 +212,8 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 | RB-12 | Validación de foto | Vista muestra mensaje si falta metadata de GPS/timestamp en la foto simulada. |
 | RB-13 | Modo offline | Vista muestra indicador "Sin conexión - guardando localmente". |
 | RB-14 | Reapertura de recolección | Vista solo admin permite reabrir con justificación escrita. |
+| RB-15 | Venta simulada | El flujo de compra de adoquines es solo vista simulada; el botón Pagar no cobra realmente y no genera transacción. |
+| RB-16 | Stock simulado | Cada tipo de adoquín muestra stock simulado; al agregar al carrito se descuenta visualmente sin lógica real. |
 
 ---
 
@@ -200,7 +222,7 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 ### 9.1 App móvil
 
 **CA-APP-V01 — Pantallas completas**
-- Se entregan mockups de todas las pantallas del ciudadano: bienvenida, login, registro, menú, nuevo reporte, validación de zona, mis reportes, detalle, perfil, mapa.
+- Se entregan mockups de todas las pantallas del ciudadano: bienvenida, login, registro, menú, nuevo reporte, validación de zona, mis reportes, detalle, perfil, mapa, catálogo de adoquines, detalle de adoquín, carrito, pedido simulado, mis pedidos.
 
 **CA-APP-V02 — Nuevo reporte**
 - La vista "Nuevo reporte" incluye: área de foto (placeholder), indicador de GPS, selector de tipo de escombro, selector de volumen en m³, campo de descripción y botón Enviar.
@@ -210,6 +232,21 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 
 **CA-APP-V04 — Notificación in-app simulada**
 - La vista de detalle de reporte muestra un aviso de cambio de estado (ej. "Tu reporte ha sido recolectado").
+
+**CA-APP-V11 — Catálogo de adoquines**
+- La vista muestra lista de adoquines reciclados con tipo Trebol visible, precio unitario simulado y botón Agregar al carrito.
+
+**CA-APP-V12 — Detalle de adoquín**
+- La vista muestra imagen, descripción, precio, selector de cantidad y botón Agregar al carrito.
+
+**CA-APP-V13 — Carrito de compras**
+- La vista muestra ítems, subtotal simulado y botón Pagar (simulado, sin acción real).
+
+**CA-APP-V14 — Pedido simulado**
+- La vista muestra resumen de compra, número de pedido y confirmación sin cobro real.
+
+**CA-APP-V15 — Mis pedidos**
+- La vista muestra lista de pedidos con estados simulados: Pagado, En preparación, Listo para retiro, Entregado, Cancelado.
 
 ### 9.2 Web
 
@@ -234,9 +271,9 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 
 | KPI | Definición | Meta MVP |
 |-----|------------|----------|
-| Pantallas diseñadas (app) | # de vistas de app móvil entregadas | Todas las APP-V01 a V10 |
+| Pantallas diseñadas (app) | # de vistas de app móvil entregadas | Todas las APP-V01 a V15 |
 | Pantallas diseñadas (web) | # de vistas de web entregadas | Todas las WEB-V01 a V11 |
-| Flujo navegable | Existe un prototipo conectado que recorre CU-01 a CU-06 | 1 flujo completo demostrable |
+| Flujo navegable | Existe un prototipo conectado que recorre CU-01 a CU-07 | 1 flujo completo demostrable |
 | Imágenes para el pitch | # de capturas/renders de vistas principales listas para el pitch | ≥ 5 imágenes |
 | Vista de exportación simulada | 1 pantalla que muestra tabla de datos con botón CSV sin acción real | Disponible |
 
@@ -247,6 +284,7 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 - Se asume que el comité del torneo define y entrega el polígono de la zona piloto antes de finalizar los mockups.
 - Las vistas (wireframes) se maquetan directamente **desde cero en HTML5 + CSS3 nativo con TypeScript**; no se usa herramienta externa de diseño (sin Figma, Sketch ni similares). Entregable: vistas estáticas y/o prototipo navegable en navegador, sin código backend.
 - Restricción de rol: este documento cubre únicamente el **diseño de vistas** de las dos plataformas. No hay desarrollo de software funcional, backend, base de datos ni lógica ejecutable.
+- El flujo de venta de adoquines es solo vista simulada: no hay pago real, no hay transacción, no hay inventario real.
 - El prototipo es solo para soporte visual del pitch y del Modelo Canvas del torneo; no es un sistema operativo.
 
 ---
@@ -259,6 +297,7 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 4. [ ] Definir catálogo de destinos autorizados (relleno sanitario, planta de transformación, acopio temporal).
 5. [ ] Definir si se entrega solo imágenes estáticas o también un prototipo navegable (clickable prototype).
 6. [ ] Definir formato de entrega de las vistas (imágenes/snapshots del prototipo HTML desplegado, enlace a GitHub Pages, etc.).
+7. [ ] Definir catálogo de tipos de adoquín reciclado y precios simulados (con Ingeniería Ambiental/Civil y el equipo comercial).
 
 ---
 
@@ -267,7 +306,7 @@ Una zona piloto delimitada del municipio de Managua (polígono o coordenadas de 
 | Entregable torneo | Cómo apoya este PRD desde Ingeniería de Sistemas |
 |-------------------|--------------------------------------------------|
 | Sistema de registro de escombros | Este PRD define las **vistas** de las dos plataformas que Ingeniería de Sistemas presenta como soporte tecnológico: app móvil de reporte y web de registro de recolección. |
-| Apoyo tecnológico al equipo | Las vistas de exportación simulada y los flujos de reporte/recolección son el insumo visual que Ingeniería Civil, Industrial, Ambiental y Arquitectura usan para sus propios entregables (Canvas, diseño 3D, costo, impacto ambiental). |
+| Apoyo tecnológico al equipo | Las vistas de exportación simulada y los flujos de reporte/recolección son el insumo visual que Ingeniería Civil, Industrial, Ambiental y Arquitectura usan para sus propios entregables (Canvas, diseño 3D, costo, impacto ambiental). Las vistas de catálogo y pedido de adoquines apoyan el componente de comercialización del producto reciclado. |
 | Criterio "Innovación" (30 %) | Aporte tecnológico visual: ilustra cómo se estandarizaría la captura de datos de escombros y su trazabilidad digital, aunque sea solo en vistas. |
 | Pitch de 1 minuto | Las capturas de pantalla de las vistas principales sirven como diapositiva o soporte visual del pitch. |
 

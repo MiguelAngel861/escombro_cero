@@ -4,9 +4,11 @@
  */
 import {
   REPORTES_DEMO, USUARIO_DEMO, DESTINOS_DEMO, USUARIOS_SISTEMA_DEMO, RECOLECCIONES_DEMO,
+  ADOQUINES_DEMO, PEDIDOS_DEMO,
   ESTADOS_REPORTE, TIPOS_ESCOMBRO,
   type Reporte, type PerfilUsuario, type Destino, type UsuarioSistema, type Recoleccion,
-  type EstadoReporte, type TipoEscombro
+  type EstadoReporte, type TipoEscombro,
+  type Adoquin, type Pedido,
 } from "./data.js";
 
 export const K = {
@@ -18,6 +20,8 @@ export const K = {
   destinos: "cnsv1:destinos",
   usuariosSistema: "cnsv1:usuarios_sistema",
   recolecciones: "cnsv1:recolecciones",
+  adoquines: "cnsv1:adoquines",
+  pedidos: "cnsv1:pedidos",
 };
 
 type Json = unknown;
@@ -55,6 +59,12 @@ export function ensureSeed(): void {
   }
   if (leer<Recoleccion[] | null>(K.recolecciones, null) === null) {
     guardar(K.recolecciones, RECOLECCIONES_DEMO);
+  }
+  if (leer<Adoquin[] | null>(K.adoquines, null) === null) {
+    guardar(K.adoquines, ADOQUINES_DEMO);
+  }
+  if (leer<Pedido[] | null>(K.pedidos, null) === null) {
+    guardar(K.pedidos, PEDIDOS_DEMO);
   }
 }
 
@@ -209,4 +219,36 @@ export function formateaFecha(iso: string): string {
 
 export function esc(s: string): string {
   return s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+}
+
+/* ── Adoquines (catálogo) ── */
+
+export function losAdoquines(): Adoquin[] {
+  ensureSeed();
+  return leer<Adoquin[]>(K.adoquines, ADOQUINES_DEMO);
+}
+
+export function unAdoquin(id: string): Adoquin | undefined {
+  return losAdoquines().find((a) => a.id === id);
+}
+
+/* ── Pedidos simulados ── */
+
+export function losPedidos(): Pedido[] {
+  ensureSeed();
+  return leer<Pedido[]>(K.pedidos, PEDIDOS_DEMO);
+}
+
+export function unPedido(id: string): Pedido | undefined {
+  return losPedidos().find((p) => p.id === id);
+}
+
+export function losPedidosDe(idCliente: string): Pedido[] {
+  return losPedidos().filter((p) => p.idCliente === idCliente);
+}
+
+export function agregarPedido(p: Pedido): void {
+  const todas = losPedidos();
+  todas.unshift(p);
+  guardar(K.pedidos, todas);
 }
