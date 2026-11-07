@@ -36,7 +36,7 @@ else {
       <span class="badge badge--${r.estado.replace("_", "-")}"><i class="pin"></i>${ETIQUETAS_ESTADO[r.estado]}</span>
     </div>
     ${banner}
-    <img class="mini-map" style="aspect-ratio:2/1;object-fit:cover;" src="assets/fotos/tipo-${r.tipo}.svg" alt="Foto del escombro ${r.id} (placeholder demo)">
+    <img class="mini-map" style="aspect-ratio:2/1;object-fit:cover;" src="/assets/fotos/tipo-${r.tipo}.svg" alt="Foto del escombro ${r.id} (placeholder demo)">
     <svg class="mini-map" viewBox="0 0 340 120" aria-label="Mini-mapa del reporte">
       <rect width="340" height="120" fill="var(--color-bg)"/>
       <polygon points="40,20 320,15 330,90 200,110 60,95" fill="var(--state-recolectado-bg)" stroke="var(--color-primary)" stroke-width="2"/>

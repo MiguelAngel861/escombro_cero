@@ -48,7 +48,7 @@ const pintaFoto = (tipo) => {
     draft.foto = true;
     draft.fotoOk = true;
     btnFoto.classList.add("img-capture--filled");
-    btnFoto.innerHTML = `<img src="assets/fotos/tipo-${tipo}.svg" alt="Foto de escombro: ${ETIQUETAS_TIPO[tipo]} (placeholder demo)">
+    btnFoto.innerHTML = `<img src="/assets/fotos/tipo-${tipo}.svg" alt="Foto de escombro: ${ETIQUETAS_TIPO[tipo]} (placeholder demo)">
     <span class="meta-gps">GPS ✓ · 14:32 ✓</span>`;
 };
 btnFoto.addEventListener("click", () => { var _a; return pintaFoto((_a = draft.tipo) !== null && _a !== void 0 ? _a : "otros"); });

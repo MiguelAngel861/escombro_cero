@@ -84,7 +84,7 @@ export const ADOQUINES_DEMO = [
         precioUnitario: 12.00,
         stockSimulado: 500,
         descripcion: "Adoquín reciclado de forma de trébol, ideal para áreas peatonales y jardines. Fabricado a partir de escombros de demolición procesados en la planta de valorización.",
-        imagenUrl: "../assets/adoquines/ado-trebol.svg",
+        imagenUrl: "/assets/adoquines/adoquin_trebol.jpeg",
     },
 ];
 export const ESTADOS_PEDIDO = ["pagado", "en_preparacion", "listo_para_retiro", "entregado", "cancelado"];

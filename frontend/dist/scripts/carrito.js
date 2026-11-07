@@ -30,7 +30,7 @@ function render() {
         lista.innerHTML = carrito.map((item, idx) => `
       <div class="item-card">
         <div class="img-wrap">
-          <img src="../assets/adoquines/ado-trebol.svg" alt="${esc(item.nombre)}" width="56" height="56" loading="lazy">
+          <img src="/assets/adoquines/adoquin_trebol.jpeg" alt="${esc(item.nombre)}" width="56" height="56" loading="lazy">
         </div>
         <div class="info">
           <p class="nombre">${esc(item.nombre)}</p>

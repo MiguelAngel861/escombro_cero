@@ -57,7 +57,7 @@ const pintaFoto = (tipo: TipoEscombro): void => {
   draft.foto = true;
   draft.fotoOk = true;
   btnFoto.classList.add("img-capture--filled");
-  btnFoto.innerHTML = `<img src="assets/fotos/tipo-${tipo}.svg" alt="Foto de escombro: ${ETIQUETAS_TIPO[tipo]} (placeholder demo)">
+  btnFoto.innerHTML = `<img src="/assets/fotos/tipo-${tipo}.svg" alt="Foto de escombro: ${ETIQUETAS_TIPO[tipo]} (placeholder demo)">
     <span class="meta-gps">GPS ✓ · 14:32 ✓</span>`;
 };
 btnFoto.addEventListener("click", () => pintaFoto(draft.tipo ?? "otros"));
